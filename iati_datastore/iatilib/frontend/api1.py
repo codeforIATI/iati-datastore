@@ -46,8 +46,10 @@ def meta_filters():
 @api.route('/about/')
 def about():
     # General status info
-    count_activity = db.session.query(Activity).count()
-    count_transaction = db.session.query(Transaction).count()
+    count_activity = db.session.query(
+        sa.func.count(Activity.iati_identifier)).scalar()
+    count_transaction = db.session.query(
+        sa.func.count(Transaction.id)).scalar()
     # Check last updated times
 
     updated = db.session.query(
