@@ -1,4 +1,4 @@
-from collections import namedtuple, OrderedDict
+from collections import OrderedDict
 from datetime import datetime
 import sqlalchemy as sa
 from flask import (current_app, request, Response, Blueprint,
