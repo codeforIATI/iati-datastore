@@ -193,11 +193,14 @@ def error():
     )
 
 
-@api.route('/error/dataset/<dataset_id>/')
-def dataset_error(dataset_id):
+@api.route('/error/dataset/<dataset>/')
+def dataset_error(dataset):
+    dataset = db.session.query(Dataset).get(dataset)
+    if dataset is None:
+        abort(404)
     error_logs = db.session.query(Log).\
-            filter(Log.dataset == dataset_id).\
-            order_by(sa.desc(Log.created_at))
+        filter(Log.dataset == dataset.name).\
+        order_by(sa.desc(Log.created_at))
     errors = [{
                 'resource_url': log.resource,
                 'dataset': log.dataset,
@@ -219,10 +222,13 @@ def dataset_log():
     return response
 
 
-@api.route('/error/dataset.log/<dataset_id>/')
-def dataset_log_error(dataset_id):
+@api.route('/error/dataset.log/<dataset>/')
+def dataset_log_error(dataset):
+    dataset = db.session.query(Dataset).get(dataset)
+    if dataset is None:
+        abort(404)
     error_logs = db.session.query(Log).\
-        filter(Log.dataset == dataset_id).\
+        filter(Log.dataset == dataset.name).\
         order_by(Log.created_at.desc())
     errors = [{
         'resource_url': log.resource,

@@ -38,7 +38,7 @@ class TestAboutDatasets(ClientTestCase):
     def test_about(self):
         fac.DatasetFactory.create(
             name='tst-old',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url="http://foo",
             )]
         )
@@ -51,7 +51,7 @@ class TestAboutDatasets(ClientTestCase):
     def test_about_details(self):
         fac.DatasetFactory.create(
             name='tst-old',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url="http://foo",
             )]
         )
@@ -66,7 +66,7 @@ class TestAboutDatasets(ClientTestCase):
     def test_about_dataset(self):
         fac.DatasetFactory.create(
             name='tst-old',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url="http://foo",
             )]
         )
@@ -109,13 +109,19 @@ class TestErrorDatasets(ClientTestCase):
 
     def test_error_log(self):
         fac.LogFactory.create()
+        fac.DatasetFactory.create(name='bad-dataset')
         resp = self.client.get('/api/1/error/dataset.log/bad-dataset/')
         self.assertEquals(200, resp.status_code)
         self.assertEquals(
             "text/plain; charset=utf-8", resp.content_type)
 
+    def test_error_log_no_dataset(self):
+        resp = self.client.get('/api/1/error/dataset.log/no-dataset/')
+        self.assertEquals(404, resp.status_code)
+
     def test_error(self):
         fac.LogFactory.create()
+        fac.DatasetFactory.create(name='bad-dataset')
         resp = self.client.get('/api/1/error/dataset/bad-dataset/')
         data = json.loads(resp.data)
         self.assertEquals(200, resp.status_code)
@@ -126,6 +132,10 @@ class TestErrorDatasets(ClientTestCase):
         self.assertEquals(
             'Dataset is broken',
             data['errors'][0]['msg'])
+
+    def test_error_no_dataset(self):
+        resp = self.client.get('/api/1/error/dataset/no-dataset/')
+        self.assertEquals(404, resp.status_code)
 
 
 class TestDeletedActivitiesView(ClientTestCase):

@@ -76,7 +76,7 @@ class TestCrawler(AppTestCase):
     def test_update_dataset_same_url(self, iatikit_mock):
         fac.DatasetFactory.create(
             name='tst-old',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url="https://old-org.nl/sites/default/files/" +
                     "IATI/activities.xml",
             )]
@@ -98,7 +98,7 @@ class TestCrawler(AppTestCase):
         iatikit_mock.return_value = registry
         dataset = fac.DatasetFactory.create(
             name='old-org-acts',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url="http://foo",
             )]
         )
@@ -117,7 +117,7 @@ class TestCrawler(AppTestCase):
             document = f.read()
         dataset = fac.DatasetFactory.create(
             name='old-org-acts',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url="https://old-org.nl/sites/default/files/" +
                     "IATI/activities.xml",
                 last_parsed=datetime.datetime(2000, 1, 1),
@@ -142,7 +142,7 @@ class TestCrawler(AppTestCase):
             document = f.read()
         dataset = fac.DatasetFactory.create(
             name='old-org-acts',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url="https://old-org.nl/sites/default/files/" +
                     "IATI/activities.xml",
                 last_parsed=datetime.datetime(2000, 1, 1),
@@ -250,7 +250,7 @@ class TestCrawler(AppTestCase):
     def test_deleted_activities(self, iatikit_mock):
         fac.DatasetFactory.create(
             name='deleteme',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url="http://yes",
                 activities=[
                     fac.ActivityFactory.build(
@@ -291,7 +291,7 @@ class TestResourceUpdate(AppTestCase):
         # this resouce was the first to import activity "47045-ARM-202-G05-H-00"
         fac.DatasetFactory.create(
             name='tst-a',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url=u"http://res1",
                 activities=[
                     fac.ActivityFactory.build(
@@ -306,7 +306,7 @@ class TestResourceUpdate(AppTestCase):
         # activity "47045-ARM-202-G05-H-00"
         fac.DatasetFactory.create(
             name='tst-b',
-            resources=[fac.ResourceFactory.create(
+            resources=[fac.ResourceFactory.build(
                 url=u"http://res2",
                 document=open(fixture_filename("single_activity.xml")).read().encode()
             )]

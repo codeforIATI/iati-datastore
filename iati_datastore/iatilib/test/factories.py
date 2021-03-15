@@ -116,7 +116,6 @@ class DatasetFactory(TestFactory):
     class Meta:
         model = Dataset
     name = 'test_dataset'
-    resources = factory.SubFactory(ResourceFactory)
     is_open = True
 
 
