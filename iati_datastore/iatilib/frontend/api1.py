@@ -95,7 +95,7 @@ def about():
 @api.route('/about/dataset/')
 def datasets():
     query = db.session.query(Dataset)\
-        .options(db.selectinload(Dataset.resources))
+        .options(db.subqueryload(Dataset.resources))
     try:
         valid_args = validators.about_dataset_args(MultiDict(request.args))
     except (validators.MultipleInvalid, validators.Invalid) as e:
