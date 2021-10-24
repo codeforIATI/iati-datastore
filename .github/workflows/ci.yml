@@ -22,7 +22,7 @@ jobs:
         python -m pip install --upgrade pip wheel
         pip install -r requirements_dev.txt
     - name: Run tests
-      run: nosetests iati_datastore --with-coverage --cover-package iati_datastore/iatilib
+      run: coverage run -m pytest
     - name: Coveralls
       run: coveralls
       env:

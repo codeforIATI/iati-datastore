@@ -25,18 +25,18 @@ class CSVTstMixin(_CSVTstMixin):
 class TestCSVSerializer(CSVTstMixin, TestCase):
     def test_empty(self):
         data = self.process([])
-        self.assertEquals(0, len(data))
+        self.assertEqual(0, len(data))
 
     def test_len_one(self):
         data = self.process([fac.ActivityFactory.build()])
-        self.assertEquals(1, len(data))
+        self.assertEqual(1, len(data))
 
     def test_len_many(self):
         data = self.process([
             fac.ActivityFactory.build(),
             fac.ActivityFactory.build()
         ])
-        self.assertEquals(2, len(data))
+        self.assertEqual(2, len(data))
 
     def test_date_field(self):
         data = self.process([fac.ActivityFactory.build(
@@ -703,7 +703,7 @@ class TestActivityByCountry(CSVTstMixin, ActivityExample, TestCase):
 
     def test_no_rows(self):
         data = self.process(self.example())
-        self.assertEquals(2, len(data))
+        self.assertEqual(2, len(data))
 
     def test_country_code_0(self):
         data = self.process(self.example())
@@ -869,7 +869,7 @@ class TestActivityBySector(CSVTstMixin, ActivityExample, TestCase):
 
     def test_no_rows(self):
         data = self.process(self.example())
-        self.assertEquals(2, len(data))
+        self.assertEqual(2, len(data))
 
     def test_sector_code_0(self):
         data = self.process(self.example())

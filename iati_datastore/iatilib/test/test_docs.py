@@ -13,7 +13,7 @@ class TestDocs(ClientTestCase):
 
     def test_docs(self):
         resp = self.client.get('/docs/')
-        self.assertEquals(200, resp.status_code)
+        self.assertEqual(200, resp.status_code)
         self.assertIn(
             "What is IATI Datastore?",
             resp.data.decode())
@@ -22,12 +22,12 @@ class TestDocs(ClientTestCase):
 class TestDocsRedirects(ClientTestCase):
     def test_error_api_redirect(self):
         resp = self.client.get('/error/')
-        self.assertEquals(302, resp.status_code)
+        self.assertEqual(302, resp.status_code)
         self.assertRegex(resp.headers['Location'], '/docs/api/error/$')
 
 
 class TestFavicon(ClientTestCase):
     def test_favicon(self):
         resp = self.client.get('/favicon.ico')
-        self.assertEquals(200, resp.status_code)
+        self.assertEqual(200, resp.status_code)
         self.assertRegex(resp.content_type, "^image/")

@@ -18,13 +18,13 @@ class TestXMLSerializer(TestCase):
         data = self.process([
             fac.ActivityFactory.build(raw_xml=u"<test />")
         ])
-        self.assert_(data.find(".//test") is not None)
+        self.assertTrue(data.find(".//test") is not None)
 
     def test_unicode(self):
         data = self.process([
             fac.ActivityFactory.build(raw_xml=u"<test>\u2603</test>")
         ])
-        self.assertEquals(u"\u2603", data.find(".//test").text)
+        self.assertEqual(u"\u2603", data.find(".//test").text)
 
     def test_namespace(self):
         # raw xml that goes in with a ns prefix should come out with one
@@ -39,19 +39,19 @@ class TestXMLSerializer(TestCase):
         data = [fac.ActivityFactory.build(raw_xml=u"<test />")]
         ser_data = "".join(serialize.xml(TestWrapper(data, 1, 0, 0)))
         result = ET.fromstring(ser_data)
-        self.assertEquals("1", result[1][0][0].text)
+        self.assertEqual("1", result[1][0][0].text)
 
     def test_version(self):
         data = self.process([
             fac.ActivityFactory.build(raw_xml=u"<iati-activity></iati-activity>", version='x.yy')
         ])
-        self.assertEquals('x.yy', data.find('.//iati-activity').attrib['{https://datastore.codeforiati.org/ns}version'])
+        self.assertEqual('x.yy', data.find('.//iati-activity').attrib['{https://datastore.codeforiati.org/ns}version'])
 
     def test_wrapped(self):
         data = self.process([
             fac.ActivityFactory.build()
         ])
-        self.assertEquals(data.tag, 'result')
+        self.assertEqual(data.tag, 'result')
         self.assertIsNotNone(data.find('.//iati-activities'))
         self.assertIsNotNone(data.find('.//query'))
 
@@ -59,6 +59,6 @@ class TestXMLSerializer(TestCase):
         data = self.process([
             fac.ActivityFactory.build()
         ], wrapped=False)
-        self.assertEquals(data.tag, 'iati-activities')
+        self.assertEqual(data.tag, 'iati-activities')
         self.assertIsNone(data.find('.//result'))
         self.assertIsNone(data.find('.//query'))

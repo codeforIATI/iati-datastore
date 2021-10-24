@@ -277,7 +277,7 @@ class TestActivityFilter(AppTestCase):
         activities = dsfilter.activities({
             "recipient-region": cl.Region.from_string(u"xxx")
         })
-        self.assertEquals([], activities.all())
+        self.assertEqual([], activities.all())
         self.assertNotIn(act_not, activities.all())
 
     def test_or_filter(self):

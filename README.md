@@ -46,7 +46,7 @@ git clone https://github.com/codeforIATI/iati-datastore.git
 pip install -r requirements_dev.txt
 
 # Run the tests  (these tests use an in-memory sqlite db)
-nosetests iati_datastore
+pytest
 
 # Create a new PostgreSQL database
 sudo -u postgres psql -c "CREATE DATABASE iati_datastore"
@@ -88,7 +88,7 @@ A Vagrant box is also provided. `vagrant up` as normal, then `vagrant ssh`.
 
 ```
 # Run the tests  (these tests use an in-memory sqlite db)
-nosetests iati_datastore
+pytest
 
 # Create the db tables
 iati db upgrade

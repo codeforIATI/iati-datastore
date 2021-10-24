@@ -63,7 +63,7 @@ class TestJson(AppTestCase):
         activity = factories.ActivityFactory.create(raw_xml=raw_xml)
         json_output = jsonserializer.json(FakePage([activity]))
         output = json.load(StringIO(''.join(json_output)))
-        self.assertEquals('\n        AAA\n    ', output['iati-activities'][0]['iati-activity']['iati-identifier'])
+        self.assertEqual('\n        AAA\n    ', output['iati-activities'][0]['iati-activity']['iati-identifier'])
 
     def test_multiline(self):
         act_one = factories.ActivityFactory.create(
@@ -72,15 +72,15 @@ class TestJson(AppTestCase):
             iati_identifier='ZZZ')
         json_output = json.loads(''.join(jsonserializer.json(
             FakePage([act_one, act_two]))))
-        self.assertEquals(2, len(json_output['iati-activities']))
+        self.assertEqual(2, len(json_output['iati-activities']))
 
     def test_version(self):
         activity = factories.ActivityFactory.create(version='x.yy')
         json_datastore_output = json.loads(''.join(jsonserializer.datastore_json(FakePage([activity]))))
         json_output = json.loads(''.join(jsonserializer.json(FakePage([activity]))))
-        self.assertEquals('x.yy', json_datastore_output['iati-activities'][0]['version'])
+        self.assertEqual('x.yy', json_datastore_output['iati-activities'][0]['version'])
         # This has the "iati-extra:" because it should match the XML output
-        self.assertEquals('x.yy', json_output['iati-activities'][0]['iati-extra:version'])
+        self.assertEqual('x.yy', json_output['iati-activities'][0]['iati-extra:version'])
 
     def test_wrapped(self):
         activity = factories.ActivityFactory.create()

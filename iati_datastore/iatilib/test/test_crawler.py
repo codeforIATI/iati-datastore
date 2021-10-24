@@ -34,12 +34,12 @@ class TestCrawler(AppTestCase):
         data_mock.last_updated = datetime.datetime.utcnow()
         data_mock.datasets = [iatikit.Dataset('tst-a')]
         datasets = crawler.fetch_dataset_list()
-        self.assertEquals(1, datasets.count())
+        self.assertEqual(1, datasets.count())
         data_mock.datasets = [
             iatikit.Dataset('tst-a.xml'),
             iatikit.Dataset('tst-b.xml')]
         datasets = crawler.fetch_dataset_list()
-        self.assertEquals(2, datasets.count())
+        self.assertEqual(2, datasets.count())
 
     @mock.patch('iatikit.data')
     def test_update_deletes_datasets(self, iatikit_mock):
@@ -49,20 +49,20 @@ class TestCrawler(AppTestCase):
             iatikit.Dataset("tst-a.xml"),
             iatikit.Dataset("tst-b.xml")]
         datasets = crawler.fetch_dataset_list()
-        self.assertEquals(2, datasets.count())
+        self.assertEqual(2, datasets.count())
         data_mock.datasets = [
             iatikit.Dataset("tst-a.xml")]
         datasets = crawler.fetch_dataset_list()
-        self.assertEquals(1, datasets.count())
+        self.assertEqual(1, datasets.count())
 
     @mock.patch('iatikit.data')
     def test_fetch_dataset(self, iatikit_mock):
         iatikit_mock.return_value = registry
         dataset = crawler.fetch_dataset_metadata(
             Dataset(name="old-org-acts"))
-        self.assertEquals(1, len(dataset.resources))
-        self.assertEquals("https://old-org.nl/sites/default/files/IATI/activities.xml", dataset.resources[0].url)
-        self.assertEquals("old-org", dataset.publisher)
+        self.assertEqual(1, len(dataset.resources))
+        self.assertEqual("https://old-org.nl/sites/default/files/IATI/activities.xml", dataset.resources[0].url)
+        self.assertEqual("old-org", dataset.publisher)
 
     @mock.patch('iatikit.data')
     def test_fetch_dataset_count_commited_resources(self, iatikit_mock):
@@ -70,7 +70,7 @@ class TestCrawler(AppTestCase):
         crawler.fetch_dataset_metadata(
             Dataset(name="old-org-acts"))
         db.session.commit()
-        self.assertEquals(1, Resource.query.count())
+        self.assertEqual(1, Resource.query.count())
 
     @mock.patch('iatikit.data')
     def test_update_dataset_same_url(self, iatikit_mock):
@@ -89,7 +89,7 @@ class TestCrawler(AppTestCase):
         crawler.update_dataset(
             dataset_name='old-org-acts', ignore_hashes=False)
         # resource was not added
-        self.assertEquals(0, len(dataset_new.resources))
+        self.assertEqual(0, len(dataset_new.resources))
         log = Log.query.filter_by(dataset="old-org-acts").first()
         self.assertIn('Failed to update dataset old-org-acts', log.msg)
 
@@ -103,9 +103,9 @@ class TestCrawler(AppTestCase):
             )]
         )
         resource = crawler.fetch_resource(dataset=dataset, ignore_hashes=False)
-        self.assertEquals(b"<?xml", resource.document[:5])
-        self.assertEquals(None, resource.last_parsed)
-        self.assertEquals(None, resource.last_parse_error)
+        self.assertEqual(b"<?xml", resource.document[:5])
+        self.assertEqual(None, resource.last_parsed)
+        self.assertEqual(None, resource.last_parse_error)
 
     @mock.patch('iatikit.data')
     def test_ignore_unchanged_resource(self, iatikit_mock):
@@ -126,7 +126,7 @@ class TestCrawler(AppTestCase):
         )
         resource = crawler.fetch_resource(
             dataset=dataset, ignore_hashes=False)
-        self.assertNotEquals(None, resource.last_parsed)
+        self.assertNotEqual(None, resource.last_parsed)
 
     @mock.patch('iatikit.data')
     def test_dont_ignore_unchanged_resource(self, iatikit_mock):
@@ -151,15 +151,15 @@ class TestCrawler(AppTestCase):
         )
         resource = crawler.fetch_resource(
             dataset=dataset, ignore_hashes=True)
-        self.assertEquals(None, resource.last_parsed)
+        self.assertEqual(None, resource.last_parsed)
 
     def test_parse_resource_succ(self):
         resource = Resource(document=b"<iati-activities />", url="http://foo")
         resource = crawler.parse_resource(resource)
-        self.assertEquals([], list(resource.activities))
-        self.assertEquals(None, resource.last_parse_error)
+        self.assertEqual([], list(resource.activities))
+        self.assertEqual(None, resource.last_parse_error)
         now = datetime.datetime.utcnow()
-        self.assertAlmostEquals(
+        self.assertAlmostEqual(
             resource.last_parsed,
             now,
             delta=datetime.timedelta(seconds=15))
@@ -175,7 +175,7 @@ class TestCrawler(AppTestCase):
         resource.document = b"<iati-activities />"
         resource = crawler.parse_resource(resource)
         db.session.commit()
-        self.assertEquals(None, Activity.query.get(act.iati_identifier))
+        self.assertEqual(None, Activity.query.get(act.iati_identifier))
         self.assertIn(
             "deleted_activity",
             [da.iati_identifier for da in DeletedActivity.query.all()]
@@ -236,7 +236,7 @@ class TestCrawler(AppTestCase):
         db.session.commit()
         crawler.parse_resource(resource)
         acts = db.session.query(Activity).all()
-        self.assertEquals(
+        self.assertEqual(
             datetime.datetime(2000, 1, 1),
             acts[0].last_change_datetime)
 
@@ -244,7 +244,7 @@ class TestCrawler(AppTestCase):
         resource = Resource(document=b"", url="")
         with self.assertRaises(parse.ParserError):
             resource = crawler.parse_resource(resource)
-            self.assertEquals(None, resource.last_parsed)
+            self.assertEqual(None, resource.last_parsed)
 
     @mock.patch('iatikit.data')
     def test_deleted_activities(self, iatikit_mock):
@@ -276,7 +276,7 @@ class TestCrawler(AppTestCase):
         )
         result = crawler.parse_resource(res)
 
-        self.assertEquals("1.00", result.version)
+        self.assertEqual("1.00", result.version)
 
 
 class TestResourceUpdate(AppTestCase):
@@ -313,7 +313,7 @@ class TestResourceUpdate(AppTestCase):
         )
 
         crawler.update_activities("tst-b")
-        self.assertEquals(
+        self.assertEqual(
             u"orig",
             Activity.query.get(u"47045-ARM-202-G05-H-00").title
         )

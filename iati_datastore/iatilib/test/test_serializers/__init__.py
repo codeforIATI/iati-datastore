@@ -23,4 +23,4 @@ class CSVTstMixin(object):
         assert len(mapping) == 1
         key, val = list(mapping.items())[0]
         self.assertIn(key, row)
-        self.assertEquals(row[key], val)
+        self.assertEqual(row[key], val)

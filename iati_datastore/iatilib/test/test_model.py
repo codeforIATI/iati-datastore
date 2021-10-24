@@ -28,8 +28,8 @@ class TestResource(AppTestCase):
             )
         ]
         db.session.commit()
-        self.assertEquals(res.activities[0].title, u"t2")
-        self.assertEquals(
+        self.assertEqual(res.activities[0].title, u"t2")
+        self.assertEqual(
             Resource.query.get(res.url).activities[0].title, u"t2")
 
     def test_replace_activity_w_many_dependant_rows(self):
@@ -57,7 +57,7 @@ class TestResource(AppTestCase):
             )]
         )
         Activity.query.filter_by(resource_url=res.url).delete()
-        self.assertEquals(
+        self.assertEqual(
             0,
             Activity.query.filter_by(resource_url=res.url).count()
         )
@@ -67,16 +67,16 @@ class TestResource(AppTestCase):
 class TestOrganisation(AppTestCase):
     def test_organisation_repr(self):
         org = fac.OrganisationFactory.build(ref='org ref')
-        self.assertEquals(str(org), "Organisation(ref='org ref')")
+        self.assertEqual(str(org), "Organisation(ref='org ref')")
 
 
 class TestTransaction(AppTestCase):
     def test_transaction_repr(self):
         org = fac.TransactionFactory.build(id='test-trans-0')
-        self.assertEquals(str(org), "Transaction(id='test-trans-0')")
+        self.assertEqual(str(org), "Transaction(id='test-trans-0')")
 
 
 class TestLog(AppTestCase):
     def test_log_repr(self):
         org = fac.LogFactory.build(msg='hello')
-        self.assertEquals(str(org), "<Log: 1970-01-01 12:00:00 - hello>")
+        self.assertEqual(str(org), "<Log: 1970-01-01 12:00:00 - hello>")

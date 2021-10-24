@@ -26,115 +26,115 @@ class TestParse2xxActivity(AppTestCase):
         self.act = self.activities[0]
 
     def test_id(self):
-        self.assertEquals(
+        self.assertEqual(
             u"AA-AAA-123456789-ABC123",
             self.act.iati_identifier)
 
     def test_title(self):
-        self.assertEquals(
+        self.assertEqual(
             u"Activity title",
             self.act.title)
 
     def test_last_updated_time(self):
-        self.assertEquals(datetime.date(2014, 9, 10), self.act.last_updated_datetime)
+        self.assertEqual(datetime.date(2014, 9, 10), self.act.last_updated_datetime)
 
     def test_description(self):
-        self.assert_(self.act.description.startswith(
+        self.assertTrue(self.act.description.startswith(
             u"General activity description text."))
 
     def test_reporting_org_ref(self):
-        self.assertEquals(u"AA-AAA-123456789", self.act.reporting_org.ref)
+        self.assertEqual(u"AA-AAA-123456789", self.act.reporting_org.ref)
 
     def test_reporting_org_type(self):
-        self.assertEquals(
+        self.assertEqual(
             cl2.OrganisationType.multilateral,
             self.act.reporting_org.type
         )
 
     def test_reporting_org_name(self):
-        self.assertEquals(
+        self.assertEqual(
             self.act.reporting_org.name,
             u"Organisation name"
         )
 
     def test_default_currency(self):
-        self.assertEquals(
+        self.assertEqual(
             cl2.Currency.us_dollar,
             self.act.default_currency
         )
 
     def test_participating_org(self):
-        self.assertEquals(
+        self.assertEqual(
             cl2.OrganisationRole.funding,
             self.act.participating_orgs[0].role)
-        self.assertEquals(
+        self.assertEqual(
             cl2.OrganisationType.multilateral,
             self.act.participating_orgs[0].organisation.type)
-        self.assertEquals(
+        self.assertEqual(
             cl2.OrganisationType.multilateral,
             self.act.participating_orgs[0].organisation.type)
-        self.assertEquals(
+        self.assertEqual(
             u"BB-BBB-123456789",
             self.act.participating_orgs[0].organisation.ref)
-        self.assertEquals(
+        self.assertEqual(
             u"Name of Agency B",
             self.act.participating_orgs[0].organisation.name)
 
-        self.assertEquals(
+        self.assertEqual(
             cl2.OrganisationRole.accountable,
             self.act.participating_orgs[1].role)
-        self.assertEquals(
+        self.assertEqual(
             cl2.OrganisationType.government,
             self.act.participating_orgs[1].organisation.type)
-        self.assertEquals(
+        self.assertEqual(
             u"CC-CCC-123456789",
             self.act.participating_orgs[1].organisation.ref)
-        self.assertEquals(
+        self.assertEqual(
             u"Name of Agency C",
             self.act.participating_orgs[1].organisation.name)
 
-        self.assertEquals(
+        self.assertEqual(
             cl2.OrganisationRole.extending,
             self.act.participating_orgs[2].role)
-        self.assertEquals(
+        self.assertEqual(
             cl2.OrganisationType.international_ngo,
             self.act.participating_orgs[2].organisation.type)
-        self.assertEquals(
+        self.assertEqual(
             u"AA-AAA-123456789",
             self.act.participating_orgs[2].organisation.ref)
-        self.assertEquals(
+        self.assertEqual(
             u"Name of Agency A",
             self.act.participating_orgs[2].organisation.name)
 
     def test_recipient_country_percentages(self):
         act = self.act
-        self.assertEquals(2, len(self.act.recipient_country_percentages))
-        self.assertEquals(
+        self.assertEqual(2, len(self.act.recipient_country_percentages))
+        self.assertEqual(
             cl2.Country.afghanistan,
             act.recipient_country_percentages[0].country)
-        self.assertEquals(
+        self.assertEqual(
             cl2.Country.antigua_and_barbuda,
             act.recipient_country_percentages[1].country)
-        self.assertEquals(
+        self.assertEqual(
             25,
             act.recipient_country_percentages[0].percentage)
-        self.assertEquals(
+        self.assertEqual(
             25,
             act.recipient_country_percentages[1].percentage)
 
     def test_recipient_region_percentages(self):
         act = self.act
-        self.assertEquals(2, len(act.recipient_region_percentages))
-        self.assertEquals(
+        self.assertEqual(2, len(act.recipient_region_percentages))
+        self.assertEqual(
             cl2.Region.south_america_regional,
             act.recipient_region_percentages[0].region)
-        self.assertEquals(
+        self.assertEqual(
             cl2.Region.south_of_sahara_regional,
             act.recipient_region_percentages[1].region)
-        self.assertEquals(
+        self.assertEqual(
             25,
             act.recipient_region_percentages[0].percentage)
-        self.assertEquals(
+        self.assertEqual(
             25,
             act.recipient_region_percentages[1].percentage)
 
@@ -160,146 +160,146 @@ class TestParse2xxActivity(AppTestCase):
                     </related-activity>
                 </iati-activity>'''
         ), major_version='2')
-        self.assertEquals(
+        self.assertEqual(
             "N1", act.recipient_country_percentages[0].name)
-        self.assertEquals(
+        self.assertEqual(
             "N2", act.recipient_region_percentages[0].name)
-        self.assertEquals(
+        self.assertEqual(
             "N3", act.sector_percentages[0].text)
-        self.assertEquals(
+        self.assertEqual(
             "N4", act.policy_markers[0].text)
-        self.assertEquals(
+        self.assertEqual(
             "N5", act.related_activities[0].text)
 
     def test_transaction_count(self):
-        self.assertEquals(1, len(self.act.transactions))
+        self.assertEqual(1, len(self.act.transactions))
 
     def test_transaction_type(self):
-        self.assertEquals(
+        self.assertEqual(
             cl2.TransactionType.incoming_funds,
             self.act.transactions[0].type)
 
     def test_transaction_date(self):
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2012, 1, 1),
             self.act.transactions[0].date)
 
     def test_transaction_value_date(self):
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2012, 1, 1),
             self.act.transactions[0].value_date)
 
     def test_transaction_value_amount(self):
-        self.assertEquals(
+        self.assertEqual(
             1000,
             self.act.transactions[0].value_amount)
 
     def test_transaction_currency(self):
-        self.assertEquals(
+        self.assertEqual(
             cl2.Currency.euro,
             self.act.transactions[0].value_currency)
 
     def test_transaction_value_composite(self):
-        self.assertEquals(
+        self.assertEqual(
             (datetime.date(2012, 1, 1), 1000, cl2.Currency.euro),
             self.act.transactions[0].value)
 
     def test_transaction_ref(self):
-        self.assertEquals(u'1234', self.act.transactions[0].ref)
+        self.assertEqual(u'1234', self.act.transactions[0].ref)
 
     def test_transaction_description(self):
-        self.assertEquals(u'Transaction description text',
+        self.assertEqual(u'Transaction description text',
                           self.act.transactions[0].description)
 
     def test_transaction_provider_org_ref(self):
-        self.assertEquals(u'BB-BBB-123456789',
+        self.assertEqual(u'BB-BBB-123456789',
                           self.act.transactions[0].provider_org.ref)
 
     def test_transaction_provider_org_name(self):
-        self.assertEquals(u'Agency B',
+        self.assertEqual(u'Agency B',
                           self.act.transactions[0].provider_org.name)
 
     def test_transaction_reciever_org_ref(self):
-        self.assertEquals(u'AA-AAA-123456789',
+        self.assertEqual(u'AA-AAA-123456789',
                           self.act.transactions[0].receiver_org.ref)
 
     def test_transaction_reciever_org_name(self):
-        self.assertEquals(u'Agency A',
+        self.assertEqual(u'Agency A',
                           self.act.transactions[0].receiver_org.name)
 
     def test_transaction_new_elements(self):
         act = self.act
-        self.assertEquals(1, len(act.transactions[0].recipient_region_percentages))
-        self.assertEquals(1, len(act.transactions[0].recipient_country_percentages))
-        self.assertEquals(1, len(act.transactions[0].sector_percentages))
-        self.assertEquals(
+        self.assertEqual(1, len(act.transactions[0].recipient_region_percentages))
+        self.assertEqual(1, len(act.transactions[0].recipient_country_percentages))
+        self.assertEqual(1, len(act.transactions[0].sector_percentages))
+        self.assertEqual(
             cl2.Country.afghanistan,
             act.transactions[0].recipient_country_percentages[0].country)
-        self.assertEquals(
+        self.assertEqual(
             u'456',
             act.transactions[0].recipient_region_percentages[0].region.value)
-        self.assertEquals(
+        self.assertEqual(
             u'111',
             act.transactions[0].sector_percentages[0].sector.value)
 
     def test_date_start_planned(self):
-        self.assertEquals(datetime.date(2012, 4, 15), self.act.start_planned)
+        self.assertEqual(datetime.date(2012, 4, 15), self.act.start_planned)
 
     def test_date_start_actual(self):
-        self.assertEquals(datetime.date(2012, 4, 28), self.act.start_actual)
+        self.assertEqual(datetime.date(2012, 4, 28), self.act.start_actual)
 
     def test_date_end_planned(self):
-        self.assertEquals(datetime.date(2015, 12, 31), self.act.end_planned)
+        self.assertEqual(datetime.date(2015, 12, 31), self.act.end_planned)
 
     def test_date_end_actual(self):
-        self.assertEquals(None, self.act.end_actual)
+        self.assertEqual(None, self.act.end_actual)
 
     def test_raw_xml(self):
         norm_xml = ET.tostring(ET.parse(fixture_filename("2.01-example-annotated.xml")).find('iati-activity'), encoding='utf-8').decode("utf-8")
-        self.assertEquals(norm_xml, self.act.raw_xml)
+        self.assertEqual(norm_xml, self.act.raw_xml)
 
     def test_budget(self):
-        self.assertEquals(1, len(self.act.budgets))
+        self.assertEqual(1, len(self.act.budgets))
 
     def test_policy_markers(self):
-        self.assertEquals(2, len(self.act.policy_markers))
-        self.assertEquals(cl2.PolicyMarker.aid_to_environment, self.act.policy_markers[0].code)
-        self.assertEquals(cl2.PolicyMarker.gender_equality, self.act.policy_markers[1].code)
+        self.assertEqual(2, len(self.act.policy_markers))
+        self.assertEqual(cl2.PolicyMarker.aid_to_environment, self.act.policy_markers[0].code)
+        self.assertEqual(cl2.PolicyMarker.gender_equality, self.act.policy_markers[1].code)
 
     def test_policy_markers_significance(self):
-        self.assertEquals(2, len(self.act.policy_markers))
-        self.assertEquals(cl2.PolicySignificance.principal_objective_and_in_support_of_an_action_programme, self.act.policy_markers[0].significance)
-        self.assertEquals(cl2.PolicySignificance.explicit_primary_objective, self.act.policy_markers[1].significance)
+        self.assertEqual(2, len(self.act.policy_markers))
+        self.assertEqual(cl2.PolicySignificance.principal_objective_and_in_support_of_an_action_programme, self.act.policy_markers[0].significance)
+        self.assertEqual(cl2.PolicySignificance.explicit_primary_objective, self.act.policy_markers[1].significance)
 
     def test_related_activity(self):
-        self.assertEquals(1, len(self.act.related_activities))
-        self.assertEquals("AA-AAA-123456789-6789", self.act.related_activities[0].ref)
+        self.assertEqual(1, len(self.act.related_activities))
+        self.assertEqual("AA-AAA-123456789-6789", self.act.related_activities[0].ref)
 
     def test_activity_status(self):
-        self.assertEquals(cl2.ActivityStatus.implementation, self.act.activity_status)
+        self.assertEqual(cl2.ActivityStatus.implementation, self.act.activity_status)
 
     def test_collaboration_type(self):
-        self.assertEquals(cl2.CollaborationType.bilateral, self.act.collaboration_type)
+        self.assertEqual(cl2.CollaborationType.bilateral, self.act.collaboration_type)
 
     def test_default_finance_type(self):
-        self.assertEquals(cl2.FinanceType.standard_grant,
+        self.assertEqual(cl2.FinanceType.standard_grant,
                           self.act.default_finance_type)
 
     def test_default_flow_type(self):
-        self.assertEquals(cl2.FlowType.oda, self.act.default_flow_type)
+        self.assertEqual(cl2.FlowType.oda, self.act.default_flow_type)
 
     def test_default_aid_type(self):
-        self.assertEquals(cl2.AidType.general_budget_support,
+        self.assertEqual(cl2.AidType.general_budget_support,
                           self.act.default_aid_type)
 
     def test_default_tied_status(self):
-        self.assertEquals(cl2.TiedStatus.partially_tied, self.act.default_tied_status)
+        self.assertEqual(cl2.TiedStatus.partially_tied, self.act.default_tied_status)
 
     def test_default_hierarchy(self):
-        self.assertEquals(1, self.act.hierarchy)
+        self.assertEqual(1, self.act.hierarchy)
 
     def test_default_language(self):
-        self.assertEquals(cl2.Language.english, self.act.default_language)
+        self.assertEqual(cl2.Language.english, self.act.default_language)
 
 
 class TestParseActivity(AppTestCase):
@@ -312,224 +312,224 @@ class TestParseActivity(AppTestCase):
             parse.activity(parse_fixture("broken.xml"))
 
     def test_id(self):
-        self.assertEquals(
+        self.assertEqual(
             u"47045-ARM-202-G05-H-00",
             self.act.iati_identifier)
 
     def test_title(self):
-        self.assertEquals(
+        self.assertEqual(
             (u"Support to the National Program on the Response to HIV " +
              u"Epicemic in the Republic of Armenia"),
             self.act.title)
 
     def test_last_updated_time(self):
-        self.assertEquals(datetime.date(2012, 9, 25), self.act.last_updated_datetime)
+        self.assertEqual(datetime.date(2012, 9, 25), self.act.last_updated_datetime)
 
     def test_description(self):
-        self.assert_(self.act.description.startswith(
+        self.assertTrue(self.act.description.startswith(
             u"While Armenia is still a country with a concentrated HIV"))
 
     def test_reporting_org_ref(self):
-        self.assertEquals(u"47045", self.act.reporting_org.ref)
+        self.assertEqual(u"47045", self.act.reporting_org.ref)
 
     def test_reporting_org_type(self):
-        self.assertEquals(
+        self.assertEqual(
             cl.OrganisationType.multilateral,
             self.act.reporting_org.type
         )
 
     def test_activity_websites(self):
-        self.assertEquals(
+        self.assertEqual(
             [u"http://portfolio.theglobalfund.org/en/Grant/Index/ARM-202-G05-H-00"],
             self.act.websites)
 
     def test_default_currency(self):
-        self.assertEquals(
+        self.assertEqual(
             cl.Currency.us_dollar,
             self.act.default_currency
         )
 
     def test_participating_org(self):
-        self.assertEquals(
+        self.assertEqual(
             cl.OrganisationRole.funding,
             self.act.participating_orgs[0].role)
 
     def test_accepts_participatng_org_without_ref(self):
-        self.assertEquals(2, len(self.act.participating_orgs))
+        self.assertEqual(2, len(self.act.participating_orgs))
 
     def test_recipient_country_percentages(self):
-        self.assertEquals(1, len(self.act.recipient_country_percentages))
-        self.assertEquals(
+        self.assertEqual(1, len(self.act.recipient_country_percentages))
+        self.assertEqual(
             cl.Country.armenia,
             self.act.recipient_country_percentages[0].country)
-        self.assertEquals(
+        self.assertEqual(
             "Armenia", self.act.recipient_country_percentages[0].name)
-        self.assertEquals(
+        self.assertEqual(
             None,
             self.act.recipient_country_percentages[0].percentage)
 
     def test_recipient_region_percentages(self):
         act = parse.activity(parse_fixture("iati_activity_JP.xml"))
-        self.assertEquals(1, len(act.recipient_region_percentages))
-        self.assertEquals(
+        self.assertEqual(1, len(act.recipient_region_percentages))
+        self.assertEqual(
             cl.Country.japan,
             act.recipient_country_percentages[0].country)
-        self.assertEquals(
+        self.assertEqual(
             "Far East Asia, regional", act.recipient_region_percentages[0].name)
-        self.assertEquals(
+        self.assertEqual(
             100,
             act.recipient_region_percentages[0].percentage)
 
     def test_transaction_count(self):
-        self.assertEquals(1, len(self.act.transactions))
+        self.assertEqual(1, len(self.act.transactions))
 
     def test_transaction_type(self):
-        self.assertEquals(
+        self.assertEqual(
             cl.TransactionType.commitment,
             self.act.transactions[0].type)
 
     def test_transaction_date(self):
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2009, 10, 1),
             self.act.transactions[0].date)
 
     def test_transaction_value_date(self):
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2009, 10, 1),
             self.act.transactions[0].value_date)
 
     def test_transaction_value_amount(self):
-        self.assertEquals(
+        self.assertEqual(
             3991675,
             self.act.transactions[0].value_amount)
 
     def test_transaction_currency(self):
         # currency is picked up from default currency
         act = parse.activity(parse_fixture("transaction_provider.xml"))
-        self.assertEquals(
+        self.assertEqual(
             cl.Currency.pound_sterling,
             act.transactions[0].value_currency)
 
     def test_transaction_value_composite(self):
         act = parse.activity(parse_fixture("transaction_provider.xml"))
-        self.assertEquals(
+        self.assertEqual(
             (datetime.date(2011, 8, 19), 29143, cl.Currency.pound_sterling),
             act.transactions[0].value)
 
     def test_transaction_ref(self):
         act = parse.activity(parse_fixture("transaction_ref.xml"))
-        self.assertEquals(u'36258', act.transactions[0].ref)
-        self.assertEquals(None, act.transactions[1].ref)
+        self.assertEqual(u'36258', act.transactions[0].ref)
+        self.assertEqual(None, act.transactions[1].ref)
 
     def test_transaction_provider_org_ref(self):
         act = parse.activity(parse_fixture("transaction_provider.xml"))
-        self.assertEquals(u'GB-1-201242-101',
+        self.assertEqual(u'GB-1-201242-101',
                           act.transactions[0].provider_org.ref)
 
     def test_transaction_reciever_org_ref(self):
         act = parse.activity(parse_fixture("transaction_provider.xml"))
-        self.assertEquals(u'GB-CHC-313139',
+        self.assertEqual(u'GB-CHC-313139',
                           act.transactions[0].receiver_org.ref)
 
     def test_date_start_planned(self):
-        self.assertEquals(datetime.date(2009, 10, 3), self.act.start_planned)
+        self.assertEqual(datetime.date(2009, 10, 3), self.act.start_planned)
 
     def test_date_start_actual(self):
-        self.assertEquals(datetime.date(2009, 10, 1), self.act.start_actual)
+        self.assertEqual(datetime.date(2009, 10, 1), self.act.start_actual)
 
     def test_date_end_planned(self):
-        self.assertEquals(datetime.date(2009, 10, 4), self.act.end_planned)
+        self.assertEqual(datetime.date(2009, 10, 4), self.act.end_planned)
 
     def test_date_end_actual(self):
-        self.assertEquals(datetime.date(2009, 10, 2), self.act.end_actual)
+        self.assertEqual(datetime.date(2009, 10, 2), self.act.end_actual)
 
     def test_sector_percentage_count(self):
         act = next(parse.document_from_file(
             fixture_filename("complex_example_dfid.xml")))
-        self.assertEquals(5, len(act.sector_percentages))
+        self.assertEqual(5, len(act.sector_percentages))
 
     def test_raw_xml(self):
         norm_xml = ET.tostring(ET.parse(fixture_filename("default_currency.xml"))).decode("utf-8")
-        self.assertEquals(norm_xml, self.act.raw_xml)
+        self.assertEqual(norm_xml, self.act.raw_xml)
 
     def test_no_start_actual(self):
         activities = parse.document_from_file(fixture_filename("missing_dates.xml"))
         act = {a.iati_identifier: a for a in activities}
-        self.assertEquals(None, act[u"GB-CHC-272465-680"].start_actual)
+        self.assertEqual(None, act[u"GB-CHC-272465-680"].start_actual)
 
     def test_budget(self):
-        self.assertEquals(6, len(self.act.budgets))
+        self.assertEqual(6, len(self.act.budgets))
 
     def test_policy_markers(self):
         activities = [a for a in parse.document_from_file(fixture_filename("CD.xml"))]
 
-        self.assertEquals(8, len(activities[1].policy_markers))
-        self.assertEquals(cl.PolicyMarker.gender_equality, activities[1].policy_markers[0].code)
-        self.assertEquals(cl.PolicyMarker.aid_to_environment, activities[1].policy_markers[1].code)
-        self.assertEquals(
+        self.assertEqual(8, len(activities[1].policy_markers))
+        self.assertEqual(cl.PolicyMarker.gender_equality, activities[1].policy_markers[0].code)
+        self.assertEqual(cl.PolicyMarker.aid_to_environment, activities[1].policy_markers[1].code)
+        self.assertEqual(
             cl.PolicyMarker.participatory_developmentgood_governance,
             activities[1].policy_markers[2].code)
-        self.assertEquals(cl.PolicyMarker.trade_development, activities[1].policy_markers[3].code)
+        self.assertEqual(cl.PolicyMarker.trade_development, activities[1].policy_markers[3].code)
 
     def test_policy_markers_significance(self):
         activities = [a for a in parse.document_from_file(fixture_filename("CD.xml"))]
 
-        self.assertEquals(8, len(activities[1].policy_markers))
-        self.assertEquals(cl.PolicySignificance.significant_objective, activities[1].policy_markers[0].significance)
-        self.assertEquals(cl.PolicySignificance.not_targeted, activities[1].policy_markers[1].significance)
-        self.assertEquals(
+        self.assertEqual(8, len(activities[1].policy_markers))
+        self.assertEqual(cl.PolicySignificance.significant_objective, activities[1].policy_markers[0].significance)
+        self.assertEqual(cl.PolicySignificance.not_targeted, activities[1].policy_markers[1].significance)
+        self.assertEqual(
             cl.PolicySignificance.significant_objective,
             activities[1].policy_markers[2].significance)
-        self.assertEquals(cl.PolicySignificance.not_targeted, activities[1].policy_markers[3].significance)
+        self.assertEqual(cl.PolicySignificance.not_targeted, activities[1].policy_markers[3].significance)
 
     def test_related_activity(self):
         activities = [a for a in parse.document_from_file(fixture_filename("CD.xml"))]
-        self.assertEquals(4, len(activities[0].related_activities))
-        self.assertEquals("GB-1-105838-101", activities[0].related_activities[0].ref)
+        self.assertEqual(4, len(activities[0].related_activities))
+        self.assertEqual("GB-1-105838-101", activities[0].related_activities[0].ref)
 
     def test_activity_status(self):
         activities = [a for a in parse.document_from_file(fixture_filename("default_currency.xml"))]
-        self.assertEquals(cl.ActivityStatus.implementation, activities[0].activity_status)
+        self.assertEqual(cl.ActivityStatus.implementation, activities[0].activity_status)
 
     def test_collaboration_type(self):
         activities = [a for a in parse.document_from_file(fixture_filename("CD.xml"))]
-        self.assertEquals(cl.CollaborationType.bilateral, activities[1].collaboration_type)
+        self.assertEqual(cl.CollaborationType.bilateral, activities[1].collaboration_type)
 
     def test_default_finance_type(self):
         activities = [a for a in parse.document_from_file(fixture_filename("CD.xml"))]
-        self.assertEquals(
+        self.assertEqual(
             cl.FinanceType.standard_grant,
             activities[1].default_finance_type)
 
     def test_default_flow_type(self):
         activities = [a for a in parse.document_from_file(fixture_filename("CD.xml"))]
-        self.assertEquals(cl.FlowType.oda, activities[1].default_flow_type)
+        self.assertEqual(cl.FlowType.oda, activities[1].default_flow_type)
 
     def test_default_aid_type(self):
         activities = [a for a in parse.document_from_file(fixture_filename("CD.xml"))]
-        self.assertEquals(
+        self.assertEqual(
             cl.AidType.projecttype_interventions,
             activities[1].default_aid_type)
 
     def test_default_tied_status(self):
         activities = [a for a in parse.document_from_file(fixture_filename("CD.xml"))]
-        self.assertEquals(cl.TiedStatus.untied, activities[1].default_tied_status)
+        self.assertEqual(cl.TiedStatus.untied, activities[1].default_tied_status)
 
     def test_default_hierarchy(self):
         activities = [a for a in parse.document_from_file(fixture_filename("default_currency.xml"))]
-        self.assertEquals(1, activities[0].hierarchy)
+        self.assertEqual(1, activities[0].hierarchy)
 
     def test_default_language(self):
         activities = [a for a in parse.document_from_file(fixture_filename("default_currency.xml"))]
-        self.assertEquals(cl.Language.english, activities[0].default_language)
+        self.assertEqual(cl.Language.english, activities[0].default_language)
 
     def test_default_language_none(self):
         default_language = parse.default_language(
             ET.XML('<iati-activity xml:lang="en" default-currency="GBP" hierarchy="1"/>'))
-        self.assertEquals(cl.Language.english, default_language)
+        self.assertEqual(cl.Language.english, default_language)
         no_default_language = parse.default_language(
             ET.XML('<iati-activity default-currency="GBP" hierarchy="1"/>'))
-        self.assertEquals(None, no_default_language)
+        self.assertEqual(None, no_default_language)
 
 
 class TestFunctional(AppTestCase):
@@ -580,29 +580,29 @@ class TestFunctional(AppTestCase):
         db.session.add(act)
         db.session.commit()
 
-        self.assertEquals(
+        self.assertEqual(
             24.5,
             db.session.query(model.CountryPercentage).filter(model.CountryPercentage.country==cl.Country.afghanistan).first().percentage
         )
-        self.assertEquals(
+        self.assertEqual(
             25.5,
             db.session.query(model.CountryPercentage).filter(model.CountryPercentage.country==cl.Country.antigua_and_barbuda).first().percentage
         )
 
-        self.assertEquals(
+        self.assertEqual(
             26.5,
             db.session.query(model.RegionPercentage).filter(model.RegionPercentage.region==cl.Region.asia_regional).first().percentage
         )
-        self.assertEquals(
+        self.assertEqual(
             23.5,
             db.session.query(model.RegionPercentage).filter(model.RegionPercentage.region==cl.Region.oceania_regional).first().percentage
         )
 
-        self.assertEquals(
+        self.assertEqual(
             49.5,
             db.session.query(model.SectorPercentage).filter(model.SectorPercentage.sector==cl.Sector.teacher_training).first().percentage
         )
-        self.assertEquals(
+        self.assertEqual(
             50.5,
             db.session.query(model.SectorPercentage).filter(model.SectorPercentage.sector==cl.Sector.educational_research).first().percentage
         )
@@ -617,11 +617,11 @@ class TestFunctional(AppTestCase):
         db.session.add(act)
         db.session.commit()
 
-        self.assertEquals(
+        self.assertEqual(
             '1',
             db.session.query(model.Activity).first().major_version
         )
-        self.assertEquals(
+        self.assertEqual(
             '1.05',
             db.session.query(model.Activity).first().version
         )
@@ -636,11 +636,11 @@ class TestFunctional(AppTestCase):
         db.session.add(act)
         db.session.commit()
 
-        self.assertEquals(
+        self.assertEqual(
             '2',
             db.session.query(model.Activity).first().major_version
         )
-        self.assertEquals(
+        self.assertEqual(
             '2.01',
             db.session.query(model.Activity).first().version
         )
@@ -651,20 +651,20 @@ class TestSector(AppTestCase):
         sec = parse.sector_percentages(ET.XML(
             u'<wrapper><sector vocabulary="DAC" code="16010">Child Protection Systems Strengthening</sector></wrapper>'
         ))[0]
-        self.assertEquals(cl.Sector.social_protection, sec.sector)
-        self.assertEquals(u"Child Protection Systems Strengthening", sec.text)
+        self.assertEqual(cl.Sector.social_protection, sec.sector)
+        self.assertEqual(u"Child Protection Systems Strengthening", sec.text)
 
     def test_missing_code(self):
         sec = parse.sector_percentages(ET.XML(
             u'<wrapper><sector vocabulary="DAC">Child Protection Systems Strengthening</sector></wrapper>'
         ))[0]
-        self.assertEquals(None, sec.sector)
+        self.assertEqual(None, sec.sector)
 
     def test_missing_everything(self):
         sec = parse.sector_percentages(ET.XML(
             u'<wrapper><sector /></wrapper>'
         ))
-        self.assertEquals([], sec)
+        self.assertEqual([], sec)
 
 
 class TestPercentages(AppTestCase):
@@ -672,7 +672,7 @@ class TestPercentages(AppTestCase):
         recipient_country_percentages = parse.recipient_country_percentages(ET.XML(
             u'<wrapper><recipient-country code="BD" percentage="3"></recipient-country></wrapper>'
         ))
-        self.assertEquals(3, recipient_country_percentages[0].percentage)
+        self.assertEqual(3, recipient_country_percentages[0].percentage)
 
     def test_recipient_region_percentages(self):
         recipient_region_percentages = parse.recipient_region_percentages(ET.XML(
@@ -681,8 +681,8 @@ class TestPercentages(AppTestCase):
                     <recipient-region code="998"></recipient-region>
                 </wrapper>"""
         ))
-        self.assertEquals(4, recipient_region_percentages[0].percentage)
-        self.assertEquals(None, recipient_region_percentages[1].percentage)
+        self.assertEqual(4, recipient_region_percentages[0].percentage)
+        self.assertEqual(None, recipient_region_percentages[1].percentage)
 
 
 class TestOrganisation(AppTestCase):
@@ -691,19 +691,19 @@ class TestOrganisation(AppTestCase):
         orgrole = parse.participating_orgs(ET.XML(
             u'<wrap><participating-org role="implementing" ref="test" /></wrap>'
         ))[0]
-        self.assertEquals(orgrole.role, cl.OrganisationRole.implementing)
+        self.assertEqual(orgrole.role, cl.OrganisationRole.implementing)
 
     def test_org_type(self):
         orgtype = parse.reporting_org(ET.XML(
             u"""<wrap><reporting-org ref="GB-CHC-202918" type="21" /></wrap>"""
         ))
-        self.assertEquals(cl.OrganisationType.international_ngo, orgtype.type)
+        self.assertEqual(cl.OrganisationType.international_ngo, orgtype.type)
 
     def test_org_type_missing(self):
         orgtype = parse.reporting_org(ET.XML(
             u"""<wrap><reporting-org ref="GB-CHC-202918" /></wrap>"""
         ))
-        self.assertEquals(None, orgtype.type)
+        self.assertEqual(None, orgtype.type)
 
 
 class TestParticipation(AppTestCase):
@@ -717,7 +717,7 @@ class TestParticipation(AppTestCase):
                 </wrap>
                 """),
         )
-        self.assertEquals(1, len(participations))
+        self.assertEqual(1, len(participations))
 
     def test_same_org_different_role(self):
         participations = parse.participating_orgs(
@@ -727,7 +727,7 @@ class TestParticipation(AppTestCase):
             </wrap>
             """)
         )
-        self.assertEquals(2, len(participations))
+        self.assertEqual(2, len(participations))
 
 
 class TestActivity(AppTestCase):
@@ -742,14 +742,14 @@ class TestActivity(AppTestCase):
                 </iati-activity>
               </iati-activities>
                 ''')
-        self.assertEquals(0, len(list(activities)))
+        self.assertEqual(0, len(list(activities)))
 
     def test_dates(self):
         activities = list(parse.document_from_file(fixture_filename("CD.xml")))
-        self.assertEquals(datetime.date(2004, 1, 1), activities[0].start_planned)
-        self.assertEquals(datetime.date(2004, 1, 1), activities[0].start_actual)
-        self.assertEquals(datetime.date(2010, 12, 31), activities[0].end_planned)
-        self.assertEquals(datetime.date(2010, 12, 31), activities[0].end_actual)
+        self.assertEqual(datetime.date(2004, 1, 1), activities[0].start_planned)
+        self.assertEqual(datetime.date(2004, 1, 1), activities[0].start_actual)
+        self.assertEqual(datetime.date(2010, 12, 31), activities[0].end_planned)
+        self.assertEqual(datetime.date(2010, 12, 31), activities[0].end_actual)
 
     def test_missing_reporting_org(self):
         # missing reporting org should still parse
@@ -762,8 +762,8 @@ class TestActivity(AppTestCase):
                 </iati-activity>
               </iati-activities>
                 '''))
-        self.assertEquals(1, len(activities))
-        self.assertEquals(u"AAA-AA", activities[0].iati_identifier)
+        self.assertEqual(1, len(activities))
+        self.assertEqual(u"AAA-AA", activities[0].iati_identifier)
 
 
 class TestTransaction(AppTestCase):
@@ -791,7 +791,7 @@ class TestTransaction(AppTestCase):
                 <transaction-type>Disbursement</transaction-type>
                 </transaction></activity>''')
         )
-        self.assertEquals(1, len(transactions))
+        self.assertEqual(1, len(transactions))
 
     def test_big_value(self):
         transaction = parse.transactions(
@@ -802,7 +802,7 @@ class TestTransaction(AppTestCase):
                 <transaction-type code="D">Disbursement</transaction-type>
                 </transaction></activity>''')
         )[0]
-        self.assertEquals(2663000000, transaction.value_amount)
+        self.assertEqual(2663000000, transaction.value_amount)
 
     @mock.patch('iatilib.parse.iati_decimal')
     def test_iati_int_called(self, mock):
@@ -814,7 +814,7 @@ class TestTransaction(AppTestCase):
                 <transaction-type code="D">Disbursement</transaction-type>
                 </transaction></activity>''')
         )[0]
-        self.assertEquals(1, mock.call_count)
+        self.assertEqual(1, mock.call_count)
 
     def test_provider_activity_id(self):
         sample = """<activity><transaction>
@@ -827,7 +827,7 @@ class TestTransaction(AppTestCase):
         </transaction></activity>
         """
         transaction = parse.transactions(ET.XML(sample))[0]
-        self.assertEquals(u'GB-1-202907', transaction.provider_org_activity_id)
+        self.assertEqual(u'GB-1-202907', transaction.provider_org_activity_id)
 
     def test_provider_org_text(self):
         sample = """<activity><transaction>
@@ -838,7 +838,7 @@ class TestTransaction(AppTestCase):
         </transaction></activity>
         """
         transaction = parse.transactions(ET.XML(sample))[0]
-        self.assertEquals(u'DFID', transaction.provider_org_text)
+        self.assertEqual(u'DFID', transaction.provider_org_text)
 
     def test_receiver_activity_id(self):
         sample = """<activity><transaction>
@@ -849,7 +849,7 @@ class TestTransaction(AppTestCase):
           </transaction></activity>
         """
         transaction = parse.transactions(ET.XML(sample))[0]
-        self.assertEquals(u'GB-CHC-1068839-dfid_ag_11-13', transaction.receiver_org_activity_id)
+        self.assertEqual(u'GB-CHC-1068839-dfid_ag_11-13', transaction.receiver_org_activity_id)
 
     def test_receiver_org_text(self):
         sample = """<activity><transaction>
@@ -860,7 +860,7 @@ class TestTransaction(AppTestCase):
         </transaction></activity>
         """
         transaction = parse.transactions(ET.XML(sample))[0]
-        self.assertEquals(u'Bond', transaction.receiver_org_text)
+        self.assertEqual(u'Bond', transaction.receiver_org_text)
 
     def test_description(self):
         sample = """<activity><transaction>
@@ -870,30 +870,30 @@ class TestTransaction(AppTestCase):
           <transaction-date iso-date="2011-08-19"/>
         </transaction></activity>"""
         transaction = parse.transactions(ET.XML(sample))[0]
-        self.assertEquals(
+        self.assertEqual(
                 u'Funds received from DFID for activities in Aug- Sept 2011',
                 transaction.description
         )
 
     def test_flow_type(self):
         transaction = parse.transactions(ET.XML(self.codelists))[0]
-        self.assertEquals(u'30', transaction.flow_type.value)
+        self.assertEqual(u'30', transaction.flow_type.value)
 
     def test_finance_type(self):
         transaction = parse.transactions(ET.XML(self.codelists))[0]
-        self.assertEquals(u'110', transaction.finance_type.value)
+        self.assertEqual(u'110', transaction.finance_type.value)
 
     def test_aid_type(self):
         transaction = parse.transactions(ET.XML(self.codelists))[0]
-        self.assertEquals(u'B01', transaction.aid_type.value)
+        self.assertEqual(u'B01', transaction.aid_type.value)
 
     def test_tied_status(self):
         transaction = parse.transactions(ET.XML(self.codelists))[0]
-        self.assertEquals(u'5', transaction.tied_status.value)
+        self.assertEqual(u'5', transaction.tied_status.value)
 
     def test_disbursement_channel(self):
         transaction = parse.transactions(ET.XML(self.codelists))[0]
-        self.assertEquals(u'2', transaction.disbursement_channel.value)
+        self.assertEqual(u'2', transaction.disbursement_channel.value)
 
 
 class TestBudget(TestCase):
@@ -909,7 +909,7 @@ class TestBudget(TestCase):
 
     def test_budget_type(self):
         budget = self.parse_budget()
-        self.assertEquals(budget.type, cl.BudgetType.original)
+        self.assertEqual(budget.type, cl.BudgetType.original)
 
     def test_budget_type_looser(self):
         budget = parse.budgets(ET.XML("""
@@ -920,65 +920,65 @@ class TestBudget(TestCase):
             </budget>
             </wrapper>
         """))[0]
-        self.assertEquals(budget.type, cl.BudgetType.original)
+        self.assertEqual(budget.type, cl.BudgetType.original)
 
     def test_budget_period_end(self):
         budget = self.parse_budget()
-        self.assertEquals(budget.period_end, datetime.date(2010, 3, 31))
+        self.assertEqual(budget.period_end, datetime.date(2010, 3, 31))
 
     def test_budget_period_start(self):
         budget = self.parse_budget()
-        self.assertEquals(budget.period_start, None)
+        self.assertEqual(budget.period_start, None)
 
     def test_value_currency(self):
         budget = self.parse_budget()
-        self.assertEquals(budget.value_currency, cl.Currency.us_dollar)
+        self.assertEqual(budget.value_currency, cl.Currency.us_dollar)
 
     def test_value_amount(self):
         budget = self.parse_budget()
-        self.assertEquals(budget.value_amount, 1840852)
+        self.assertEqual(budget.value_amount, 1840852)
 
 
 class TestDates(TestCase):
     def test_correct_date(self):
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2010, 1, 2),
             parse.iati_date("2010-01-02"))
 
     def test_variation_1(self):
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2011, 12, 31),
             parse.iati_date("31/12/2011"))
 
     def test_iso_date_with_z(self):
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2010, 1, 2),
             parse.iati_date("2010-01-02Z"))
 
     def test_iso_date_with_timezone(self):
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2010, 1, 2),
             parse.iati_date("2010-01-02+06:00"))
-        self.assertEquals(
+        self.assertEqual(
             datetime.date(2010, 1, 2),
             parse.iati_date("2010-01-02-06:00"))
 
 
 class TestValue(TestCase):
     def test_thousand_sep(self):
-        self.assertEquals(20026, parse.iati_int(u"20,026"))
+        self.assertEqual(20026, parse.iati_int(u"20,026"))
 
     def test_sign(self):
-        self.assertEquals(-20026, parse.iati_int(u"-20026"))
+        self.assertEqual(-20026, parse.iati_int(u"-20026"))
 
     def test_decimal_thousand_sep(self):
-        self.assertEquals(Decimal('20026'), parse.iati_decimal(u"20,026"))
+        self.assertEqual(Decimal('20026'), parse.iati_decimal(u"20,026"))
 
     def test_decimal_sign(self):
-        self.assertEquals(Decimal('-20026'), parse.iati_decimal(u"-20026"))
+        self.assertEqual(Decimal('-20026'), parse.iati_decimal(u"-20026"))
 
     def test_decimal(self):
-        self.assertEquals(Decimal('42479.4'), parse.iati_decimal(u"42479.4"))
+        self.assertEqual(Decimal('42479.4'), parse.iati_decimal(u"42479.4"))
 
 
 class TestXVal(TestCase):
@@ -987,6 +987,6 @@ class TestXVal(TestCase):
             parse.xval(ET.XML(u"<foo />"), "bar")
 
     def test_default_val(self):
-        self.assertEquals(
+        self.assertEqual(
             None,
             parse.xval(ET.XML(u"<foo />"), "bar", None))
