@@ -98,7 +98,6 @@
         "label": "Reproduire les lignes",
         "options": [
           {
-            "value": "",
             "text": "Non",
             "description": "L’information n’est pas désagrégée."
           },
@@ -166,7 +165,6 @@
       "description": "Un objectif politique ou thème abordé par l’activité, selon les marqueurs de l’OCDE CAD.",
       "code": {
         "label": "Marqueur d’objectifs politiques",
-        "description": "",
         "placeholder": "Tous les marqueurs d’objectifs politiques"
       },
       "significance": {
@@ -178,7 +176,6 @@
       "label": "Pays ou région bénéficiaire",
       "country": {
         "label": "Pays bénéficiaire",
-        "description": "",
         "placeholder": "Tous les pays beneficiaires"
       },
       "region": {
