@@ -101,7 +101,6 @@
         "label": "Repete linhas",
         "options": [
           {
-            "value": "",
             "text": "Não",
             "description": "Informação não desagregada."
           },
@@ -169,7 +168,6 @@
       "description": "A política ou tema abordado pela atividade, de acordo com os marcadores de política OECD DAC CRS.",
       "code": {
         "label": "Marcador de política",
-        "description": "",
         "placeholder": "Todos os marcadores de política"
       },
       "significance": {
@@ -181,7 +179,6 @@
       "label": "País ou região destinatário",
       "country": {
         "label": "País destinatário",
-        "description": "",
         "placeholder": "Todos países destinatários"
       },
       "region": {
