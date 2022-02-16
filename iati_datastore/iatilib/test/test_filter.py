@@ -820,3 +820,41 @@ class TestBudgetFilter(AppTestCase):
         })
         self.assertIn(budget_in, budgets.all())
         self.assertNotIn(budget_not, budgets.all())
+
+
+class TestParticipatingOrgWithRoleFilter(AppTestCase):
+    def test_participating_org_role_1_ref(self):
+        act_in = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__ref=u"AAA",
+                        role="1")
+                ])
+        activities = dsfilter.activities({
+            "participating-org-role-1.ref": "AAA"
+        })
+        self.assertIn(act_in, activities.all())
+
+    def test_participating_org_role_1_text(self):
+        act_in = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__name=u"An Organisation",
+                        role="1")
+                ])
+        activities = dsfilter.activities({
+            "participating-org-role-1.text": "An Organisation"
+        })
+        self.assertIn(act_in, activities.all())
+
+    def test_participating_org_role_1_type(self):
+        act_in = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__type=u"10",
+                        role="1")
+                ])
+        activities = dsfilter.activities({
+            "participating-org-role-1.type": "10"
+        })
+        self.assertIn(act_in, activities.all())
