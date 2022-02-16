@@ -112,6 +112,36 @@ def _filter(query, args):
             Participation.role == role
         )
 
+    def participating_org_with_role(organisation, role='1'):
+        return Activity.participating_orgs.any(
+            and_(
+                Participation.organisation.has(
+                    Organisation.ref == organisation
+                ),
+                Participation.role == role
+            )
+        )
+
+    def participating_org_with_role_name(organisation, role='1'):
+        return Activity.participating_orgs.any(
+            and_(
+                Participation.organisation.has(
+                    Organisation.name == organisation
+                ),
+                Participation.role == role
+            )
+        )
+
+    def participating_org_with_role_type(organisation_type, role='1'):
+        return Activity.participating_orgs.any(
+            and_(
+                Participation.organisation.has(
+                    Organisation.type == organisation_type
+                ),
+                Participation.role == role
+            )
+        )
+
     def sector(sector_code):
         return or_(
             Activity.sector_percentages.any(
@@ -273,6 +303,22 @@ def _filter(query, args):
             'last-updated-datetime__gt': partial(gt, Activity.last_updated_datetime),
             'last-updated-datetime__lt': partial(lt, Activity.last_updated_datetime),
             'registry-dataset': registry_dataset,
+            'participating-org-role-1': partial(participating_org_with_role, role='1'),
+            'participating-org-role-1.ref': partial(participating_org_with_role, role='1'),
+            'participating-org-role-1.text': partial(participating_org_with_role_name, role='1'),
+            'participating-org-role-1.type': partial(participating_org_with_role_type, role='1'),
+            'participating-org-role-2': partial(participating_org_with_role, role='2'),
+            'participating-org-role-2.ref': partial(participating_org_with_role, role='2'),
+            'participating-org-role-2.text': partial(participating_org_with_role_name, role='2'),
+            'participating-org-role-2.type': partial(participating_org_with_role_type, role='2'),
+            'participating-org-role-3': partial(participating_org_with_role, role='3'),
+            'participating-org-role-3.ref': partial(participating_org_with_role, role='3'),
+            'participating-org-role-3.text': partial(participating_org_with_role_name, role='3'),
+            'participating-org-role-3.type': partial(participating_org_with_role_type, role='3'),
+            'participating-org-role-4': partial(participating_org_with_role, role='4'),
+            'participating-org-role-4.ref': partial(participating_org_with_role, role='4'),
+            'participating-org-role-4.text': partial(participating_org_with_role_name, role='4'),
+            'participating-org-role-4.type': partial(participating_org_with_role_type, role='4'),
     }
 
     for filter, search_string in args.items():

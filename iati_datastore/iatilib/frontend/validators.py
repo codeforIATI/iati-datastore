@@ -86,6 +86,22 @@ activity_api_schema = {
     'last-updated-datetime__gt': apidate,
     'last-updated-datetime__lt': apidate,
     'registry-dataset': v.All(v.Coerce(str)),
+    'participating-org-role-1': v.All(v.Coerce(str)),
+    'participating-org-role-1.ref': v.All(v.Coerce(str)),
+    'participating-org-role-1.text': v.All(v.Coerce(str)),
+    'participating-org-role-1.type': v.All(v.Coerce(str)),
+    'participating-org-role-2': v.All(v.Coerce(str)),
+    'participating-org-role-2.ref': v.All(v.Coerce(str)),
+    'participating-org-role-2.text': v.All(v.Coerce(str)),
+    'participating-org-role-2.type': v.All(v.Coerce(str)),
+    'participating-org-role-3': v.All(v.Coerce(str)),
+    'participating-org-role-3.ref': v.All(v.Coerce(str)),
+    'participating-org-role-3.text': v.All(v.Coerce(str)),
+    'participating-org-role-3.type': v.All(v.Coerce(str)),
+    'participating-org-role-4': v.All(v.Coerce(str)),
+    'participating-org-role-4.ref': v.All(v.Coerce(str)),
+    'participating-org-role-4.text': v.All(v.Coerce(str)),
+    'participating-org-role-4.type': v.All(v.Coerce(str)),
 }
 activity_api_args = v.Schema({**pagination_schema, **activity_api_schema})
 
