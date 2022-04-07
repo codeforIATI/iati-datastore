@@ -361,7 +361,12 @@ def transactions_by_sector(args):
     return _filter(
         db.session.query(Transaction, SectorPercentage)
         .join(Activity, Activity.iati_identifier==Transaction.activity_id)
-        .join(SectorPercentage),
+        .join(SectorPercentage)
+        .options(
+            orm.selectinload(Transaction.recipient_country_percentages),
+            orm.selectinload(Transaction.recipient_region_percentages),
+            orm.selectinload(Transaction.sector_percentages),
+        ),
         args
     )
 
