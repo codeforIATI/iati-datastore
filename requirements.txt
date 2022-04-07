@@ -27,3 +27,5 @@ sentry-sdk[flask]==1.3.1
 docutils==0.17.1
 PyExcelerate==0.10.0
 itsdangerous==2.0.1
+# 3.1 removes some code we use - until we can fix this, lock to earlier version
+Jinja2>=3.0,<3.1
