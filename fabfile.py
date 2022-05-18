@@ -22,6 +22,8 @@ def deploy(conn):
         conn.run('iati db upgrade')
         # build the docs
         conn.run('iati build-docs')
+        # create translations
+        conn.run('(cd iati_datastore/iatilib && pybabel compile -d translations)')
         # build the query builder
         conn.run('iati build-query-builder --deploy-url https://datastore.codeforiati.org')
         # webserver

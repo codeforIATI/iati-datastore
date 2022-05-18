@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from flask_babel import Babel
 from flask_cors import CORS
 
 from iatilib import db, rq, migrate
@@ -13,6 +14,8 @@ from iatilib.queue import manager as queue_manager
 def create_app(config_object='iatilib.config.Config'):
     app = Flask(__name__.split('.')[0])
     app.config.from_object(config_object)
+    babel = Babel(app, configure_jinja=False)
+    babel.localeselector(get_locale)
     register_extensions(app)
     register_blueprints(app)
     register_error_handlers(app)
@@ -40,3 +43,7 @@ def register_error_handlers(app):
     for code in (500, 501, 502, 503, 504):
         app.register_error_handler(
             code, lambda x: (render_template('error/5xx.html'), code))
+
+
+def get_locale():
+    return request.args.get("locale", "en")

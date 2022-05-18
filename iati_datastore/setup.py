@@ -24,6 +24,7 @@ Click==7.1.2
 sentry-sdk[flask]==1.3.1
 docutils==0.17.1
 PyExcelerate==0.10.0
+Flask-Babel==2.0.0
 """
 
 tests_require = """

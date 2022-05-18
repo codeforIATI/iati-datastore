@@ -2,6 +2,8 @@
 /iati_datastore/iatilib/frontend/docs
 /iati_datastore/iatilib/frontend/querybuilder
 /dump.rdb
+/iati_datastore/iatilib/messages.pot
+/iati_datastore/iatilib/translations/*/LC_MESSAGES/messages.mo
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

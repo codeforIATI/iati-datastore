@@ -7,6 +7,7 @@ from operator import attrgetter
 from iatilib import codelists
 from pyexcelerate import Workbook
 from openpyxl_copy.utils import get_column_letter
+from flask_babel import gettext
 
 
 def total(column):
@@ -414,7 +415,7 @@ class CSVSerializer(object):
             writer = unicodecsv.writer(out)
             writer.writerow(row)
             return out.getvalue()
-        yield line(self.fields_by_major_version['1'].keys())
+        yield line([gettext(label) for label in self.fields_by_major_version['1'].keys()])
         get_major_version = self.get_major_version
         for obj in data.items:
             row = [accessor(obj) for accessor in self.fields_by_major_version[get_major_version(obj)].values()]
@@ -436,7 +437,7 @@ class XLSXSerializer(object):
         wb = Workbook()
         ws = wb.new_sheet("data")
         # Headers
-        headers = self.fields_by_major_version['1'].keys()
+        headers = [gettext(label) for label in self.fields_by_major_version['1'].keys()]
         final_column = get_column_letter(len(headers))
         ws.range("A1", final_column+"1").value = [headers]
         # Data

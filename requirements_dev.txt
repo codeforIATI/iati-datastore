@@ -17,6 +17,7 @@ alembic==1.7.7
 babel==2.10.1
     # via
     #   -r requirements.txt
+    #   flask-babel
     #   sphinx
 blinker==1.4
     # via
@@ -70,12 +71,17 @@ fakeredis==1.4.5
 flask==1.1.2
     # via
     #   -r requirements.txt
+    #   flask-babel
     #   flask-cors
     #   flask-migrate
     #   flask-rq2
     #   flask-sqlalchemy
     #   iati-datastore
     #   sentry-sdk
+flask-babel==2.0.0
+    # via
+    #   -r requirements.txt
+    #   iati-datastore
 flask-cors==3.0.9
     # via
     #   -r requirements.txt
@@ -134,6 +140,7 @@ jinja2==3.0.3
     # via
     #   -r requirements.txt
     #   flask
+    #   flask-babel
     #   pyexcelerate
     #   sphinx
 lxml==4.6.2
@@ -195,6 +202,7 @@ pytz==2022.1
     # via
     #   -r requirements.txt
     #   babel
+    #   flask-babel
 redis==3.5.3
     # via
     #   -r requirements.txt

@@ -594,6 +594,7 @@ export default {
         _urlQueryFilters.push(['limit', '1'])
       }
       _urlQueryFilters.push(['ref', 'qb'])
+      _urlQueryFilters.push(['locale', this.$i18n.locale])
       const _params = _urlQueryFilters.map(item => {
         return `${item[0]}=${item[1]}`
       }).join("&")

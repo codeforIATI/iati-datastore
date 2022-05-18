@@ -1,9 +1,8 @@
 import datetime
-from unittest import TestCase
 from collections import namedtuple
 
 from . import CSVTstMixin as _CSVTstMixin
-from iatilib.test import factories as fac
+from iatilib.test import factories as fac, AppTestCaseNoDb
 
 from iatilib.frontend import serialize
 from iatilib import codelists as cl
@@ -65,7 +64,7 @@ def example():
     return activity
 
 
-class TestCSVTransactionExample(TestCase, CSVTstMixin):
+class TestCSVTransactionExample(AppTestCaseNoDb, CSVTstMixin):
     def test_column_list(self):
         data = self.process([
             fac.TransactionFactory.build()
@@ -630,7 +629,7 @@ class TestCSVTransactionExample(TestCase, CSVTstMixin):
 cl2 = cl.by_major_version['2']
 
 
-class TestCSVTransactionExample2(TestCase, CSVTstMixin):
+class TestCSVTransactionExample2(AppTestCaseNoDb, CSVTstMixin):
     def test_transaction_sector_vocabulary(self):
         data = self.process([fac.TransactionFactory.build(
             sector_percentages=[
@@ -727,7 +726,7 @@ class TestCSVTransactionExample2(TestCase, CSVTstMixin):
         self.assertField({"participating-org-type-code (Extending)": "60"}, data[0])
 
 
-class TestTransactionByCountry(TestCase, CSVTstMixin):
+class TestTransactionByCountry(AppTestCaseNoDb, CSVTstMixin):
     def serialize(self, data):
         return serialize.csv_transaction_by_country(data)
 
@@ -761,7 +760,7 @@ class TestTransactionByCountry(TestCase, CSVTstMixin):
         self.assertField({"iati-identifier": "GB-1-123"}, data[2])
 
 
-class TestTransactionBySector(TestCase, CSVTstMixin):
+class TestTransactionBySector(AppTestCaseNoDb, CSVTstMixin):
     def serialize(self, data):
         return serialize.csv_transaction_by_sector(data)
 

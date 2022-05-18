@@ -1,10 +1,9 @@
 import datetime
-from unittest import TestCase
 from collections import namedtuple
 
 from . import CSVTstMixin as _CSVTstMixin
 
-from iatilib.test import factories as fac
+from iatilib.test import factories as fac, AppTestCaseNoDb
 from iatilib.frontend import serialize
 from iatilib import codelists as cl
 
@@ -70,7 +69,7 @@ def example():
     return activity
 
 
-class TestCSVBudgetExample(TestCase, CSVTstMixin):
+class TestCSVBudgetExample(AppTestCaseNoDb, CSVTstMixin):
     # See example here: https://docs.google.com/a/okfn.org/spreadsheet/ccc?key=0AqR8dXc6Ji4JdHJIWDJtaXhBV0IwOG56N0p1TE04V2c&usp=sharing#gid=5
     def test_start(self):
         data = self.process([
@@ -208,7 +207,7 @@ class TestCSVBudgetExample(TestCase, CSVTstMixin):
         self.assertField({"sector-percentage": "20"}, data[0])
 
 
-class TestBudgetByCountry(TestCase, CSVTstMixin):
+class TestBudgetByCountry(AppTestCaseNoDb, CSVTstMixin):
     def serialize(self, data):
         return serialize.csv_budget_by_country(data)
 
@@ -252,7 +251,7 @@ class TestBudgetByCountry(TestCase, CSVTstMixin):
         self.assertField({"iati-identifier": "GB-1-123"}, data[2])
 
 
-class TestBudgetBySector(TestCase, CSVTstMixin):
+class TestBudgetBySector(AppTestCaseNoDb, CSVTstMixin):
     def serialize(self, data):
         return serialize.csv_budget_by_sector(data)
 
