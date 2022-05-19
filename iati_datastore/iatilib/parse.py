@@ -224,6 +224,59 @@ def currency(path, xml, resource=None, major_version='1'):
         return None
 
 
+def title_all_values(xml, resource=None, major_version='1'):
+    ret = {}
+    try:
+        if major_version == '1':
+            for ele in xml.xpath("./title"):
+                lang = xval(ele, "@xml:lang", "default")
+                value = xval(ele, "text()")
+                ret[lang] = value
+        else:
+            for ele in xml.xpath("./title/narrative"):
+                lang = xval(ele, "@xml:lang", "default")
+                value = xval(ele, "text()")
+                ret[lang] = value
+    except ValueError as e:
+        iati_identifier = xval(xml, "./iati-identifier/text()", 'no_identifier')
+        log.warn(
+            _(u"Failed to get all title values in activity {0}, error was: {1}".format(iati_identifier, e),
+              logger='activity_importer', dataset=resource.dataset_id, resource=resource.url),
+            exc_info=e
+        )
+    return ret
+
+
+def description_all_values(xml, resource=None, major_version='1'):
+    ret = {}
+    try:
+        for ele in xml.xpath("./description"):
+            if major_version == '1':
+                lang = xval(ele, "@xml:lang", "default")
+                type = xval(ele, "@type", "default")
+                value = xval(ele, "text()")
+                if lang not in ret:
+                    ret[lang] = {}
+                ret[lang][type] = value
+            else:
+                type = xval(ele, "@type", "default")
+                for eleNarrative in ele.xpath("./narrative"):
+                    lang = xval(eleNarrative, "@xml:lang", "default")
+                    value = xval(eleNarrative, "text()")
+                    if lang not in ret:
+                        ret[lang] = {}
+                    ret[lang][type] = value
+    except ValueError as e:
+        print(e)
+        iati_identifier = xval(xml, "./iati-identifier/text()", 'no_identifier')
+        log.warn(
+            _(u"Failed to get all description values in activity {0}, error was: {1}".format(iati_identifier, e),
+              logger='activity_importer', dataset=resource.dataset_id, resource=resource.url),
+            exc_info=e
+        )
+    return ret
+
+
 def transactions(xml, resource=no_resource, major_version='1'):
     def from_cl(code, codelist):
         return codelist.from_string(code) if code is not None else None
@@ -500,6 +553,8 @@ def activity(xml, resource=no_resource, major_version='1', version=None):
         'default_tied_status': default_tied_status,
         'major_version': lambda *args, **kwargs: major_version,
         'version': lambda *args, **kwargs: version,
+        'title_all_values': title_all_values,
+        'description_all_values': description_all_values,
     }
 
     for field, function in field_functions.items():
@@ -510,6 +565,8 @@ def activity(xml, resource=no_resource, major_version='1', version=None):
                 'recipient_region_percentages', 'sector_percentages', 'transactions',
                 'budgets', 'policy_markers', 'related_activities']:
                 data[field] = []
+            elif field in ['title_all_value', 'description_all_values']:
+                data[field] = {}
             else:
                 data[field] = None
             log.warn(
