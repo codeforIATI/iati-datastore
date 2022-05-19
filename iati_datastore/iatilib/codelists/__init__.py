@@ -29,7 +29,7 @@ def iati_url(name):
     }
 
 
-# Run "iati download_codelists" after adding an entry here to download the
+# Run "iati download-codelists" after adding an entry here to download the
 # codelist file
 urls = {}
 urls['1'] = {
