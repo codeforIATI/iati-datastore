@@ -116,7 +116,11 @@ class Activity(db.Model):
     end_planned = sa.Column(sa.Date, nullable=True)
     end_actual = sa.Column(sa.Date, nullable=True)
     title = sa.Column(sa.Unicode, default=u"", nullable=False)
+    # Collect multiple title values. Key is lang attribute.
+    title_all_values = sa.Column(JSONB, nullable=True)
     description = sa.Column(sa.Unicode, default=u"", nullable=False)
+    # Collect multiple title values. First key is lang attribute. Second key is description type.
+    description_all_values = sa.Column(JSONB, nullable=True)
     default_currency = sa.Column(codelists.Currency.db_type())
     raw_xml = sa.Column(
             sa.UnicodeText,

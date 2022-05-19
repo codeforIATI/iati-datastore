@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<iati-activities generated-datetime="2014-09-10T07:15:37Z" version="2.01" linked-data-default="http://data.example.org/">
+ <iati-activity xml:lang="en" default-currency="USD" last-updated-datetime="2014-09-10T07:15:37Z" linked-data-uri="http://data.example.org/123456789" hierarchy="1">
+  <iati-identifier>AA-AAA-123456789-ABC123</iati-identifier>
+  <reporting-org ref="AA-AAA-123456789" type="40" secondary-reporter="0">
+	  <narrative>Organisation name</narrative>
+	  <narrative xml:lang="fr">Nom de l'organisme</narrative>
+  </reporting-org>
+  <title>
+   <narrative>Activity title</narrative>
+   <narrative xml:lang="fr">Titre de l'activité</narrative>
+   <narrative xml:lang="es">Título de la actividad</narrative>
+  </title>
+  <description type="1">
+   <narrative>General activity description text.  Long description of the activity with no particular structure.</narrative>
+   <narrative xml:lang="fr">Activité générale du texte de description. Longue description de l'activité sans structure particulière.</narrative>
+   <narrative xml:lang="es">Texte de description générale de l'activité. Description longue de l'activité sans structure particulière.</narrative>
+  </description>
+  <description type="2">
+   <narrative>Objectives for the activity, for example from a logical framework.</narrative>
+   <narrative xml:lang="fr">Objectifs de l'activité, par exemple à partir d'un cadre logique.</narrative>
+   <narrative xml:lang="es">Objetivos para la actividad, por ejemplo a partir de un marco lógico.</narrative>
+  </description>
+  <description type="3">
+   <narrative>Statement of groups targeted to benefit from the activity.</narrative>
+   <narrative xml:lang="fr">Déclaration de groupes ciblés pour bénéficier de l'activité.</narrative>
+   <narrative xml:lang="es">Declaración de grupos destinatarios de la actividad.</narrative>
+  </description>
+ </iati-activity>
+</iati-activities>
