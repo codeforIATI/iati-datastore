@@ -287,6 +287,7 @@ class DataStoreView(MethodView):
         if not hasattr(self, "_valid_args"):
             args = MultiDict(request.args)
             args.pop("ref", None)
+            args.pop("locale", None)
             self._valid_args = validators.activity_api_args(args)
         return self._valid_args
 
