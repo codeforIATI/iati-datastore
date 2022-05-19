@@ -33,15 +33,19 @@ def cli():
 def download_codelists():
     "Download CSV codelists from IATI"
     for major_version in ['1', '2']:
-        for name, url in codelists.urls[major_version].items():
-            filename = "iati_datastore/iatilib/codelists/%s/%s.csv" % (major_version, name)
-            print("Downloading %s.xx %s" % (major_version, name))
-            resp = requests.get(url[major_version])
-            resp.raise_for_status()
-            resp.encoding = "utf-8"
-            assert len(resp.text) > 0, "Response is empty"
-            with codecs.open(filename, "w", encoding=resp.encoding) as cl:
-                cl.write(resp.text)
+        for locale in codelists.LOCALES:
+            for name, url in codelists.urls[major_version].items():
+                if locale == 'en':
+                    filename = "iati_datastore/iatilib/codelists/%s/%s.csv" % (major_version, name)
+                else:
+                    filename = "iati_datastore/iatilib/codelists/%s/%s.%s.csv" % (major_version, name, locale)
+                print("Downloading %s.xx %s %s" % (major_version, name, locale))
+                resp = requests.get(url[major_version].replace("LOCALE", locale))
+                resp.raise_for_status()
+                resp.encoding = "utf-8"
+                assert len(resp.text) > 0, "Response is empty"
+                with codecs.open(filename, "w", encoding=resp.encoding) as cl:
+                    cl.write(resp.text)
 
 
 @cli.command()

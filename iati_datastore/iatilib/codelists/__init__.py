@@ -19,12 +19,13 @@ from unidecode import unidecode
 
 from .enum import DeclEnum
 
+LOCALES = ['en', 'fr', 'pt']
 
 def iati_url(name):
     return {
-        '1': ("https://codelists.codeforiati.org/api/1/clv2/csv/en/" +
+        '1': ("https://codelists.codeforiati.org/api/1/clv2/csv/LOCALE/" +
               "%s.csv" % (name)),
-        '2': ("https://codelists.codeforiati.org/api/clv2/csv/en/" +
+        '2': ("https://codelists.codeforiati.org/api/clv2/csv/LOCALE/" +
               "%s.csv" % (name)),
     }
 
@@ -59,7 +60,8 @@ urls['2']['Vocabulary'] = iati_url("SectorVocabulary")
 
 data_dir = os.path.dirname(__file__)
 
-
+#------------------------------------------------ Old way of loading information in "en" locale.
+# Left for backwards compatibility
 def ident(name):
     "(Python) identifier for `name`"
     return ''.join(s for s in unidecode(name) if s.isalnum() or s.isspace())\
