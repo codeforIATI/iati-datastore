@@ -327,3 +327,23 @@ Generation of the front page and query builder
 By default, the query builder will look for files served from http://127.0.0.1:5000 - if you would like to point it elsewhere (e.g. to https://datastore.codeforiati.org) then you should add the argument `deploy-url`:
 
     iati build-query-builder --deploy-url https://datastore.codeforiati.org
+
+
+Python Requirements
+-------------------
+
+To update requirements, use pip-compile.
+
+Make sure you are in a Python 3.8 virtual environment, and run:
+
+    pip install pip-tools
+    pip-compile requirements.in 
+    pip-compile requirements_dev.in 
+
+Then in the 2 requirements*.txt files, look for the line:
+
+    -e file:///vagrant/iati_datastore
+
+And edit them to:
+
+    -e iati_datastore

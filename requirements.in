@@ -1,0 +1,35 @@
+-e ./iati_datastore
+
+# If you update these, also update iati_datastore/setup.py
+# These are duplicated here so that requires.io will flag out of date dependencies
+Flask==1.1.2
+Flask-SQLAlchemy==2.4.4
+iatikit==3.3.0
+lxml==4.6.2
+python-dateutil==2.8.1
+six==1.15.0
+voluptuous>=0.12.0
+gunicorn==20.0.4
+Unidecode==1.1.1
+requests==2.25.0
+xmltodict==0.12.0
+gevent>=20.9.0
+Markdown==3.3.3
+Flask-RQ2==18.3
+psycopg2==2.8.6
+Sphinx==3.3.1
+sphinx-rtd-theme==0.5.0
+Flask-Cors==3.0.9
+Flask-Migrate==2.5.3
+Click==7.1.2
+sentry-sdk[flask]==1.3.1
+# docutils 0.18 creates a bug - until we can fix this, lock to earlier version
+docutils==0.17.1
+PyExcelerate==0.10.0
+itsdangerous==2.0.1
+# 3.1 removes some code we use - until we can fix this, lock to earlier version
+Jinja2>=3.0,<3.1
+# 2.1 removes some code we use - until we can fix this, lock to earlier version
+Werkzeug>=2.0,<2.1
+# This is version currently on live server when requirements work set up - to avoid issues, pick that
+redis>=3.5,<3.6

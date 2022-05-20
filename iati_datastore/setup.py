@@ -35,6 +35,7 @@ factory-boy==3.1.0
 coveralls==2.2.0
 coverage==5.3
 openpyxl==3.0.9
+pip-tools
 """
 
 
