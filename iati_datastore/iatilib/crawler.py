@@ -306,7 +306,10 @@ def update_dataset(dataset_name, ignore_hashes):
     if resource.last_status_code == 200 and not resource.last_parsed:
         queue.enqueue(
             update_activities, args=(dataset_name,),
-            result_ttl=0, job_timeout=100000)
+            result_ttl=0, job_timeout=100000,
+            # See https://github.com/codeforIATI/iati-datastore/issues/285 for discussion of at_front=True
+            at_front=True
+        )
 
 
 def status_line(msg, filt, tot):
