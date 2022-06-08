@@ -88,7 +88,7 @@ A Vagrant box is also provided. `vagrant up` as normal, then `vagrant ssh`.
 
 ```
 # Run the tests
-nosetests iati_datastore
+nosetests --exe iati_datastore
 
 # Create the db tables
 iati db upgrade
