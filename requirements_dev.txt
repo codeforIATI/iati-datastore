@@ -22,6 +22,8 @@ blinker==1.4
     # via
     #   -r requirements.txt
     #   sentry-sdk
+build==0.8.0
+    # via pip-tools
 certifi==2022.5.18.1
     # via
     #   -r requirements.txt
@@ -163,10 +165,11 @@ openpyxl==3.0.9
 packaging==21.3
     # via
     #   -r requirements.txt
+    #   build
     #   sphinx
 pep517==0.12.0
-    # via pip-tools
-pip-tools==6.6.1
+    # via build
+pip-tools==6.8.0
     # via -r requirements_dev.in
 psycopg2==2.8.6
     # via
@@ -274,7 +277,9 @@ sqlalchemy==1.4.36
     #   alembic
     #   flask-sqlalchemy
 tomli==2.0.1
-    # via pep517
+    # via
+    #   build
+    #   pep517
 unidecode==1.1.1
     # via
     #   -r requirements.txt
