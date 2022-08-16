@@ -347,3 +347,22 @@ Then in the 2 requirements*.txt files, look for the line:
 And edit them to:
 
     -e iati_datastore
+
+I18N - Flask Application
+------------------------
+
+    cd iati_datastore/iatilib
+
+To add a new locale:
+
+    pybabel extract -F babel.cfg -o messages.pot .
+    pybabel init -i messages.pot -d translations -l fr
+
+If strings change in app and you want to reparse the app for new strings, run:
+
+    pybabel extract -F babel.cfg  -k lazy_gettext -o messages.pot .
+    pybabel update -i messages.pot -d translations
+
+When .po files change with new content, or when deploying the app:
+
+    pybabel compile -d translations

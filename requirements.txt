@@ -11,7 +11,9 @@ alabaster==0.7.12
 alembic==1.7.7
     # via flask-migrate
 babel==2.10.1
-    # via sphinx
+    # via
+    #   flask-babel
+    #   sphinx
 blinker==1.4
     # via sentry-sdk
 certifi==2022.5.18.1
@@ -38,12 +40,15 @@ docutils==0.17.1
 flask==1.1.2
     # via
     #   -r requirements.in
+    #   flask-babel
     #   flask-cors
     #   flask-migrate
     #   flask-rq2
     #   flask-sqlalchemy
     #   iati-datastore
     #   sentry-sdk
+flask-babel==2.0.0
+    # via iati-datastore
 flask-cors==3.0.9
     # via
     #   -r requirements.in
@@ -93,6 +98,7 @@ jinja2==3.0.3
     # via
     #   -r requirements.in
     #   flask
+    #   flask-babel
     #   pyexcelerate
     #   sphinx
 lxml==4.6.2
@@ -131,7 +137,9 @@ python-dateutil==2.8.1
     #   iati-datastore
     #   rq-scheduler
 pytz==2022.1
-    # via babel
+    # via
+    #   babel
+    #   flask-babel
 redis==3.5.3
     # via
     #   -r requirements.in

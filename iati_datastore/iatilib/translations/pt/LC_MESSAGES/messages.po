@@ -1,0 +1,828 @@
+# Portuguese translations for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-07-20 15:19+0000\n"
+"PO-Revision-Date: 2022-05-18 10:35+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: pt\n"
+"Language-Team: pt <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.1\n"
+
+#: crawler.py:175
+msgid "Duplicate identifier {0} in same resource document"
+msgstr ""
+
+#: parse.py:135
+msgid ""
+"Failed to import a valid reporting-org.type in activity {0}, error was: "
+"{1}"
+msgstr ""
+
+#: parse.py:157
+msgid ""
+"Failed to import a valid sector percentage:{0} in activity {1}, error "
+"was: {2}"
+msgstr ""
+
+#: parse.py:258 parse.py:501
+msgid "Failed to import a valid {0} in activity {1}, error was: {2}"
+msgstr ""
+
+#: parse.py:273
+msgid "Failed to import a valid transaction in activity {0}, error was: {1}"
+msgstr ""
+
+#: parse.py:297
+msgid "uFailed to import a valid {0} in activity {1}, error was: {2}"
+msgstr ""
+
+#: parse.py:343
+msgid "uFailed to import a valid budget:{0} in activity {1}, error was: {2}"
+msgstr ""
+
+#: parse.py:377
+msgid "Failed to import a valid related-activity in activity {0}, error was: {1}"
+msgstr ""
+
+#: parse.py:535
+msgid "Failed to import a valid Activity error was: {0}"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "iati-identifier"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "hierarchy"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "last-updated-datetime"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "default-language"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "reporting-org"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "reporting-org-ref"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "reporting-org-type"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "reporting-org-type-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "title"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "description"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "activity-status-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "start-planned"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "end-planned"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "start-actual"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "end-actual"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org (Accountable)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-ref (Accountable)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-type (Accountable)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-type-code (Accountable)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org (Funding)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-ref (Funding)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-type (Funding)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-type-code (Funding)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org (Extending)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-ref (Extending)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-type (Extending)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-type-code (Extending)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org (Implementing)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-ref (Implementing)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-type (Implementing)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "participating-org-type-code (Implementing)"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#: frontend/serialize/csv.py:1
+msgid "recipient-country-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#: frontend/serialize/csv.py:1
+msgid "recipient-country"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#: frontend/serialize/csv.py:1
+msgid "recipient-country-percentage"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "recipient-region-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "recipient-region"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "recipient-region-percentage"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "sector-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "sector"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "sector-percentage"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "sector-vocabulary"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "sector-vocabulary-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "collaboration-type-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "default-finance-type-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "default-flow-type-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "default-aid-type-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "default-tied-status-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "default-currency"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "currency"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "total-Commitment"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "total-Disbursement"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "total-Expenditure"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "total-Incoming Funds"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "total-Interest Repayment"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "total-Loan Repayment"
+msgstr ""
+
+#. A CSV/Excel column header; in _activity_fields
+#. A CSV/Excel column header; in _activity_by_country_fields
+#. A CSV/Excel column header; in _activity_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "total-Reimbursement"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction-type"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction-date"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction-value"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_ref"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_value_currency"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_value_value-date"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_provider-org"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_provider-org_ref"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_provider-org_provider-activity-id"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_receiver-org"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_receiver-org_ref"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_receiver-org_receiver-activity-id"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_description"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_flow-type_code"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_finance-type_code"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_aid-type_code"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_tied-status_code"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_disbursement-channel_code"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_recipient-country-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_recipient-country"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_recipient-region-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_recipient-region"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_sector-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_sector"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_sector-vocabulary"
+msgstr ""
+
+#. A CSV/Excel column header; in _transaction_fields
+#. A CSV/Excel column header; in _transaction_by_country_fields
+#. A CSV/Excel column header; in _transaction_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "transaction_sector-vocabulary-code"
+msgstr ""
+
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "budget-period-start-date"
+msgstr ""
+
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "budget-period-end-date"
+msgstr ""
+
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "budget-value"
+msgstr ""
+
+#. A CSV/Excel column header; in _budget_fields
+#. A CSV/Excel column header; in _budget_by_country_fields
+#. A CSV/Excel column header; in _budget_by_sector_fields
+#: frontend/serialize/csv.py:1
+msgid "budget-type"
+msgstr ""
+

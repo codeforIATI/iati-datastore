@@ -28,6 +28,30 @@ class TestConfig(Config):
     RQ_CONNECTION_CLASS = "fakeredis.FakeStrictRedis"
 
 
+class AppTestCaseNoDb(unittest.TestCase):
+    def __init__(self, methodName='runTest'):
+        super().__init__(methodName)
+        self.addTypeEqualityFunc(lxml_etree.Element, self.assertXMLEqual)
+        self.addTypeEqualityFunc(xml_etree.Element, self.assertXMLEqual)
+
+    def setUp(self):
+        global _app
+        if _app is None:
+            _app = create_app(TestConfig)
+            _app.app_context().push()
+
+        self.app = _app
+        if os.environ.get("SA_ECHO", "False") == "True":
+            db.engine.echo = True
+
+    def assertXMLEqual(self, x1, x2, msg=None):
+        sio = StringIO()
+        if not xml_compare(x1, x2, sio.write):
+            if msg is None:
+                msg = sio.getvalue()
+            raise self.failureException(msg)
+
+
 class AppTestCase(unittest.TestCase):
     def __init__(self, methodName='runTest'):
         super().__init__(methodName)

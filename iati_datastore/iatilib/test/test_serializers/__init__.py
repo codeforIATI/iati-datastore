@@ -13,7 +13,8 @@ def load_csv(data):
 
 class CSVTstMixin(object):
     def process(self, data):
-        csv_str = u"".join(self.serialize(TestWrapper(data, 0, 0, 0))).encode('utf-8')
+        with self.app.test_request_context('/'):
+            csv_str = u"".join(self.serialize(TestWrapper(data, 0, 0, 0))).encode('utf-8')
         return load_csv(csv_str)
 
     def serialize(self, data):

@@ -1,18 +1,17 @@
 import datetime
 import inspect
-from unittest import TestCase
 from collections import namedtuple
 
 from . import CSVTstMixin as _CSVTstMixin
 
-from iatilib.test import factories as fac
+from iatilib.test import factories as fac, AppTestCaseNoDb
 
 
 from iatilib.frontend import serialize
 from iatilib import codelists as cl
 
 
-class TestCSVStream(TestCase):
+class TestCSVStream(AppTestCaseNoDb):
     def test_stream(self):
         self.assertTrue(inspect.isgenerator(serialize.csv([])))
 
@@ -22,7 +21,7 @@ class CSVTstMixin(_CSVTstMixin):
         return serialize.csv(data)
 
 
-class TestCSVSerializer(CSVTstMixin, TestCase):
+class TestCSVSerializer(CSVTstMixin, AppTestCaseNoDb):
     def test_empty(self):
         data = self.process([])
         self.assertEquals(0, len(data))
@@ -72,7 +71,7 @@ class TestCSVSerializer(CSVTstMixin, TestCase):
         self.assertField({"description": ""}, data[0])
 
 
-class TestCSVExample(CSVTstMixin, TestCase):
+class TestCSVExample(CSVTstMixin, AppTestCaseNoDb):
     # these tests are based around an example from IATI
     # https://docs.google.com/a/okfn.org/spreadsheet/ccc?key=0AqR8dXc6Ji4JdHJIWDJtaXhBV0IwOG56N0p1TE04V2c#gid=4
 
@@ -492,7 +491,7 @@ class TestCSVExample(CSVTstMixin, TestCase):
 cl2 = cl.by_major_version['2']
 
 
-class TestCSVExample2(CSVTstMixin, TestCase):
+class TestCSVExample2(CSVTstMixin, AppTestCaseNoDb):
     def test_sector_vocabulary(self):
         data = self.process([fac.ActivityFactory.build(
             sector_percentages=[
@@ -621,7 +620,7 @@ class ActivityExample(object):
         return activity
 
 
-class TestActivityByCountry(CSVTstMixin, ActivityExample, TestCase):
+class TestActivityByCountry(CSVTstMixin, ActivityExample, AppTestCaseNoDb):
     def serialize(self, data):
         return serialize.csv_activity_by_country(data)
 
@@ -787,7 +786,7 @@ class TestActivityByCountry(CSVTstMixin, ActivityExample, TestCase):
         self.assertField({"total-Commitment": u"130000"}, data[0])
 
 
-class TestActivityBySector(CSVTstMixin, ActivityExample, TestCase):
+class TestActivityBySector(CSVTstMixin, ActivityExample, AppTestCaseNoDb):
     def serialize(self, data):
         return serialize.csv_activity_by_sector(data)
 
@@ -963,68 +962,68 @@ class TotalFieldMixin(object):
         self.assertField({self.csv_field: "!Mixed currency"}, data[0])
 
 
-class TestTotalDisbursement(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalDisbursement(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     transaction_type = cl.TransactionType.disbursement
     transaction_code = "D"
     csv_field = "total-Disbursement"
 
 
-class TestTotalExpenditure(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalExpenditure(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     transaction_type = cl.TransactionType.expenditure
     csv_field = "total-Expenditure"
 
 
-class TestTotalIncomingFunds(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalIncomingFunds(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     transaction_type = cl.TransactionType.incoming_funds
     csv_field = "total-Incoming Funds"
 
 
-class TestTotalInterestRepayment(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalInterestRepayment(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     transaction_type = cl.TransactionType.interest_repayment
     csv_field = "total-Interest Repayment"
 
 
-class TestTotalLoanRepayment(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalLoanRepayment(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     transaction_type = cl.TransactionType.loan_repayment
     csv_field = "total-Loan Repayment"
 
 
-class TestTotalReimbursement(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalReimbursement(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     transaction_type = cl.TransactionType.reimbursement
     csv_field = "total-Reimbursement"
 
 
-class TestTotalDisbursement2(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalDisbursement2(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     cl = cl2
     transaction_type = cl2.TransactionType.disbursement
     csv_field = "total-Disbursement"
 
 
-class TestTotalExpenditure2(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalExpenditure2(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     cl = cl2
     transaction_type = cl2.TransactionType.expenditure
     csv_field = "total-Expenditure"
 
 
-class TestTotalIncomingFunds2(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalIncomingFunds2(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     cl = cl2
     transaction_type = cl2.TransactionType.incoming_funds
     csv_field = "total-Incoming Funds"
 
 
-class TestTotalInterestRepayment2(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalInterestRepayment2(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     cl = cl2
     transaction_type = cl2.TransactionType.interest_payment
     csv_field = "total-Interest Repayment"
 
 
-class TestTotalLoanRepayment2(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalLoanRepayment2(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     cl = cl2
     transaction_type = cl2.TransactionType.loan_repayment
     csv_field = "total-Loan Repayment"
 
 
-class TestTotalReimbursement2(CSVTstMixin, TotalFieldMixin, TestCase):
+class TestTotalReimbursement2(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     cl = cl2
     transaction_type = cl2.TransactionType.reimbursement
     csv_field = "total-Reimbursement"
