@@ -146,7 +146,22 @@ def participating_orgs(xml, resource=None, major_version='1'):
     seen = set()
     for ele in xml.xpath("./participating-org"):
         try:
-            role = codelists.by_major_version[major_version].OrganisationRole.from_string(xval(ele, "@role").title())
+            if major_version == '1':
+                # We map all V1 role codes to V2
+                value = xval(ele, "@role").title().lower()
+                if value == 'funding':
+                    role = codelists.by_major_version['2'].OrganisationRole.from_string('1')
+                elif value == 'accountable':
+                    role = codelists.by_major_version['2'].OrganisationRole.from_string('2')
+                elif value == 'extending':
+                    role = codelists.by_major_version['2'].OrganisationRole.from_string('3')
+                elif value == 'implementing':
+                    role = codelists.by_major_version['2'].OrganisationRole.from_string('4')
+                else:
+                    # Fall back to the default value
+                    role = codelists.by_major_version['1'].OrganisationRole.from_string(value)
+            else:
+                role = codelists.by_major_version[major_version].OrganisationRole.from_string(xval(ele, "@role").title())
             organisation = parse_org(ele, major_version=major_version)
             if not (role, organisation.ref) in seen:
                 seen.add((role, organisation.ref))

@@ -351,7 +351,8 @@ class TestParseActivity(AppTestCase):
 
     def test_participating_org(self):
         self.assertEquals(
-            cl.OrganisationRole.funding,
+            # V1 data of 'funding' is mapped to V2 data
+            cl.by_major_version['2'].OrganisationRole.from_string('1'),
             self.act.participating_orgs[0].role)
 
     def test_accepts_participatng_org_without_ref(self):
@@ -687,11 +688,15 @@ class TestPercentages(AppTestCase):
 
 class TestOrganisation(AppTestCase):
     def test_org_role_looseness(self):
-        # organisationrole should be "Implementing" but can be "implementing"
+        # organisationrole should be "Implementing" but can be "implementing".
+        # This also tests role V1->V2 mapping.
         orgrole = parse.participating_orgs(ET.XML(
             u'<wrap><participating-org role="implementing" ref="test" /></wrap>'
         ))[0]
-        self.assertEquals(orgrole.role, cl.OrganisationRole.implementing)
+        self.assertEquals(
+            cl.by_major_version['2'].OrganisationRole.from_string('4'),
+            orgrole.role
+        )
 
     def test_org_type(self):
         orgtype = parse.reporting_org(ET.XML(
