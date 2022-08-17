@@ -820,3 +820,84 @@ class TestBudgetFilter(AppTestCase):
         })
         self.assertIn(budget_in, budgets.all())
         self.assertNotIn(budget_not, budgets.all())
+
+
+class TestParticipatingOrgWithRoleFilter(AppTestCase):
+    def test_participating_org_role_1_ref(self):
+        act_in = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__ref=u"AAA",
+                        role="1")
+                ])
+        act_out1 = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__ref=u"AAA",
+                        role="2")
+                ])
+        act_out2 = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__ref=u"BBB",
+                        role="1")
+                ])
+        activities = dsfilter.activities({
+            "participating-org-role-1.ref": "AAA"
+        })
+        self.assertIn(act_in, activities.all())
+        self.assertNotIn(act_out1, activities.all())
+        self.assertNotIn(act_out2, activities.all())
+
+    def test_participating_org_role_1_text(self):
+        act_in = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__name=u"Ardvarks Associated",
+                        role="1")
+                ])
+        act_out1 = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__name=u"Ardvarks Associated",
+                        role="2")
+                ])
+        act_out2 = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__name=u"Bison Believe",
+                        role="1")
+                ])
+        activities = dsfilter.activities({
+            "participating-org-role-1.text": "Ardvarks Associated"
+        })
+        self.assertIn(act_in, activities.all())
+        self.assertNotIn(act_out1, activities.all())
+        self.assertNotIn(act_out2, activities.all())
+
+    def test_participating_org_role_1_type(self):
+        act_in = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__type="10",
+                        role="1")
+                ])
+        act_out1 = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__type="10",
+                        role="2")
+                ])
+        act_out2 = fac.ActivityFactory.create(
+                participating_orgs=[
+                    fac.ParticipationFactory.build(
+                        organisation__type="11",
+                        role="1")
+                ])
+        activities = dsfilter.activities({
+            "participating-org-role-1.type": "10"
+        })
+        self.assertIn(act_in, activities.all())
+        self.assertNotIn(act_out1, activities.all())
+        self.assertNotIn(act_out2, activities.all())
+
