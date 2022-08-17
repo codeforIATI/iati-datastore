@@ -1,9 +1,11 @@
 import datetime
 
-from . import AppTestCase, factories as fac
+from . import AppTestCase, factories as fac, fixture_filename
 
-from iatilib import codelists as cl
+from iatilib import codelists as cl, parse
 from iatilib.frontend import dsfilter
+from iatilib import db
+from sqlalchemy.orm import Session
 
 
 class TestActivityFilter(AppTestCase):
@@ -28,9 +30,10 @@ class TestActivityFilter(AppTestCase):
     def test_by_title(self):
         act_in = fac.ActivityFactory.create(title='Technical Assistance to Support Improved Aid Effectiveness in Bangladesh')
         act_not = fac.ActivityFactory.create(title='Accelerating Improved Nutrition for Extreme Poor in Bangladesh')
-        activities = dsfilter.activities({
-            "title": u"technical assistance"
-        })
+        with self.app.test_request_context('/'):
+            activities = dsfilter.activities({
+                "title": u"technical assistance"
+            })
         self.assertIn(act_in, activities.all())
         self.assertNotIn(act_not, activities.all())
 
@@ -900,4 +903,31 @@ class TestParticipatingOrgWithRoleFilter(AppTestCase):
         self.assertIn(act_in, activities.all())
         self.assertNotIn(act_out1, activities.all())
         self.assertNotIn(act_out2, activities.all())
+
+
+class TestActivityFile2ManyTitlesAndDescriptions(AppTestCase):
+
+    def setUp(self):
+        super().setUp()
+        with Session(db.engine) as session:
+            activities = parse.document_from_file(fixture_filename("2-many_titles_and_descriptions.xml"))
+            for activity in activities:
+                session.add(activity)
+            session.commit()
+
+    def test_by_title_default_hit(self):
+        with self.app.test_request_context('/'):
+            activities = dsfilter.activities({
+                "title": u"Activity title"
+            })
+        self.assertEquals(1, len(activities.all()))
+        self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
+
+    def test_by_title_es_hit(self):
+        with self.app.test_request_context('/?locale=es'):
+            activities = dsfilter.activities({
+                "title": u"Título"
+            })
+        self.assertEquals(1, len(activities.all()))
+        self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
 
