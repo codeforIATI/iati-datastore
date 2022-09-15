@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iati-activities version="2.01" generated-datetime="2022-09-01T13:43:04">
+<iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2022-08-13T06:23:00" xmlns:afdb="http://afdb.org/iati/">
+  <iati-identifier>46002-P-DZ-IZ0-002</iati-identifier>
+  <reporting-org ref="XM-DAC-46002" type="40">
+    <narrative>African Development Bank</narrative>
+  </reporting-org>
+  <title>
+    <narrative xml:lang="en">Algeria - Emergency Humanitarian Assistance to Flood Victims of the year 2001</narrative>
+    <narrative xml:lang="fr">Algérie - Aide Humanitaire d’Urgence aux Victimes des Inondations de 2001</narrative>
+  </title>
+  <description type="1">
+    <narrative xml:lang="en">The present operation relates to emergency humanitarian aid to the victims of the 2001 floods. It’s designed because of the natural disasters to which Algeria is increasingly exposed (earthquake, drought and floods) on the one hand and, on the other hand, the lack of a national response mechanism to deal with such situations. The operation should help to mitigate the negative impact on the living conditions of populations already bruised by years of social turbulence. The Bank's assistance aims to support the action of the government and local authorities to: (i) ensure better control of the nutritional situation through the provision of foodstuffs and the provision of material resources for five (05) school canteens; (ii) ensure better control of the epidemiological situation by providing vaccines, kits, consumables, pharmaceuticals and accessories to enable health facilities to operate under acceptable conditions; (iii) supply essential vaccines and medicines for health facilities and provide equipment and teaching equipment for schools severely affected by the floods in the area of operation.</narrative>
+    <narrative xml:lang="fr">La présente opération est relative à l’aide humanitaire d’urgence aux victimes des inondations de 2001. Elle a été conçue en raison des calamités naturelles auxquelles est de plus en plus exposée l’Algérie (tremblement de terre, sécheresse et inondations) d’une part et d’autre part, de l’absence de dispositif de riposte au niveau national pour faire face à de telles situations. L’opération devrait permettre d’atténuer les incidences négatives sur les conditions de vie de populations déjà meurtries par des années de turbulence sociale. L’assistance de la Banque vise à appuyer l’action du gouvernement et des autorités locales en vue de: i) assurer un meilleur contrôle de la situation nutritionnelle, par la fourniture de denrées alimentaires et par la dotation en moyens matériels de cinq (05) cantines scolaires; ii) assurer un meilleur contrôle de la situation épidémiologique par la provision de vaccins, kits, consommables, produits pharmaceutiques et accessoires pour permettre aux formations sanitaires de fonctionner dans des conditions acceptables ; iii) procéder à l’approvisionnement en vaccins et médicaments essentiels des formations sanitaires et à la dotation en matériels et équipements didactiques des établissements scolaires durement touchés par les inondations dans la zone d’opération.</narrative>
+  </description>
+  <description type="2">
+    <narrative xml:lang="en">The objective of the humanitarian aid is to help the populations victims of the floods of November 2001 in the zones of the disaster to prevent the epidemics (yellow fever, cholera, meningitis cerebrospinal, etc.) and to ward off the deterioration of the conditions of life.</narrative>
+    <narrative xml:lang="fr">L’objectif de l’aide humanitaire est de secourir les populations victimes des inondations de novembre 2001 dans les zones du sinistre afin de prévenir les épidémies (fièvre jaune, choléra, méningite cérébro-spinale, etc.) et de conjurer la dégradation des conditions de vie.</narrative>
+  </description>
+  <description type="3">
+    <narrative xml:lang="en">The beneficiaries are at-risk populations and victims housed in makeshift shelters in flooded localities. The direct beneficiaries are children and mothers who are victims of the disaster and still suffering from its consequences.</narrative><narrative xml:lang="fr">Les bénéficiaires sont les populations à risque et victimes hébergées dans les abris de fortune dans les localités inondées. Les bénéficiaires directs en sont les enfants et les mères victimes de la catastrophe et souffrant encore de ses conséquences.</narrative>
+  </description>
+  <participating-org role="1" ref="XM-DAC-SRF" type="40">
+    <narrative>Special Relief Funds</narrative>
+  </participating-org>
+  <participating-org role="4" ref="" type="10">
+    <narrative>Ministry of the Interior</narrative>
+  </participating-org>
+  <other-identifier ref="46002" type="B1">
+    <owner-org ref="XM-DAC-46002">
+      <narrative>African Development Bank</narrative>
+    </owner-org>
+  </other-identifier>
+  <activity-status code="3"/>
+  <activity-date iso-date="2002-03-28" type="1"/>
+  <activity-date iso-date="2002-05-21" type="2"/>
+  <activity-date iso-date="2002-12-31" type="3"/>
+  <activity-date iso-date="2002-12-31" type="4"/>
+  <contact-info>
+    <organisation>
+      <narrative>African Development Bank</narrative>
+    </organisation>
+    <department>
+      <narrative/>
+    </department>
+    <person-name>
+      <narrative>null null</narrative>
+    </person-name>
+    <job-title>
+      <narrative/>
+    </job-title>
+    <telephone/>
+    <email/>
+    <website>www.afdb.org</website>
+    <mailing-address>
+      <narrative>African Development Bank Group Headquarters Avenue Joseph Anoma 01 BP 1387 Abidjan 01, Côte d'Ivoire</narrative>
+    </mailing-address>
+  </contact-info>
+  <activity-scope code="4"/>
+  <recipient-country code="DZ"/>
+  <location>
+    <location-id vocabulary="A1" code="2475741"/>
+    <name>
+      <narrative>Tizi Ouzou</narrative>
+    </name>
+    <administrative code="0" vocabulary="A1" level="1"/>
+    <administrative code="0" vocabulary="A1" level="2"/>
+    <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+      <pos>36.75 4.25</pos>
+    </point><exactness code="2"/>
+    <location-class code="1"/>
+    <feature-designation code="ADM1"/>
+  </location>
+  <location>
+    <location-id vocabulary="A1" code="11204463"/>
+    <name>
+      <narrative>Oued Koriche</narrative>
+    </name>
+    <administrative code="0" vocabulary="A1" level="1"/>
+    <administrative code="0" vocabulary="A1" level="2"/>
+    <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+      <pos>36.78448 3.04119</pos>
+    </point>
+    <exactness code="1"/>
+    <location-class code="2"/>
+    <feature-designation code="PPL"/>
+  </location>
+  <location>
+    <location-id vocabulary="A1" code="2505857"/>
+    <name>
+      <narrative>Bab el Oued</narrative>
+    </name>
+    <administrative code="0" vocabulary="A1" level="1"/>
+    <administrative code="0" vocabulary="A1" level="2"/>
+    <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+      <pos>36.79239 3.05217</pos>
+    </point>
+    <exactness code="1"/>
+    <location-class code="2"/>
+    <feature-designation code="PPLX"/>
+  </location>
+  <sector vocabulary="1" code="16050">
+    <narrative>Multisector aid for basic social services</narrative>
+  </sector>
+  <country-budget-items vocabulary="1">
+    <budget-item code="5.4.5" percentage="100">
+      <description>
+        <narrative xml:lang="en">Social Protection, Land Housing and Community Amenities - social services (incl youth development and women+ children)</narrative>
+      </description>
+    </budget-item>
+  </country-budget-items>
+  <collaboration-type code="2"/>
+  <budget type="1">
+    <period-start iso-date="2002-05-21"/>
+    <period-end iso-date="2002-08-21"/>
+    <value currency="XDR" value-date="2002-05-21">162964.120000</value>
+  </budget>
+  <budget type="1">
+    <period-start iso-date="2002-08-21"/>
+    <period-end iso-date="2002-12-31"/>
+    <value currency="XDR" value-date="2002-08-21">162964.120000</value>
+  </budget><capital-spend percentage="0.00"/>
+  <transaction ref="5000199000002" afdb:finance-type-id="5000199000002">
+    <transaction-type code="2"/>
+    <transaction-date iso-date="2002-05-21"/>
+    <value value-date="2002-05-21">325928.24</value>
+    <provider-org ref="XM-DAC-SRF">
+      <narrative>Special Relief Funds</narrative>
+    </provider-org>
+    <receiver-org ref="">
+      <narrative>Gouvernement d'Algérie Ministère</narrative>
+    </receiver-org>
+    <flow-type code="10"/>
+    <finance-type code="110"/>
+    <aid-type code="D02"/>
+    <tied-status code="5"/>
+  </transaction>
+  <transaction afdb:finance-type-id="5000199000002">
+    <transaction-type code="3"/>
+    <transaction-date iso-date="2002-12-31"/>
+    <value value-date="2002-12-31">325928.24</value>
+    <description>
+      <narrative>Total Disbursement in December of 2002</narrative>
+    </description>
+    <provider-org ref="XM-DAC-SRF">
+      <narrative>Special Relief Funds</narrative>
+    </provider-org>
+    <flow-type code="10"/>
+    <finance-type code="110"/>
+    <aid-type code="D02"/>
+    <tied-status code="5"/>
+  </transaction>
+  <document-link url="https://projectsportal.afdb.org/dataportal/VProject/show/P-DZ-IZ0-002" format="text/html">
+    <title>
+      <narrative>Activity</narrative>
+    </title>
+    <category code="A12"/>
+    <language code="fr"/>
+  </document-link>
+  <conditions attached="true">
+    <condition type="1">
+      <narrative>Policy</narrative>
+    </condition>
+    <condition type="2">
+      <narrative>Performance</narrative>
+    </condition>
+  </conditions>
+</iati-activity>
+</iati-activities>
