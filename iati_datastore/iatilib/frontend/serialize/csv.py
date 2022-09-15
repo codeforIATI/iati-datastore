@@ -8,6 +8,7 @@ from iatilib import codelists
 from pyexcelerate import Workbook
 from openpyxl_copy.utils import get_column_letter
 from flask_babel import gettext
+from flask import request
 
 
 def total(column):
@@ -122,8 +123,51 @@ def transaction_org(field, transaction):
 provider_org = partial(transaction_org, 'provider_org')
 receiver_org = partial(transaction_org, 'receiver_org')
 
-title = attrgetter("title")
-description = attrgetter("description")
+
+def title(activity):
+    """Select most appropriate title for request locale"""
+    locale = request.args.get("locale", "en")
+    if activity.title_all_values and locale in activity.title_all_values:
+        return activity.title_all_values[locale]
+    elif activity.title_all_values and 'default' in activity.title_all_values:
+        return activity.title_all_values['default']
+    else:
+        return activity.title
+
+def description_most_general(all_values):
+    """Select most general description type, lowest type code (as integer) wins"""
+    out = None
+    for desc_type in all_values:
+        if not out:
+            out = desc_type
+        elif int(desc_type) < int(out):
+            out = desc_type
+    return all_values[out]
+
+def select_description_type(all_values, desc_type_name):
+    """Select description based on given description type"""
+    codes = {'default': 0, 'general': '1', 'objectives': '2', 'target_groups': '3', 'other': '4'}
+    if len(all_values) == 1 and desc_type_name == 'default':
+        return next(iter(all_values))
+    elif len(all_values) > 1 and desc_type_name == 'default':
+        return description_most_general(all_values)
+    elif desc_type_name != 'default':
+        if codes[desc_type_name] in all_values:
+            return all_values[codes[desc_type_name]]
+        else:
+            return ''
+
+def description(desc_type_name, activity):
+    """Select most appropriate description for requested locale and type"""
+    locale = request.args.get("locale", "en")
+    if activity.description_all_values and locale in activity.description_all_values:
+        return select_description_type(activity.description_all_values[locale], desc_type_name)
+    elif activity.description_all_values and 'default' in activity.description_all_values:
+        return select_description_type(activity.description_all_values['default'], desc_type_name)
+    else:
+        return activity.description
+
+
 iati_identifier = attrgetter("iati_identifier")
 hierarchy = attrgetter("hierarchy")
 
@@ -274,7 +318,11 @@ def fielddict_from_major_version(major_version):
             u"reporting-org-type": reporting_org_type,
             u"reporting-org-type-code": reporting_org_type_code,
             u"title": title,
-            u"description": description,
+            u"description": partial(description, "default"),
+            u"description_general": partial(description, "general"),
+            u"description_objectives": partial(description, "objectives"),
+            u"description_target_groups": partial(description, "target_groups"),
+            u"description_other": partial(description, "other"),
             u"activity-status-code": partial(codelist_code, "activity_status"),
             u"start-planned": attrgetter(u"start_planned"),
             u"end-planned": attrgetter(u"end_planned"),
@@ -468,6 +516,10 @@ _activity_fields = (
     "reporting-org-type-code",
     "title",
     "description",
+    "description_general",
+    "description_objectives",
+    "description_target_groups",
+    "description_other",
     "activity-status-code",
     "start-planned",
     "end-planned",
@@ -555,6 +607,10 @@ _activity_by_country_fields = (
     "reporting-org-type-code",
     "title",
     "description",
+    "description_general",
+    "description_objectives",
+    "description_target_groups",
+    "description_other",
     "activity-status-code",
     "start-planned",
     "end-planned",
