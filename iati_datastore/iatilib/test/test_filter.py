@@ -909,11 +909,10 @@ class TestActivityFile2ManyTitlesAndDescriptions(AppTestCase):
 
     def setUp(self):
         super().setUp()
-        with Session(db.engine) as session:
-            activities = parse.document_from_file(fixture_filename("2-many_titles_and_descriptions.xml"))
-            for activity in activities:
-                session.add(activity)
-            session.commit()
+        activities = parse.document_from_file(fixture_filename("2-many_titles_and_descriptions.xml"))
+        for activity in activities:
+            db.session.add(activity)
+        db.session.commit()
 
     def test_by_title_default_hit(self):
         with self.app.test_request_context('/'):
