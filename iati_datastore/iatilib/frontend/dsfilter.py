@@ -1,6 +1,6 @@
 from functools import partial
 import six
-from sqlalchemy import or_, and_, orm
+from sqlalchemy import or_, and_, orm, func
 from sqlalchemy.sql.operators import eq, gt, lt
 from iatilib import db
 from iatilib.model import (
@@ -259,7 +259,12 @@ def _filter(query, args):
         )
 
     def description(description):
-        return Activity.description.ilike("%{}%".format(description))
+        locale = request.args.get("locale", "en")
+        return or_(
+            Activity.description.ilike("%{}%".format(description)),
+            func.jsonb_path_exists(Activity.description_all_values, '$.{}[*] ? (@.* like_regex "{}")'.format('default', description)),
+            func.jsonb_path_exists(Activity.description_all_values, '$.{}[*] ? (@.* like_regex "{}")'.format(locale, description)),
+        )
 
     filter_conditions = {
             'iati-identifier': partial(eq, Activity.iati_identifier),
