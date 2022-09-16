@@ -40,9 +40,10 @@ class TestActivityFilter(AppTestCase):
     def test_by_description(self):
         act_in = fac.ActivityFactory.create(description='To improve dialogue and coordination at national, sectoral and programme levels, with greater aid predictability and increased alignment of Government-donor policies and systems')
         act_not = fac.ActivityFactory.create(description='To reduce undernutrition in extreme poor household in Bangladesh. Improved nutrient intake and health status of adolescent girls, pregnant and breastfeeding women and young children.')
-        activities = dsfilter.activities({
-            "description": u"improve dialogue"
-        })
+        with self.app.test_request_context('/'):
+            activities = dsfilter.activities({
+                "description": u"improve dialogue"
+            })
         self.assertIn(act_in, activities.all())
         self.assertNotIn(act_not, activities.all())
 
@@ -914,6 +915,13 @@ class TestActivityFile2ManyTitlesAndDescriptions(AppTestCase):
             db.session.add(activity)
         db.session.commit()
 
+    def test_by_title_null_hit(self):
+        with self.app.test_request_context('/'):
+            activities = dsfilter.activities({
+                "title": u"CYsw6IWHhNdQbtblkE0uaA8NtU8g0VCk54jWyTDFGU8"
+            })
+        self.assertEquals(0, len(activities.all()))
+
     def test_by_title_default_hit(self):
         with self.app.test_request_context('/'):
             activities = dsfilter.activities({
@@ -930,3 +938,57 @@ class TestActivityFile2ManyTitlesAndDescriptions(AppTestCase):
         self.assertEquals(1, len(activities.all()))
         self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
 
+    def test_by_decsription_null_hit(self):
+        with self.app.test_request_context('/'):
+            activities = dsfilter.activities({
+                "title": u"CYsw6IWHhNdQbtblkE0uaA8NtU8g0VCk54jWyTDFGU8"
+            })
+        self.assertEquals(0, len(activities.all()))
+
+    def test_by_description_default_hit(self):
+        with self.app.test_request_context('/'):
+            activities = dsfilter.activities({
+                "description": u"General activity description"
+            })
+        self.assertEquals(1, len(activities.all()))
+        self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
+
+    def test_by_description_es_hit(self):
+        with self.app.test_request_context('/?locale=es'):
+            activities = dsfilter.activities({
+                "description": u"Texte de description générale"
+            })
+        self.assertEquals(1, len(activities.all()))
+        self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
+
+    def test_by_description_objectives_hit(self):
+        with self.app.test_request_context('/'):
+            activities = dsfilter.activities({
+                "description": u"Objectives for the activity"
+            })
+        self.assertEquals(1, len(activities.all()))
+        self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
+
+    def test_by_description_objectives_es_hit(self):
+        with self.app.test_request_context('/?locale=es'):
+            activities = dsfilter.activities({
+                "description": u"Objetivos para la actividad"
+            })
+        self.assertEquals(1, len(activities.all()))
+        self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
+
+    def test_by_description_groups_hit(self):
+        with self.app.test_request_context('/'):
+            activities = dsfilter.activities({
+                "description": u"Statement of groups targeted"
+            })
+        self.assertEquals(1, len(activities.all()))
+        self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
+
+    def test_by_description_groups_es_hit(self):
+        with self.app.test_request_context('/?locale=es'):
+            activities = dsfilter.activities({
+                "description": u"Declaración de grupos destinatarios"
+            })
+        self.assertEquals(1, len(activities.all()))
+        self.assertEquals('AA-AAA-123456789-ABC123', activities.all()[0].iati_identifier)
