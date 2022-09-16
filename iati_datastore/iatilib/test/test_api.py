@@ -867,7 +867,7 @@ class TestBudgetBySectorXLSXView(ClientTestCase, ApiViewMixin):
     serializer = 'iatilib.frontend.api1.BudgetsBySectorXLSXView.serializer'
 
 class TestActivityLocalesDescriptionTypes(ClientTestCase):
-    """Test new functionality to outut locale appropriate titles and descriptions, and new columns for each description type"""
+    """Test new functionality to output locale appropriate titles and descriptions, and new columns for each description type"""
 
     base_url = '/api/1/access/activity.csv'
 
