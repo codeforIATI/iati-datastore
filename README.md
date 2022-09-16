@@ -30,7 +30,7 @@ https://datastore.codeforiati.org
 Requirements
 ------------
 
-You will need [Redis](https://redis.io), [Postgres](https://postgresql.org), Python 3, pip and develpment libraries (for libpq, libxml2 and libxslt) to run the full setup.
+You will need [Redis](https://redis.io), [Postgres](https://postgresql.org) **(version >= 12)**, Python 3, pip and develpment libraries (for libpq, libxml2 and libxslt) to run the full setup.
 For example, on Ubuntu:
 
     sudo apt-get install postgresql redis-server python3 python3-pip libpq-dev libxml2-dev libxslt-dev libevent-dev python3-dev
@@ -337,8 +337,8 @@ To update requirements, use pip-compile.
 Make sure you are in a Python 3.8 virtual environment, and run:
 
     pip install pip-tools
-    pip-compile requirements.in 
-    pip-compile requirements_dev.in 
+    pip-compile requirements.in
+    pip-compile requirements_dev.in
 
 Then in the 2 requirements*.txt files, look for the line:
 
