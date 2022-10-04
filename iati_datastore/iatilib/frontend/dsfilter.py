@@ -260,11 +260,8 @@ def _filter(query, args):
 
     def description(description):
         locale = request.args.get("locale", "en")
-        return or_(
-            Activity.description.ilike("%{}%".format(description)),
-            func.jsonb_path_exists(Activity.description_all_values, '$.{}[*] ? (@.* like_regex "{}")'.format('default', description)),
-            func.jsonb_path_exists(Activity.description_all_values, '$.{}[*] ? (@.* like_regex "{}")'.format(locale, description)),
-        )
+        return func.jsonb_path_exists(Activity.description_all_values,
+               '$[*] ? (@.{}.* like_regex "{}" || @.default.* like_regex "{}")'.format(locale, description, description))
 
     filter_conditions = {
             'iati-identifier': partial(eq, Activity.iati_identifier),
