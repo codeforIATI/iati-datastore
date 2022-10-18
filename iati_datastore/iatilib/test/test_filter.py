@@ -38,8 +38,8 @@ class TestActivityFilter(AppTestCase):
         self.assertNotIn(act_not, activities.all())
 
     def test_by_description(self):
-        act_in = fac.ActivityFactory.create(description='To improve dialogue and coordination at national, sectoral and programme levels, with greater aid predictability and increased alignment of Government-donor policies and systems')
-        act_not = fac.ActivityFactory.create(description='To reduce undernutrition in extreme poor household in Bangladesh. Improved nutrient intake and health status of adolescent girls, pregnant and breastfeeding women and young children.')
+        act_in = fac.ActivityFactory.create(description_all_values={'en': {'1': 'To improve dialogue and coordination at national, sectoral and programme levels, with greater aid predictability and increased alignment of Government-donor policies and systems'}})
+        act_not = fac.ActivityFactory.create(description_all_values={'en': {'1': 'To reduce undernutrition in extreme poor household in Bangladesh. Improved nutrient intake and health status of adolescent girls, pregnant and breastfeeding women and young children.'}})
         with self.app.test_request_context('/'):
             activities = dsfilter.activities({
                 "description": u"improve dialogue"
