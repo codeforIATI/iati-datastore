@@ -995,3 +995,76 @@ class TestXVal(TestCase):
         self.assertEquals(
             None,
             parse.xval(ET.XML(u"<foo />"), "bar", None))
+
+
+class Test1ManyTitlesAndDescriptions(AppTestCase):
+    def setUp(self):
+        super().setUp()
+        self.activities = list(parse.document_from_file(fixture_filename("1-many_titles_and_descriptions.xml")))
+        self.act = self.activities[0]
+
+    def test_title_all_values(self):
+        self.assertEquals(
+            {
+                'de': 'Streichle alle Katzen',
+                'default': 'Pet all the cats',
+                'en': 'Pet all the cats'
+            },
+            self.act.title_all_values
+        )
+
+    def test_description_all_values(self):
+        self.assertEquals(
+            {
+                'default': {
+                    '1': 'General activity description text. Long description of the activity with no particular structure',
+                    '2': 'Objectives for the activity, for example from a logical framework.',
+                    '3': 'Statement of groups targeted to benefit from the activity.'
+                },
+                'fr': {
+                    '1': 'Activité générale du texte de description. Longue description de l\'activité sans structure particulière.',
+                    '2': 'Objectifs de l\'activité, par exemple à partir d\'un cadre logique.',
+                    '3': 'Déclaration de groupes ciblés pour bénéficier de l\'activité.'
+                }
+            },
+            self.act.description_all_values
+        )
+
+
+class Test2ManyTitlesAndDescriptions(AppTestCase):
+    def setUp(self):
+        super().setUp()
+        self.activities = list(parse.document_from_file(fixture_filename("2-many_titles_and_descriptions.xml")))
+        self.act = self.activities[0]
+
+    def test_title_all_values(self):
+        self.assertEquals(
+            {
+                'default': 'Activity title',
+                'es': 'Título de la actividad',
+                'fr': "Titre de l'activité"
+            },
+            self.act.title_all_values
+        )
+
+    def test_description_all_values(self):
+        self.assertEquals(
+            {
+                'default': {
+                    '1': 'General activity description text.  Long description of the activity with no particular structure.',
+                    '2': 'Objectives for the activity, for example from a logical framework.',
+                    '3': 'Statement of groups targeted to benefit from the activity.'
+                },
+                'es': {
+                    '1': 'Texte de description générale de l\'activité. Description longue de l\'activité sans structure particulière.',
+                    '2': 'Objetivos para la actividad, por ejemplo a partir de un marco lógico.',
+                    '3': 'Declaración de grupos destinatarios de la actividad.'
+                },
+                'fr': {
+                    '1': 'Activité générale du texte de description. Longue description de l\'activité sans structure particulière.',
+                    '2': 'Objectifs de l\'activité, par exemple à partir d\'un cadre logique.',
+                    '3': 'Déclaration de groupes ciblés pour bénéficier de l\'activité.'
+                }
+            },
+            self.act.description_all_values
+        )

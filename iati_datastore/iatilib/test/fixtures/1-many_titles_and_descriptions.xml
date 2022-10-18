@@ -1,0 +1,15 @@
+<iati-activities>
+<iati-activity default-currency="USD" last-updated-datetime="2012-09-25" xml:lang="en" hierarchy="1">
+<reporting-org ref="47045" type="40">The Global Fund to Fight AIDS, Tuberculosis and Malaria</reporting-org>
+<iati-identifier>47045-ARM-202-G05-H-00</iati-identifier>
+<title>Pet all the cats</title>
+<title xml:lang="en">Pet all the cats</title>
+<title xml:lang="de">Streichle alle Katzen</title>
+<description type="1">General activity description text. Long description of the activity with no particular structure</description>
+<description type="2">Objectives for the activity, for example from a logical framework.</description>
+<description type="3">Statement of groups targeted to benefit from the activity.</description>
+<description type="1" xml:lang="fr">Activité générale du texte de description. Longue description de l'activité sans structure particulière.</description>
+<description type="2" xml:lang="fr">Objectifs de l'activité, par exemple à partir d'un cadre logique.</description>
+<description type="3" xml:lang="fr">Déclaration de groupes ciblés pour bénéficier de l'activité.</description>
+</iati-activity>
+</iati-activities>

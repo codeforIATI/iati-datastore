@@ -865,3 +865,104 @@ class TestBudgetBySectorXLSXView(ClientTestCase, ApiViewMixin):
     extension = 'xlsx'
     filter = 'iatilib.frontend.api1.BudgetsBySectorXLSXView.filter'
     serializer = 'iatilib.frontend.api1.BudgetsBySectorXLSXView.serializer'
+
+class TestActivityLocalesDescriptionTypes(ClientTestCase):
+    """Test new functionality to output locale appropriate titles and descriptions, and new columns for each description type"""
+
+    base_url = '/api/1/access/activity.csv'
+
+    def test_csv_activity_count(self):
+        load_fix("multiple_locales_descriptions.xml")
+        resp = self.client.get(self.base_url)
+        self.assertEquals(2, resp.get_data(as_text=True).count("\n"))
+
+    def test_english_title(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('title')
+        self.assertEquals(
+                u'Algeria - Emergency Humanitarian Assistance to Flood Victims of the year 2001',
+                output[1][i]
+        )
+
+    def test_french_title(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('title')
+        self.assertEquals(
+                u'Algérie - Aide Humanitaire d’Urgence aux Victimes des Inondations de 2001',
+                output[1][i]
+        )
+
+    def test_english_description(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('description')
+        self.assertEquals(
+                u"The present operation relates to emergency humanitarian aid to the victims of the 2001 floods. It’s designed because of the natural disasters to which Algeria is increasingly exposed (earthquake, drought and floods) on the one hand and, on the other hand, the lack of a national response mechanism to deal with such situations. The operation should help to mitigate the negative impact on the living conditions of populations already bruised by years of social turbulence. The Bank's assistance aims to support the action of the government and local authorities to: (i) ensure better control of the nutritional situation through the provision of foodstuffs and the provision of material resources for five (05) school canteens; (ii) ensure better control of the epidemiological situation by providing vaccines, kits, consumables, pharmaceuticals and accessories to enable health facilities to operate under acceptable conditions; (iii) supply essential vaccines and medicines for health facilities and provide equipment and teaching equipment for schools severely affected by the floods in the area of operation.",
+                output[1][i]
+        )
+
+    def test_french_description(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('description')
+        self.assertEquals(
+                u"La présente opération est relative à l’aide humanitaire d’urgence aux victimes des inondations de 2001. Elle a été conçue en raison des calamités naturelles auxquelles est de plus en plus exposée l’Algérie (tremblement de terre, sécheresse et inondations) d’une part et d’autre part, de l’absence de dispositif de riposte au niveau national pour faire face à de telles situations. L’opération devrait permettre d’atténuer les incidences négatives sur les conditions de vie de populations déjà meurtries par des années de turbulence sociale. L’assistance de la Banque vise à appuyer l’action du gouvernement et des autorités locales en vue de: i) assurer un meilleur contrôle de la situation nutritionnelle, par la fourniture de denrées alimentaires et par la dotation en moyens matériels de cinq (05) cantines scolaires; ii) assurer un meilleur contrôle de la situation épidémiologique par la provision de vaccins, kits, consommables, produits pharmaceutiques et accessoires pour permettre aux formations sanitaires de fonctionner dans des conditions acceptables ; iii) procéder à l’approvisionnement en vaccins et médicaments essentiels des formations sanitaires et à la dotation en matériels et équipements didactiques des établissements scolaires durement touchés par les inondations dans la zone d’opération.",
+                output[1][i]
+        )
+
+    def test_description_general(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('description')
+        j = csv_headers.index('description_general')
+        self.assertEquals(
+                output[1][i],
+                output[1][j]
+        )
+
+    def test_english_description_objectives(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('description_objectives')
+        self.assertEquals(
+                u"The objective of the humanitarian aid is to help the populations victims of the floods of November 2001 in the zones of the disaster to prevent the epidemics (yellow fever, cholera, meningitis cerebrospinal, etc.) and to ward off the deterioration of the conditions of life.",
+                output[1][i]
+        )
+
+    def test_french_description_objectives(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('description_objectives')
+        self.assertEquals(
+                u"L’objectif de l’aide humanitaire est de secourir les populations victimes des inondations de novembre 2001 dans les zones du sinistre afin de prévenir les épidémies (fièvre jaune, choléra, méningite cérébro-spinale, etc.) et de conjurer la dégradation des conditions de vie.",
+                output[1][i]
+        )
+
+    def test_english_description_target_groups(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('description_target_groups')
+        self.assertEquals(
+                u"The beneficiaries are at-risk populations and victims housed in makeshift shelters in flooded localities. The direct beneficiaries are children and mothers who are victims of the disaster and still suffering from its consequences.",
+                output[1][i]
+        )
+
+    def test_french_description_target_groups(self):
+        load_fix("multiple_locales_descriptions.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('description_target_groups')
+        self.assertEquals(
+                u"Les bénéficiaires sont les populations à risque et victimes hébergées dans les abris de fortune dans les localités inondées. Les bénéficiaires directs en sont les enfants et les mères victimes de la catastrophe et souffrant encore de ses conséquences.",
+                output[1][i]
+        )
