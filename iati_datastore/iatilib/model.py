@@ -335,6 +335,7 @@ class Transaction(db.Model):
     date = sa.Column(sa.Date, nullable=True)
     value_date = sa.Column(sa.Date, nullable=True)
     value_amount = sa.Column(sa.Numeric(), nullable=True)
+    value_usd = sa.Column(sa.Numeric(), nullable=True)
     value_currency = sa.Column(codelists.Currency.db_type())
     value = sa.orm.composite(TransactionValue, value_date, value_amount,
                              value_currency)
@@ -425,6 +426,16 @@ class Resource(db.Model):
     activities = lazy_act_relationship("Activity", cascade="all,delete", passive_deletes=True)
     version = sa.Column(sa.Unicode)
 
+class CurrencyConversion(db.Model):
+    __tablename__ = "currency_conversion"
+    id = sa.Column(sa.Integer, primary_key=True)
+    date = sa.Column(sa.Date)
+    rate = sa.Column(sa.Float)
+    currency = sa.Column(sa.String)
+    frequency = sa.Column(sa.String)
+    source = sa.Column(sa.String)
+    country_code = sa.Column(sa.String)
+    country = sa.Column(sa.String)
 
 class Log(db.Model):
     # A table to use like a logfile. Personally I don't like doing this but
