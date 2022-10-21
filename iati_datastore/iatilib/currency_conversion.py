@@ -7,6 +7,7 @@ from iatilib import db
 from iatilib import codelists
 
 USD = codelists.by_major_version['2'].Currency.from_string("USD")
+EUR = codelists.by_major_version['2'].Currency.from_string("EUR")
 
 RATES_URL = "https://codeforiati.org/imf-exchangerates/imf_exchangerates.csv"
 
@@ -37,7 +38,7 @@ def update_exchange_rates(data):
         db.session.add_all(to_add)
         db.session.commit()
 
-def convert_currency(amount, date, currency):
+def convert_currency_usd(amount, date, currency):
     """Convert currency to US dollars for given date and input currency"""
     if currency == USD: return amount
     try:
@@ -45,6 +46,27 @@ def convert_currency(amount, date, currency):
         if closest:
             rate = closest.rate
             return round(float(amount)/rate, 2)
+        else:
+            return None
+    except:
+        return None
+
+def convert_currency_eur(amount, date, currency):
+    """Convert currency to Euros for given date and input currency"""
+    if currency == EUR: return amount
+    try:
+        closest_eur = db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == EUR.value).filter(CurrencyConversion.date >= date).order_by(CurrencyConversion.date.asc()).first()
+        if closest_eur:
+            rate_eur = closest_eur.rate
+            if currency == USD:
+                return round(rate_eur*float(amount), 2)
+            else:
+                closest_usd = db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == currency.value).filter(CurrencyConversion.date >= date).order_by(CurrencyConversion.date.asc()).first()
+                if closest_usd:
+                    rate_usd = closest_usd.rate
+                    return round(rate_eur*float(amount)/rate_usd, 2)
+                else:
+                    return None
         else:
             return None
     except:
