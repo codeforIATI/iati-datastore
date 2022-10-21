@@ -336,6 +336,7 @@ class Transaction(db.Model):
     value_date = sa.Column(sa.Date, nullable=True)
     value_amount = sa.Column(sa.Numeric(), nullable=True)
     value_usd = sa.Column(sa.Numeric(), nullable=True)
+    value_eur = sa.Column(sa.Numeric(), nullable=True)
     value_currency = sa.Column(codelists.Currency.db_type())
     value = sa.orm.composite(TransactionValue, value_date, value_amount,
                              value_currency)
