@@ -16,6 +16,8 @@ from iatilib import codelists
 from iatilib import loghandlers
 from iatilib.loghandlers import DatasetMessage as _
 
+from iatilib import currency_conversion
+
 log = logging.getLogger("parser")
 sqlalchemyLog = loghandlers.SQLAlchemyHandler()
 sqlalchemyLog.setLevel(logging.WARNING)
@@ -223,7 +225,30 @@ def currency(path, xml, resource=None, major_version='1'):
     else:
         return None
 
-
+def convert_currency(xml, resource=None, major_version='1'):
+    """Convert transaction currency to US dollars"""
+    default_currency = currency("../@default-currency", xml, resource, major_version)
+    value_currency = currency("value/@currency", xml, resource, major_version)
+    value_date = xpath_date("value/@value-date", xml, resource, major_version)
+    iso_date = xpath_date("transaction-date/@iso-date", xml, resource, major_version)
+    value_amount = xpath_decimal("value/text()", xml, resource, major_version)
+    if value_currency:
+        input_currency = value_currency
+    elif default_currency:
+        input_currency = default_currency
+    else:
+        return None
+    if value_date:
+        transaction_date = value_date
+    elif iso_date:
+        transaction_date = iso_date
+    else:
+        return None
+    if value_amount:
+        return currency_conversion.convert_currency_usd(value_amount, transaction_date, input_currency)
+    else:
+        return None
+    
 def title_all_values(xml, resource=None, major_version='1'):
     ret = {}
     try:
@@ -311,6 +336,7 @@ def transactions(xml, resource=no_resource, major_version='1'):
             'value_currency': partial(currency, "value/@currency"),
             'value_date': partial(xpath_date, "value/@value-date"),
             'value_amount': partial(xpath_decimal, "value/text()"),
+            'value_usd': convert_currency,
             "recipient_country_percentages": recipient_country_percentages,
             "recipient_region_percentages": recipient_region_percentages,
             "sector_percentages": sector_percentages,
