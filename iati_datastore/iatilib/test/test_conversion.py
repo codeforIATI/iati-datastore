@@ -31,7 +31,7 @@ class TestUpdateExchangeRates(AppTestCase):
     def test_update(self):
         update_exchange_rates(self.data)
 
-        self.assertEquals(db.session.query(model.CurrencyConversion).count(), 5247)
+        self.assertEquals(db.session.query(model.CurrencyConversion).count(), 6035)
         self.assertEquals(db.session.query(model.CurrencyConversion).first().rate, 16.926)
         self.assertEquals(db.session.query(model.CurrencyConversion).first().currency, "AFN")
 

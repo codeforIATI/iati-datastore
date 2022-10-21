@@ -1,3 +1,4 @@
+import csv
 import datetime
 from decimal import Decimal
 from unittest import TestCase
@@ -8,8 +9,13 @@ from lxml import etree as ET
 from iatilib.test import db, AppTestCase, fixture_filename
 from iatilib import parse, codelists as cl
 from iatilib import model
+from iatilib.currency_conversion import update_exchange_rates
+
 cl2 = cl.by_major_version['2']
 
+def read_fixture(fix_name, encoding='utf-8'):
+    """Read and convert fixture from csv file"""
+    return csv.reader(open(fixture_filename(fix_name)).read().strip().split("\n"), delimiter=',')
 
 def fixture(fix_name, encoding='utf-8'):
     return open(fixture_filename(fix_name), encoding=encoding).read()
@@ -819,7 +825,7 @@ class TestTransaction(AppTestCase):
                 <transaction-type code="D">Disbursement</transaction-type>
                 </transaction></activity>''')
         )[0]
-        self.assertEquals(2, mock.call_count) # iati_decimal now called twice per transaction due to currency conversion
+        self.assertEquals(3, mock.call_count) # iati_decimal now called thrice per transaction due to currency conversions
 
     def test_provider_activity_id(self):
         sample = """<activity><transaction>
@@ -1068,3 +1074,21 @@ class Test2ManyTitlesAndDescriptions(AppTestCase):
             },
             self.act.description_all_values
         )
+
+class TestParseCurrencyConversion(AppTestCase):
+    def setUp(self):
+        super().setUp()
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        self.act = parse.activity(parse_fixture("transaction_provider.xml"))
+
+    def test_conversion_usd(self):
+        self.assertEquals(47462.29, self.act.transactions[0].value_usd) # 2011-08-19: GBP 29143
+        self.assertEquals(59773.96, self.act.transactions[1].value_usd) # 2011-11-16: GBP 38297
+        self.assertEquals(67724.91, self.act.transactions[2].value_usd) # 2012-02-23: GBP 42479.4
+
+    def test_conversion_eur(self):
+        self.assertEquals(32845.88, self.act.transactions[0].value_eur) # 2011-08-19: GBP 29143
+        self.assertEquals(44547.59, self.act.transactions[1].value_eur) # 2011-11-16: GBP 38297
+        self.assertEquals(50379.31, self.act.transactions[2].value_eur) # 2012-02-23: GBP 42479.4
