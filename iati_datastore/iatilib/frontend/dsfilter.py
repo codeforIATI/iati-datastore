@@ -1,12 +1,13 @@
 from functools import partial
 import six
-from sqlalchemy import or_, and_, orm
+from sqlalchemy import or_, and_, orm, func
 from sqlalchemy.sql.operators import eq, gt, lt
 from iatilib import db
 from iatilib.model import (
     Activity, Budget, Transaction, CountryPercentage, SectorPercentage,
     RegionPercentage, Participation, Organisation, PolicyMarker,
     RelatedActivity, Resource)
+from flask import request
 
 
 class BadFilterException(Exception):
@@ -250,10 +251,17 @@ def _filter(query, args):
         )
 
     def title(title):
-        return Activity.title.ilike("%{}%".format(title))
+        locale = request.args.get("locale", "en")
+        return or_(
+            Activity.title.ilike("%{}%".format(title)),
+            Activity.title_all_values['default'].astext.ilike("%{}%".format(title)),
+            Activity.title_all_values[locale].astext.ilike("%{}%".format(title)),
+        )
 
     def description(description):
-        return Activity.description.ilike("%{}%".format(description))
+        locale = request.args.get("locale", "en")
+        return func.jsonb_path_exists(Activity.description_all_values,
+               '$[*] ? (@.{}.* like_regex "{}" || @.default.* like_regex "{}")'.format(locale, description, description))
 
     filter_conditions = {
             'iati-identifier': partial(eq, Activity.iati_identifier),
