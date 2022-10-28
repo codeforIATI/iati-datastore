@@ -2,6 +2,9 @@ import requests
 import csv
 import datetime
 
+from sqlalchemy import union_all, case
+from sqlalchemy.orm import aliased
+
 from iatilib.model import CurrencyConversion
 from iatilib import db
 from iatilib import codelists
@@ -38,11 +41,23 @@ def update_exchange_rates(data):
         db.session.add_all(to_add)
         db.session.commit()
 
+def closest_rate(currency, date):
+    rate_greater = (db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == currency.value)
+                                                .filter(CurrencyConversion.date >= date)
+                                                .order_by(CurrencyConversion.date.asc()).limit(1).subquery().select())
+    rate_lesser = (db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == currency.value)
+                                               .filter(CurrencyConversion.date <= date)
+                                               .order_by(CurrencyConversion.date.desc()).limit(1).subquery().select())
+    rate_union = union_all(rate_lesser, rate_greater).alias()
+    conversion_alias = aliased(CurrencyConversion, rate_union)
+    date_diff = conversion_alias.date - date
+    return db.session.query(conversion_alias).order_by(case([(date_diff < 0, -date_diff)], else_=date_diff)).first()
+
 def convert_currency_usd(amount, date, currency):
     """Convert currency to US dollars for given date and input currency"""
     if currency == USD: return amount
     try:
-        closest = db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == currency.value).filter(CurrencyConversion.date >= date).order_by(CurrencyConversion.date.asc()).first()
+        closest = closest_rate(currency, date)
         if closest:
             rate = closest.rate
             return round(float(amount)/rate, 2)
@@ -55,13 +70,13 @@ def convert_currency_eur(amount, date, currency):
     """Convert currency to Euros for given date and input currency"""
     if currency == EUR: return amount
     try:
-        closest_eur = db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == EUR.value).filter(CurrencyConversion.date >= date).order_by(CurrencyConversion.date.asc()).first()
+        closest_eur = closest_rate(EUR, date)
         if closest_eur:
             rate_eur = closest_eur.rate
             if currency == USD:
                 return round(rate_eur*float(amount), 2)
             else:
-                closest_usd = db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == currency.value).filter(CurrencyConversion.date >= date).order_by(CurrencyConversion.date.asc()).first()
+                closest_usd = closest_rate(currency, date)
                 if closest_usd:
                     rate_usd = closest_usd.rate
                     return round(rate_eur*float(amount)/rate_usd, 2)
