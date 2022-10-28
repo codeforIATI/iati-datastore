@@ -244,7 +244,7 @@ def convert_currency(xml, conversion, resource=None, major_version='1'):
         transaction_date = iso_date
     else:
         return None
-    if value_amount:
+    if value_amount is not None and value_amount >= 0:
         return conversion(value_amount, transaction_date, input_currency)
     else:
         return None
