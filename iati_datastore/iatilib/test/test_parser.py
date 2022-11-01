@@ -819,7 +819,7 @@ class TestTransaction(AppTestCase):
                 <transaction-type code="D">Disbursement</transaction-type>
                 </transaction></activity>''')
         )[0]
-        self.assertEquals(1, mock.call_count)
+        self.assertEquals(2, mock.call_count) # iati_decimal now called twice per transaction due to currency conversion
 
     def test_provider_activity_id(self):
         sample = """<activity><transaction>

@@ -13,6 +13,8 @@ from iatilib import db, parse, rq
 from iatilib.model import Dataset, Resource, Activity, Log, DeletedActivity
 from iatilib.loghandlers import DatasetMessage as _
 
+from iatilib.currency_conversion import download_imf_exchange_rates, update_exchange_rates
+
 log = logging.getLogger("crawler")
 
 
@@ -469,3 +471,24 @@ def update_cmd(ignore_hashes, dataset=None):
     else:
         print("Enqueuing a full registry update")
         queue.enqueue(update_registry, args=(ignore_hashes,), result_ttl=0)
+
+def download_currencies():
+    """
+    Download of all IMF currency conversion
+    data, then update database.
+    """
+    rate_data = download_imf_exchange_rates()
+    update_exchange_rates(rate_data)
+
+@manager.cli.command('download-imf-currencies')
+def download_currencies_cmd():
+    """
+    Enqueue a currency conversion data download.
+    """
+    queue = rq.get_queue()
+    print("Enqueuing a download from IMF currency Data")
+    queue.enqueue(
+        download_currencies,
+        args=(),
+        result_ttl=0,
+        job_timeout=100000)
