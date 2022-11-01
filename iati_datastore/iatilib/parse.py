@@ -225,7 +225,7 @@ def currency(path, xml, resource=None, major_version='1'):
     else:
         return None
 
-def convert_currency(xml, resource=None, major_version='1'):
+def convert_currency(xml, conversion, resource=None, major_version='1'):
     """Convert transaction currency to US dollars"""
     default_currency = currency("../@default-currency", xml, resource, major_version)
     value_currency = currency("value/@currency", xml, resource, major_version)
@@ -244,11 +244,19 @@ def convert_currency(xml, resource=None, major_version='1'):
         transaction_date = iso_date
     else:
         return None
-    if value_amount:
-        return currency_conversion.convert_currency_usd(value_amount, transaction_date, input_currency)
+    if value_amount is not None and value_amount >= 0:
+        return conversion(value_amount, transaction_date, input_currency)
     else:
         return None
-    
+
+def convert_currency_usd(xml, resource=None, major_version='1'):
+    """Convert transaction currency to US dollars"""
+    return convert_currency(xml, currency_conversion.convert_currency_usd, resource=resource, major_version=major_version)
+
+def convert_currency_eur(xml, resource=None, major_version='1'):
+    """Convert transaction currency to Euros"""
+    return convert_currency(xml, currency_conversion.convert_currency_eur, resource=resource, major_version=major_version)
+
 def title_all_values(xml, resource=None, major_version='1'):
     ret = {}
     try:
@@ -336,7 +344,8 @@ def transactions(xml, resource=no_resource, major_version='1'):
             'value_currency': partial(currency, "value/@currency"),
             'value_date': partial(xpath_date, "value/@value-date"),
             'value_amount': partial(xpath_decimal, "value/text()"),
-            'value_usd': convert_currency,
+            'value_usd': convert_currency_usd,
+            'value_eur': convert_currency_eur,
             "recipient_country_percentages": recipient_country_percentages,
             "recipient_region_percentages": recipient_region_percentages,
             "sector_percentages": sector_percentages,
