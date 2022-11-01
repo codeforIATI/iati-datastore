@@ -69,6 +69,6 @@ class TestConvertCurrencyEUR(AppTestCase):
         self.assertEquals(convert_currency_eur(150.00, create_date("2014-07-29"), create_currency("XCD")), 41.52)
         self.assertEquals(convert_currency_eur(72000.00, create_date("2012-01-01"), create_currency("ARS")), 12989.20)
         self.assertEquals(convert_currency_eur(12.50, create_date("2012-01-01"), create_currency("EUR")), 12.50)
-        self.assertEquals(convert_currency_eur(99.12, create_date("2021-06-15"), create_currency("USD")), 83.41)
+        self.assertEquals(convert_currency_eur(99.12, create_date("2021-06-15"), create_currency("USD")), 81.24)
         self.assertEquals(convert_currency_eur(0.00, create_date("2005-12-05"), create_currency("AFN")), 0.00)
         self.assertEquals(convert_currency_eur(32.49, create_date("2017-06-01"), create_currency("ZZZ")), None)
