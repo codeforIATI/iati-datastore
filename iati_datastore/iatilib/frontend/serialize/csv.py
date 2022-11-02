@@ -234,7 +234,13 @@ def reporting_org_ref(activity):
 
 def reporting_org_name(activity):
     try:
-        return activity.reporting_org.name
+        locale = request.args.get("locale", "en")
+        if activity.reporting_org.name_all_values and locale in activity.reporting_org.name_all_values:
+            return activity.reporting_org.name_all_values[locale]
+        elif activity.reporting_org.name_all_values and 'default' in activity.reporting_org.name_all_values:
+            return activity.reporting_org.name_all_values['default']
+        else:
+            return activity.reporting_org.name
     except AttributeError:
         return ""
 
