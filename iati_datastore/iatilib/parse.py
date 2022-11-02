@@ -103,10 +103,26 @@ def xpath_decimal(xpath, xml, resource=None, major_version='1'):
         return None
 
 
+def xvals_lang(xml, major_version):
+     ret = {}
+     if major_version == '1':
+         for ele in xml.xpath("."):
+             lang = xval(ele, "@xml:lang", "default")
+             value = xval(ele, "text()")
+             ret[lang] = value
+     else:
+         for ele in xml.xpath("./narrative"):
+             lang = xval(ele, "@xml:lang", "default")
+             value = xval(ele, "text()")
+             ret[lang] = value
+     return ret
+
+
 def parse_org(xml, resource=no_resource, major_version='1'):
     data = {
         "ref": xval(xml, "@ref", u""),
         "name": xval(xml, TEXT_ELEMENT[major_version], u""),
+        "name_all_values": xvals_lang(xml, TEXT_ELEMENT[major_version])
     }
     try:
         data['type'] = codelists.by_major_version[major_version].OrganisationType.from_string(xval(xml, "@type"))
@@ -125,6 +141,7 @@ def reporting_org(element, resource=no_resource, major_version='1'):
     data = {
         "ref": xval(xml, "@ref"),
         "name": xval(xml, TEXT_ELEMENT[major_version], u""),
+        "name_all_values": xvals_lang(xml, TEXT_ELEMENT[major_version])
     }
     try:
         data.update({
