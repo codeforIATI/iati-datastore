@@ -195,6 +195,7 @@ class Organisation(db.Model, UniqueMixin):
     id = sa.Column(sa.Integer, primary_key=True, nullable=False)
     ref = sa.Column(sa.Unicode, nullable=False)
     name = sa.Column(sa.Unicode, default=u"", nullable=True)
+    name_all_values = sa.Column(JSONB, nullable=True)
     type = sa.Column(codelists.OrganisationType.db_type())
     __table_args__ = (sa.UniqueConstraint('ref', 'name', 'type'),)
 
