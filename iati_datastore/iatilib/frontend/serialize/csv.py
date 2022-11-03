@@ -259,13 +259,29 @@ def reporting_org_type_code(activity):
         return ""
 
 
+def participating_org_localised_name(org):
+    try:
+        locale = request.args.get("locale", "en")
+        if org.name_all_values and locale in org.name_all_values:
+            return org.name_all_values[locale]
+        elif org.name_all_values and 'default' in org.name_all_values:
+            return org.name_all_values['default']
+        else:
+            return org.name
+    except AttributeError:
+        return ""
+
+
 def participating_org(attr, role, activity):
     activity_by_role = dict(
             [(a.role.value, a) for a in activity.participating_orgs])
 
     participant = activity_by_role.get(role.value, "")
     if participant:
-        return getattr(participant.organisation, attr)
+        if attr == "name":
+            return participating_org_localised_name(participant.organisation)
+        else:
+            return getattr(participant.organisation, attr)
     else:
         return ''
 
