@@ -1128,3 +1128,22 @@ class TestActivityLocalesOrganisationNames(ClientTestCase):
                 output[1][i]
         )
 
+    def test_english_participating_org(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('participating-org (Funding)')
+        self.assertEquals(
+                u'Federal Ministry for Economic Cooperation and Development (BMZ)',
+                output[1][i]
+        )
+
+    def test_french_participating_org(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('participating-org (Funding)')
+        self.assertEquals(
+                u'Ministère fédéral de la Coopération économique et du Développement (BMZ)',
+                output[1][i]
+        )
