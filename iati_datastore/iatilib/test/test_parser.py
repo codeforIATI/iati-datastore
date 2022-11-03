@@ -1118,14 +1118,16 @@ class TestLocalsedOrganisationNames(AppTestCase):
         self.assertEquals(
             self.act.reporting_org.name_all_values,
             {'de': 'Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)',
-             'en': 'Federal Ministry for Economic Cooperation and Development (BMZ)'}
+             'en': 'Federal Ministry for Economic Cooperation and Development (BMZ)',
+             'fr': 'Ministère fédéral de la Coopération économique et du Développement (BMZ)'}
         )
 
     def test_participating_orgs(self):
         self.assertEquals(
             self.act.participating_orgs[0].organisation.name_all_values,
             {"de": 'Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)',
-             "en": 'Federal Ministry for Economic Cooperation and Development (BMZ)'}
+             "en": 'Federal Ministry for Economic Cooperation and Development (BMZ)',
+             "fr": 'Ministère fédéral de la Coopération économique et du Développement (BMZ)'}
         )
         self.assertEquals(
             self.act.participating_orgs[1].organisation.name_all_values,
