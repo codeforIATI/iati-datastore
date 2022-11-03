@@ -19,6 +19,23 @@ def total(column):
     return accessor
 
 
+USD = codelists.by_major_version['2'].Currency.from_string("USD")
+EUR = codelists.by_major_version['2'].Currency.from_string("EUR")
+
+
+def total(column, currency=None):
+    def accessor(activity):
+        if currency == USD:
+            return sum(t.value_usd for t in getattr(activity, column) if t.value_usd)
+        elif currency == EUR:
+            return sum(t.value_eur for t in getattr(activity, column) if t.value_eur)
+        else:
+            if len(set(t.value.currency for t in getattr(activity, column))) > 1:
+                return "!Mixed currency"
+            return sum(t.value.amount for t in getattr(activity, column) if t.value.amount)
+    return accessor
+
+
 def currency(activity):
     if len(set(t.value.currency for t in activity.transactions)) > 1:
         return "!Mixed currency"
@@ -404,6 +421,20 @@ def fielddict_from_major_version(major_version):
             u"total-Interest Repayment": total("interest_repayment"),
             u"total-Loan Repayment": total("loan_repayments"),
             u"total-Reimbursement": total("reembursements"),
+            u'total-Commitment-USD': total("commitments", currency=USD),
+            u"total-Disbursement-USD": total("disbursements", currency=USD),
+            u"total-Expenditure-USD": total("expenditures", currency=USD),
+            u"total-Incoming Funds-USD": total("incoming_funds", currency=USD),
+            u"total-Interest Repayment-USD": total("interest_repayment", currency=USD),
+            u"total-Loan Repayment-USD": total("loan_repayments", currency=USD),
+            u"total-Reimbursement-USD": total("reembursements", currency=USD),
+            u'total-Commitment-EUR': total("commitments", currency=EUR),
+            u"total-Disbursement-EUR": total("disbursements", currency=EUR),
+            u"total-Expenditure-EUR": total("expenditures", currency=EUR),
+            u"total-Incoming Funds-EUR": total("incoming_funds", currency=EUR),
+            u"total-Interest Repayment-EUR": total("interest_repayment", currency=EUR),
+            u"total-Loan Repayment-EUR": total("loan_repayments", currency=EUR),
+            u"total-Reimbursement-EUR": total("reembursements", currency=EUR),
         }
 
         def __init__(self, itr, *args, **kw):
