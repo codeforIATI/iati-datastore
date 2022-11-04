@@ -14,6 +14,41 @@ EUR = codelists.by_major_version['2'].Currency.from_string("EUR")
 
 RATES_URL = "https://codeforiati.org/imf-exchangerates/imf_exchangerates.csv"
 
+def currency_conversion_cache():
+    cache = {'date': [],
+             'rate': [],
+             'currency': [],
+             'index': {},
+             'data': {}}
+    data = db.session.query(CurrencyConversion).order_by(CurrencyConversion.currency.asc(), CurrencyConversion.date.asc()).all()
+    for d in data:
+        cache['date'].append(d.date)
+        cache['rate'].append(d.rate)
+        cache['currency'].append(d.currency)
+    for i, c in enumerate(cache['currency']):
+        if c and not c in cache['index']:
+            for j in range(i, len(cache['currency'])):
+                if cache['currency'][j] != c: break
+            cache['index'][c] = (i, j-1)
+    for c in cache['index']:
+        i = cache['index'][c][0]
+        j = cache['index'][c][1]
+        rates = []
+        for k in range(i, j):
+            rates.append((cache['date'][k], cache['rate'][k]))
+        cache['data'][c] = rates
+    cache['date'] = None
+    cache['rate'] = None
+    cache['currency'] = None
+    return cache
+
+conversion_cache = currency_conversion_cache()
+
+def get_rate(currency, date):
+    items = conversion_cache['data'][currency]
+    closest = min(items, key=lambda x: abs(x[0] - date))
+    return closest[1]
+
 def download_imf_exchange_rates():
     """Download and open IMF exchange rates CSV data"""
     with requests.Session() as s:
@@ -42,16 +77,7 @@ def update_exchange_rates(data):
         db.session.commit()
 
 def closest_rate(currency, date):
-    rate_greater = (db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == currency.value)
-                                                .filter(CurrencyConversion.date >= date)
-                                                .order_by(CurrencyConversion.date.asc()).limit(1).subquery().select())
-    rate_lesser = (db.session.query(CurrencyConversion).filter(CurrencyConversion.currency == currency.value)
-                                               .filter(CurrencyConversion.date <= date)
-                                               .order_by(CurrencyConversion.date.desc()).limit(1).subquery().select())
-    rate_union = union_all(rate_lesser, rate_greater).alias()
-    conversion_alias = aliased(CurrencyConversion, rate_union)
-    date_diff = conversion_alias.date - date
-    return db.session.query(conversion_alias).order_by(case([(date_diff < 0, -date_diff)], else_=date_diff)).first()
+    return get_rate(currency.value, date)
 
 def convert_currency_usd(amount, date, currency):
     """Convert currency to US dollars for given date and input currency"""
@@ -59,8 +85,7 @@ def convert_currency_usd(amount, date, currency):
     try:
         closest = closest_rate(currency, date)
         if closest:
-            rate = closest.rate
-            return round(float(amount)/rate, 2)
+            return round(float(amount)/closest, 2)
         else:
             return None
     except:
@@ -72,14 +97,12 @@ def convert_currency_eur(amount, date, currency):
     try:
         closest_eur = closest_rate(EUR, date)
         if closest_eur:
-            rate_eur = closest_eur.rate
             if currency == USD:
-                return round(rate_eur*float(amount), 2)
+                return round(closest_eur*float(amount), 2)
             else:
                 closest_usd = closest_rate(currency, date)
                 if closest_usd:
-                    rate_usd = closest_usd.rate
-                    return round(rate_eur*float(amount)/rate_usd, 2)
+                    return round(closest_eur*float(amount)/closest_usd, 2)
                 else:
                     return None
         else:
