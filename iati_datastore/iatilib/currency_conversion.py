@@ -14,7 +14,7 @@ EUR = codelists.by_major_version['2'].Currency.from_string("EUR")
 
 RATES_URL = "https://codeforiati.org/imf-exchangerates/imf_exchangerates.csv"
 
-def currency_conversion_cache():
+def currency_conversion_cache(cache_key='default'):
     cache = {'date': [],
              'rate': [],
              'currency': [],
@@ -40,11 +40,16 @@ def currency_conversion_cache():
     cache['date'] = None
     cache['rate'] = None
     cache['currency'] = None
+    cache['cache_key'] = cache_key
     return cache
 
-conversion_cache = currency_conversion_cache()
+conversion_cache = None
 
-def get_rate(currency, date):
+def get_rate(currency, date, cache_key='default'):
+    key = f'{cache_key}-{datetime.datetime.now().date()}'
+    global conversion_cache
+    if not conversion_cache or conversion_cache['cache_key'] != key:
+        conversion_cache = currency_conversion_cache(cache_key=key)
     items = conversion_cache['data'][currency]
     closest = min(items, key=lambda x: abs(x[0] - date))
     return closest[1]
@@ -75,15 +80,17 @@ def update_exchange_rates(data):
     if to_add:
         db.session.add_all(to_add)
         db.session.commit()
+    global conversion_cache
+    conversion_cache = None
 
-def closest_rate(currency, date):
-    return get_rate(currency.value, date)
+def closest_rate(currency, date, cache_key='default'):
+    return get_rate(currency.value, date, cache_key=cache_key)
 
-def convert_currency_usd(amount, date, currency):
+def convert_currency_usd(amount, date, currency, cache_key='default'):
     """Convert currency to US dollars for given date and input currency"""
     if currency == USD: return amount
     try:
-        closest = closest_rate(currency, date)
+        closest = closest_rate(currency, date, cache_key=cache_key)
         if closest:
             return round(float(amount)/closest, 2)
         else:
@@ -91,16 +98,16 @@ def convert_currency_usd(amount, date, currency):
     except:
         return None
 
-def convert_currency_eur(amount, date, currency):
+def convert_currency_eur(amount, date, currency, cache_key='default'):
     """Convert currency to Euros for given date and input currency"""
     if currency == EUR: return amount
     try:
-        closest_eur = closest_rate(EUR, date)
+        closest_eur = closest_rate(EUR, date, cache_key=cache_key)
         if closest_eur:
             if currency == USD:
                 return round(closest_eur*float(amount), 2)
             else:
-                closest_usd = closest_rate(currency, date)
+                closest_usd = closest_rate(currency, date, cache_key=cache_key)
                 if closest_usd:
                     return round(closest_eur*float(amount)/closest_usd, 2)
                 else:
