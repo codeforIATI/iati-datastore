@@ -973,7 +973,7 @@ class TestActivityLocalesDescriptionTypes(ClientTestCase):
         )
 
 class TestActivityCurrencyConversionOutput(ClientTestCase):
-    """Test new functionality to output USD and EUR"""
+    """Test new functionality to output USD and EUR in activities"""
 
     base_url = '/api/1/access/activity.csv'
 
@@ -1014,3 +1014,46 @@ class TestActivityCurrencyConversionOutput(ClientTestCase):
         self.assertEquals(u'19102.87',  output[1][csv_headers.index('total-Interest Repayment-EUR')])
         self.assertEquals(u'30475.55',  output[1][csv_headers.index('total-Loan Repayment-EUR')])
         self.assertEquals(u'64593.58',  output[1][csv_headers.index('total-Reimbursement-EUR')])
+
+class TestTransactionCurrencyConversionOutput(ClientTestCase):
+    """Test new functionality to output USD and EUR in transactions"""
+
+    base_url = '/api/1/access/transaction.csv'
+
+    def test_csv_activity_count(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        resp = self.client.get(self.base_url)
+        self.assertEquals(8, resp.get_data(as_text=True).count("\n"))
+
+    def test_usd_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'11417.39',  output[1][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'12715.24',  output[2][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'7523.84',  output[3][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'8821.69',  output[4][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'21800.19',  output[5][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'34778.69',  output[6][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'73714.19',  output[7][csv_headers.index('transaction-value-USD')])
+
+    def test_eur_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'10004.73',  output[1][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'11141.99',  output[2][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'6592.92',  output[3][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'7730.19',  output[4][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'19102.87',  output[5][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'30475.55',  output[6][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'64593.58',  output[7][csv_headers.index('transaction-value-EUR')])
