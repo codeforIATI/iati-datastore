@@ -11,14 +11,6 @@ from flask_babel import gettext
 from flask import request
 
 
-#def total(column):
-#    def accessor(activity):
-#        if len(set(t.value.currency for t in getattr(activity, column))) > 1:
-#            return "!Mixed currency"
-#        return sum(t.value.amount for t in getattr(activity, column) if t.value.amount)
-#    return accessor
-
-
 USD = codelists.by_major_version['2'].Currency.from_string("USD")
 EUR = codelists.by_major_version['2'].Currency.from_string("EUR")
 
