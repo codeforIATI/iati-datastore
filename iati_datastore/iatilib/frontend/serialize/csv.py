@@ -11,12 +11,12 @@ from flask_babel import gettext
 from flask import request
 
 
-def total(column):
-    def accessor(activity):
-        if len(set(t.value.currency for t in getattr(activity, column))) > 1:
-            return "!Mixed currency"
-        return sum(t.value.amount for t in getattr(activity, column) if t.value.amount)
-    return accessor
+#def total(column):
+#    def accessor(activity):
+#        if len(set(t.value.currency for t in getattr(activity, column))) > 1:
+#            return "!Mixed currency"
+#        return sum(t.value.amount for t in getattr(activity, column) if t.value.amount)
+#    return accessor
 
 
 USD = codelists.by_major_version['2'].Currency.from_string("USD")
@@ -105,6 +105,14 @@ def transaction_date(transaction):
 
 def transaction_value(transaction):
     return transaction.value.amount
+
+
+def transaction_value_usd(transaction):
+    return transaction.value_usd
+
+
+def transaction_value_eur(transaction):
+    return transaction.value_eur
 
 
 def transaction_flow_type(transaction):
@@ -597,6 +605,20 @@ _activity_fields = (
     u"total-Interest Repayment",
     u"total-Loan Repayment",
     u"total-Reimbursement",
+    u'total-Commitment-USD',
+    u"total-Disbursement-USD",
+    u"total-Expenditure-USD",
+    u"total-Incoming Funds-USD",
+    u"total-Interest Repayment-USD",
+    u"total-Loan Repayment-USD",
+    u"total-Reimbursement-USD",
+    u'total-Commitment-EUR',
+    u"total-Disbursement-EUR",
+    u"total-Expenditure-EUR",
+    u"total-Incoming Funds-EUR",
+    u"total-Interest Repayment-EUR",
+    u"total-Loan Repayment-EUR",
+    u"total-Reimbursement-EUR",
 )
 
 csv = CSVSerializer(_activity_fields)
@@ -684,6 +706,20 @@ _activity_by_country_fields = (
     u"total-Interest Repayment",
     u"total-Loan Repayment",
     u"total-Reimbursement",
+    u'total-Commitment-USD',
+    u"total-Disbursement-USD",
+    u"total-Expenditure-USD",
+    u"total-Incoming Funds-USD",
+    u"total-Interest Repayment-USD",
+    u"total-Loan Repayment-USD",
+    u"total-Reimbursement-USD",
+    u'total-Commitment-EUR',
+    u"total-Disbursement-EUR",
+    u"total-Expenditure-EUR",
+    u"total-Incoming Funds-EUR",
+    u"total-Interest Repayment-EUR",
+    u"total-Loan Repayment-EUR",
+    u"total-Reimbursement-EUR",
 )
 
 csv_activity_by_country = CSVSerializer(_activity_by_country_fields, adapter=adapt_activity_other)
@@ -747,6 +783,20 @@ _activity_by_sector_fields = (
     u"total-Interest Repayment",
     u"total-Loan Repayment",
     u"total-Reimbursement",
+    u'total-Commitment-USD',
+    u"total-Disbursement-USD",
+    u"total-Expenditure-USD",
+    u"total-Incoming Funds-USD",
+    u"total-Interest Repayment-USD",
+    u"total-Loan Repayment-USD",
+    u"total-Reimbursement-USD",
+    u'total-Commitment-EUR',
+    u"total-Disbursement-EUR",
+    u"total-Expenditure-EUR",
+    u"total-Incoming Funds-EUR",
+    u"total-Interest Repayment-EUR",
+    u"total-Loan Repayment-EUR",
+    u"total-Reimbursement-EUR",
 )
 
 csv_activity_by_sector = CSVSerializer(_activity_by_sector_fields, adapter=adapt_activity_other)
@@ -788,6 +838,8 @@ _transaction_fields = (
     (u'transaction-date', transaction_date),
     (u"default-currency", default_currency),
     (u"transaction-value", transaction_value),
+    (u"transaction-value-USD", transaction_value_usd),
+    (u"transaction-value-EUR", transaction_value_eur),
     ) + common_transaction_csv + (
     "iati-identifier",
      "hierarchy",
@@ -866,6 +918,8 @@ _transaction_by_country_fields = (
     (u'transaction-date', trans(transaction_date)),
     (u"default-currency", trans(default_currency)),
     (u'transaction-value', trans(transaction_value)),
+    (u"transaction-value-USD", trans(transaction_value_usd)),
+    (u"transaction-value-EUR", trans(transaction_value_eur)),
     ) + tuple([(i[0], trans(i[1])) for i in common_transaction_csv]) + (
     "iati-identifier",
      "hierarchy",
@@ -928,6 +982,8 @@ _transaction_by_sector_fields = (
     (u'transaction-date', trans(transaction_date)),
     (u"default-currency", trans(default_currency)),
     (u'transaction-value', trans(transaction_value)),
+    (u"transaction-value-USD", trans(transaction_value_usd)),
+    (u"transaction-value-EUR", trans(transaction_value_eur)),
     ) + tuple([(i[0], trans(i[1])) for i in common_transaction_csv]) + (
     "iati-identifier",
      "hierarchy",
