@@ -432,6 +432,8 @@ def budgets(xml, resource=no_resource, major_version='1'):
             'type': budget_type,
             'value_currency': partial(currency, "value/@currency"),
             'value_amount': partial(xpath_decimal, "value/text()"),
+            'value_usd': convert_currency_usd,
+            'value_eur': convert_currency_eur,
             'period_start': partial(xpath_date, "period-start/@iso-date"),
             'period_end': partial(xpath_date, "period-end/@iso-date"),
         }
