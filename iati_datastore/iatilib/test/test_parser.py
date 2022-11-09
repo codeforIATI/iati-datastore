@@ -1092,3 +1092,10 @@ class TestParseCurrencyConversion(AppTestCase):
         self.assertEquals(32845.88, self.act.transactions[0].value_eur) # 2011-08-19: GBP 29143
         self.assertEquals(44547.59, self.act.transactions[1].value_eur) # 2011-11-16: GBP 38297
         self.assertEquals(50379.31, self.act.transactions[2].value_eur) # 2012-02-23: GBP 42479.4
+
+    def test_budget_conversion_usd(self):
+        self.assertEquals(782140.59, self.act.budgets[0].value_usd) # 2011-08-01: GBP 480637
+
+    def test_budget_conversion_eur(self):
+        self.assertEquals(548485.69, self.act.budgets[0].value_eur) # 2011-08-01: GBP 480637
+
