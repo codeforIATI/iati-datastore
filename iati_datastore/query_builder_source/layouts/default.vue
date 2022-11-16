@@ -30,10 +30,6 @@
         </b-navbar-toggle>
       </b-container>
     </b-navbar>
-    <b-alert show dismissible fade class="mb-0 text-md-center">
-      <b-nav-text v-html="$t('datastoreDowntimeNotice')">
-      </b-nav-text>
-    </b-alert>
     <nuxt />
     <footer class="bg-light p-4">
       <b-container>
