@@ -300,6 +300,14 @@ def budget_value(budget):
     return budget.value_amount
 
 
+def budget_value_usd(budget):
+    return budget.value_usd
+
+
+def budget_value_eur(budget):
+    return budget.value_eur
+
+
 def budget_type(budget):
     try:
         return budget.type.name
@@ -1030,6 +1038,8 @@ _budget_fields = (
     (u'budget-period-start-date', period_start_date),
     (u'budget-period-end-date', period_end_date),
     (u"budget-value", budget_value),
+    (u"budget-value-USD", budget_value_usd),
+    (u"budget-value-EUR", budget_value_eur),
     (u"budget-type", budget_type),
     u"iati-identifier",
     u"title",
@@ -1053,6 +1063,8 @@ _budget_by_country_fields = (
     (u'budget-period-start-date', trans(period_start_date)),
     (u'budget-period-end-date', trans(period_end_date)),
     (u"budget-value", trans(budget_value)),
+    (u"budget-value-USD", trans(budget_value_usd)),
+    (u"budget-value-EUR", trans(budget_value_eur)),
     (u"budget-type", trans(budget_type)),
     u"iati-identifier",
     u"title",
@@ -1074,6 +1086,8 @@ _budget_by_sector_fields = (
     (u'budget-period-start-date', trans(period_start_date)),
     (u'budget-period-end-date', trans(period_end_date)),
     (u"budget-value", trans(budget_value)),
+    (u"budget-value-USD", trans(budget_value_usd)),
+    (u"budget-value-EUR", trans(budget_value_eur)),
     (u"budget-type", trans(budget_type)),
     u"iati-identifier",
     u"title",
