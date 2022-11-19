@@ -1057,3 +1057,43 @@ class TestTransactionCurrencyConversionOutput(ClientTestCase):
         self.assertEquals(u'19102.87',  output[5][csv_headers.index('transaction-value-EUR')])
         self.assertEquals(u'30475.55',  output[6][csv_headers.index('transaction-value-EUR')])
         self.assertEquals(u'64593.58',  output[7][csv_headers.index('transaction-value-EUR')])
+
+class TestBudgetCurrencyConversionOutput(ClientTestCase):
+    """Test new functionality to output USD and EUR in budgets"""
+
+    base_url = '/api/1/access/budget.csv'
+
+    def test_csv_activity_count(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("budget-currencies.xml")
+        resp = self.client.get(self.base_url)
+        self.assertEquals(6, resp.get_data(as_text=True).count("\n"))
+
+    def test_usd_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("budget-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'2357731.2',  output[1][csv_headers.index('budget-value-USD')]) # 2016-12-23: 1916543 GBP
+        self.assertEquals(u'4066137.1',  output[2][csv_headers.index('budget-value-USD')]) # 2017-12-10: 3024387 GBP
+        self.assertEquals(u'3744589.94',  output[3][csv_headers.index('budget-value-USD')]) # 2018-12-10: 2935782 GBP
+        self.assertEquals(u'4309785.68',  output[4][csv_headers.index('budget-value-USD')]) # 2019-12-10: 3343511 GBP
+        self.assertEquals(u'4791659.58',  output[5][csv_headers.index('budget-value-USD')]) # 2020-12-10: 3587780 GBP
+
+    def test_eur_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("budget-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'2236724.41',  output[1][csv_headers.index('budget-value-EUR')]) # 2016-12-23: 1916543 GBP
+        self.assertEquals(u'3431628.92',  output[2][csv_headers.index('budget-value-EUR')]) # 2017-12-10: 3024387 GBP
+        self.assertEquals(u'3296584.15',  output[3][csv_headers.index('budget-value-EUR')]) # 2018-12-10: 2935782 GBP
+        self.assertEquals(u'3924408.74',  output[4][csv_headers.index('budget-value-EUR')]) # 2019-12-10: 3343511 GBP
+        self.assertEquals(u'3999715.84',  output[5][csv_headers.index('budget-value-EUR')]) # 2020-12-10: 3587780 GBP
+
