@@ -13,6 +13,11 @@ from . import factories as fac
 from . import ClientTestCase
 from iatilib import parse, db, model
 
+from iatilib.currency_conversion import update_exchange_rates
+
+def read_fixture(fix_name, encoding='utf-8'):
+    """Read and convert fixture from csv file"""
+    return csv.reader(open(fixture_filename(fix_name)).read().strip().split("\n"), delimiter=',')
 
 class TestLatestApiRedirect(ClientTestCase):
     def test_latest_api_redirect(self):
@@ -966,3 +971,129 @@ class TestActivityLocalesDescriptionTypes(ClientTestCase):
                 u"Les bénéficiaires sont les populations à risque et victimes hébergées dans les abris de fortune dans les localités inondées. Les bénéficiaires directs en sont les enfants et les mères victimes de la catastrophe et souffrant encore de ses conséquences.",
                 output[1][i]
         )
+
+class TestActivityCurrencyConversionOutput(ClientTestCase):
+    """Test new functionality to output USD and EUR in activities"""
+
+    base_url = '/api/1/access/activity.csv'
+
+    def test_csv_activity_count(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        resp = self.client.get(self.base_url)
+        self.assertEquals(2, resp.get_data(as_text=True).count("\n"))
+
+    def test_usd_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'12715.24',  output[1][csv_headers.index('total-Commitment-USD')])
+        self.assertEquals(u'7523.84',  output[1][csv_headers.index('total-Disbursement-USD')])
+        self.assertEquals(u'8821.69',  output[1][csv_headers.index('total-Expenditure-USD')])
+        self.assertEquals(u'11417.39',  output[1][csv_headers.index('total-Incoming Funds-USD')])
+        self.assertEquals(u'21800.19',  output[1][csv_headers.index('total-Interest Repayment-USD')])
+        self.assertEquals(u'34778.69',  output[1][csv_headers.index('total-Loan Repayment-USD')])
+        self.assertEquals(u'73714.19',  output[1][csv_headers.index('total-Reimbursement-USD')])
+
+    def test_eur_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'11141.99',  output[1][csv_headers.index('total-Commitment-EUR')])
+        self.assertEquals(u'6592.92',  output[1][csv_headers.index('total-Disbursement-EUR')])
+        self.assertEquals(u'7730.19',  output[1][csv_headers.index('total-Expenditure-EUR')])
+        self.assertEquals(u'10004.73',  output[1][csv_headers.index('total-Incoming Funds-EUR')])
+        self.assertEquals(u'19102.87',  output[1][csv_headers.index('total-Interest Repayment-EUR')])
+        self.assertEquals(u'30475.55',  output[1][csv_headers.index('total-Loan Repayment-EUR')])
+        self.assertEquals(u'64593.58',  output[1][csv_headers.index('total-Reimbursement-EUR')])
+
+class TestTransactionCurrencyConversionOutput(ClientTestCase):
+    """Test new functionality to output USD and EUR in transactions"""
+
+    base_url = '/api/1/access/transaction.csv'
+
+    def test_csv_activity_count(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        resp = self.client.get(self.base_url)
+        self.assertEquals(8, resp.get_data(as_text=True).count("\n"))
+
+    def test_usd_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'11417.39',  output[1][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'12715.24',  output[2][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'7523.84',  output[3][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'8821.69',  output[4][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'21800.19',  output[5][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'34778.69',  output[6][csv_headers.index('transaction-value-USD')])
+        self.assertEquals(u'73714.19',  output[7][csv_headers.index('transaction-value-USD')])
+
+    def test_eur_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("transaction-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'10004.73',  output[1][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'11141.99',  output[2][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'6592.92',  output[3][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'7730.19',  output[4][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'19102.87',  output[5][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'30475.55',  output[6][csv_headers.index('transaction-value-EUR')])
+        self.assertEquals(u'64593.58',  output[7][csv_headers.index('transaction-value-EUR')])
+
+class TestBudgetCurrencyConversionOutput(ClientTestCase):
+    """Test new functionality to output USD and EUR in budgets"""
+
+    base_url = '/api/1/access/budget.csv'
+
+    def test_csv_activity_count(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("budget-currencies.xml")
+        resp = self.client.get(self.base_url)
+        self.assertEquals(6, resp.get_data(as_text=True).count("\n"))
+
+    def test_usd_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("budget-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'2357731.2',  output[1][csv_headers.index('budget-value-USD')]) # 2016-12-23: 1916543 GBP
+        self.assertEquals(u'4066137.1',  output[2][csv_headers.index('budget-value-USD')]) # 2017-12-10: 3024387 GBP
+        self.assertEquals(u'3744589.94',  output[3][csv_headers.index('budget-value-USD')]) # 2018-12-10: 2935782 GBP
+        self.assertEquals(u'4309785.68',  output[4][csv_headers.index('budget-value-USD')]) # 2019-12-10: 3343511 GBP
+        self.assertEquals(u'4791659.58',  output[5][csv_headers.index('budget-value-USD')]) # 2020-12-10: 3587780 GBP
+
+    def test_eur_currency_fields(self):
+        self.data = read_fixture("imf_exchangerates.csv")
+        next(self.data, None)
+        update_exchange_rates(self.data)
+        load_fix("budget-currencies.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        self.assertEquals(u'2236724.41',  output[1][csv_headers.index('budget-value-EUR')]) # 2016-12-23: 1916543 GBP
+        self.assertEquals(u'3431628.92',  output[2][csv_headers.index('budget-value-EUR')]) # 2017-12-10: 3024387 GBP
+        self.assertEquals(u'3296584.15',  output[3][csv_headers.index('budget-value-EUR')]) # 2018-12-10: 2935782 GBP
+        self.assertEquals(u'3924408.74',  output[4][csv_headers.index('budget-value-EUR')]) # 2019-12-10: 3343511 GBP
+        self.assertEquals(u'3999715.84',  output[5][csv_headers.index('budget-value-EUR')]) # 2020-12-10: 3587780 GBP
+

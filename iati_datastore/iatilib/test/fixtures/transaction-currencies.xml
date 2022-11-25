@@ -1,0 +1,44 @@
+<iati-activities version="2.03">
+  <iati-activity default-currency="GBP" hierarchy="1" xml:lang="de">
+    <iati-identifier>DE-1-198966376</iati-identifier>
+    <iati-identifier>DE-1-198966376</iati-identifier>
+    <reporting-org ref="DE-1" secondary-reporter="0" type="10">
+      <narrative xml:lang="de">Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)</narrative>
+    </reporting-org>
+    <transaction ref="ACET RS12-A">
+      <transaction-type code="1"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value currency="GBP" value-date="2017-06-30">8797.16</value>
+    </transaction>
+    <transaction ref="ACET RS13-A">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value currency="GBP" value-date="2017-06-30">9797.16</value>
+    </transaction>
+    <transaction ref="ACET RS14-A">
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value currency="GBP" value-date="2017-06-30">5797.16</value>
+    </transaction>
+    <transaction ref="ACET RS15-A">
+      <transaction-type code="4"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value currency="GBP" value-date="2017-06-30">6797.16</value>
+    </transaction>
+    <transaction ref="ACET RS16-A">
+      <transaction-type code="5"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value currency="GBP" value-date="2017-06-30">16797.16</value>
+    </transaction>
+    <transaction ref="ACET RS17-A">
+      <transaction-type code="6"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value currency="GBP" value-date="2017-06-30">26797.16</value>
+    </transaction>
+    <transaction ref="ACET RS17-A">
+      <transaction-type code="7"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value currency="GBP" value-date="2017-06-30">56797.16</value>
+    </transaction>
+  </iati-activity>
+</iati-activities>

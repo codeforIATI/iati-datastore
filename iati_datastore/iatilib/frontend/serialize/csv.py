@@ -11,11 +11,20 @@ from flask_babel import gettext
 from flask import request
 
 
-def total(column):
+USD = codelists.by_major_version['2'].Currency.from_string("USD")
+EUR = codelists.by_major_version['2'].Currency.from_string("EUR")
+
+
+def total(column, currency=None):
     def accessor(activity):
-        if len(set(t.value.currency for t in getattr(activity, column))) > 1:
-            return "!Mixed currency"
-        return sum(t.value.amount for t in getattr(activity, column) if t.value.amount)
+        if currency == USD:
+            return sum(t.value_usd for t in getattr(activity, column) if t.value_usd)
+        elif currency == EUR:
+            return sum(t.value_eur for t in getattr(activity, column) if t.value_eur)
+        else:
+            if len(set(t.value.currency for t in getattr(activity, column))) > 1:
+                return "!Mixed currency"
+            return sum(t.value.amount for t in getattr(activity, column) if t.value.amount)
     return accessor
 
 
@@ -88,6 +97,14 @@ def transaction_date(transaction):
 
 def transaction_value(transaction):
     return transaction.value.amount
+
+
+def transaction_value_usd(transaction):
+    return transaction.value_usd
+
+
+def transaction_value_eur(transaction):
+    return transaction.value_eur
 
 
 def transaction_flow_type(transaction):
@@ -283,6 +300,14 @@ def budget_value(budget):
     return budget.value_amount
 
 
+def budget_value_usd(budget):
+    return budget.value_usd
+
+
+def budget_value_eur(budget):
+    return budget.value_eur
+
+
 def budget_type(budget):
     try:
         return budget.type.name
@@ -404,6 +429,20 @@ def fielddict_from_major_version(major_version):
             u"total-Interest Repayment": total("interest_repayment"),
             u"total-Loan Repayment": total("loan_repayments"),
             u"total-Reimbursement": total("reembursements"),
+            u'total-Commitment-USD': total("commitments", currency=USD),
+            u"total-Disbursement-USD": total("disbursements", currency=USD),
+            u"total-Expenditure-USD": total("expenditures", currency=USD),
+            u"total-Incoming Funds-USD": total("incoming_funds", currency=USD),
+            u"total-Interest Repayment-USD": total("interest_repayment", currency=USD),
+            u"total-Loan Repayment-USD": total("loan_repayments", currency=USD),
+            u"total-Reimbursement-USD": total("reembursements", currency=USD),
+            u'total-Commitment-EUR': total("commitments", currency=EUR),
+            u"total-Disbursement-EUR": total("disbursements", currency=EUR),
+            u"total-Expenditure-EUR": total("expenditures", currency=EUR),
+            u"total-Incoming Funds-EUR": total("incoming_funds", currency=EUR),
+            u"total-Interest Repayment-EUR": total("interest_repayment", currency=EUR),
+            u"total-Loan Repayment-EUR": total("loan_repayments", currency=EUR),
+            u"total-Reimbursement-EUR": total("reembursements", currency=EUR),
         }
 
         def __init__(self, itr, *args, **kw):
@@ -566,6 +605,20 @@ _activity_fields = (
     u"total-Interest Repayment",
     u"total-Loan Repayment",
     u"total-Reimbursement",
+    u'total-Commitment-USD',
+    u"total-Disbursement-USD",
+    u"total-Expenditure-USD",
+    u"total-Incoming Funds-USD",
+    u"total-Interest Repayment-USD",
+    u"total-Loan Repayment-USD",
+    u"total-Reimbursement-USD",
+    u'total-Commitment-EUR',
+    u"total-Disbursement-EUR",
+    u"total-Expenditure-EUR",
+    u"total-Incoming Funds-EUR",
+    u"total-Interest Repayment-EUR",
+    u"total-Loan Repayment-EUR",
+    u"total-Reimbursement-EUR",
 )
 
 csv = CSVSerializer(_activity_fields)
@@ -653,6 +706,20 @@ _activity_by_country_fields = (
     u"total-Interest Repayment",
     u"total-Loan Repayment",
     u"total-Reimbursement",
+    u'total-Commitment-USD',
+    u"total-Disbursement-USD",
+    u"total-Expenditure-USD",
+    u"total-Incoming Funds-USD",
+    u"total-Interest Repayment-USD",
+    u"total-Loan Repayment-USD",
+    u"total-Reimbursement-USD",
+    u'total-Commitment-EUR',
+    u"total-Disbursement-EUR",
+    u"total-Expenditure-EUR",
+    u"total-Incoming Funds-EUR",
+    u"total-Interest Repayment-EUR",
+    u"total-Loan Repayment-EUR",
+    u"total-Reimbursement-EUR",
 )
 
 csv_activity_by_country = CSVSerializer(_activity_by_country_fields, adapter=adapt_activity_other)
@@ -716,6 +783,20 @@ _activity_by_sector_fields = (
     u"total-Interest Repayment",
     u"total-Loan Repayment",
     u"total-Reimbursement",
+    u'total-Commitment-USD',
+    u"total-Disbursement-USD",
+    u"total-Expenditure-USD",
+    u"total-Incoming Funds-USD",
+    u"total-Interest Repayment-USD",
+    u"total-Loan Repayment-USD",
+    u"total-Reimbursement-USD",
+    u'total-Commitment-EUR',
+    u"total-Disbursement-EUR",
+    u"total-Expenditure-EUR",
+    u"total-Incoming Funds-EUR",
+    u"total-Interest Repayment-EUR",
+    u"total-Loan Repayment-EUR",
+    u"total-Reimbursement-EUR",
 )
 
 csv_activity_by_sector = CSVSerializer(_activity_by_sector_fields, adapter=adapt_activity_other)
@@ -757,6 +838,8 @@ _transaction_fields = (
     (u'transaction-date', transaction_date),
     (u"default-currency", default_currency),
     (u"transaction-value", transaction_value),
+    (u"transaction-value-USD", transaction_value_usd),
+    (u"transaction-value-EUR", transaction_value_eur),
     ) + common_transaction_csv + (
     "iati-identifier",
      "hierarchy",
@@ -835,6 +918,8 @@ _transaction_by_country_fields = (
     (u'transaction-date', trans(transaction_date)),
     (u"default-currency", trans(default_currency)),
     (u'transaction-value', trans(transaction_value)),
+    (u"transaction-value-USD", trans(transaction_value_usd)),
+    (u"transaction-value-EUR", trans(transaction_value_eur)),
     ) + tuple([(i[0], trans(i[1])) for i in common_transaction_csv]) + (
     "iati-identifier",
      "hierarchy",
@@ -897,6 +982,8 @@ _transaction_by_sector_fields = (
     (u'transaction-date', trans(transaction_date)),
     (u"default-currency", trans(default_currency)),
     (u'transaction-value', trans(transaction_value)),
+    (u"transaction-value-USD", trans(transaction_value_usd)),
+    (u"transaction-value-EUR", trans(transaction_value_eur)),
     ) + tuple([(i[0], trans(i[1])) for i in common_transaction_csv]) + (
     "iati-identifier",
      "hierarchy",
@@ -951,6 +1038,8 @@ _budget_fields = (
     (u'budget-period-start-date', period_start_date),
     (u'budget-period-end-date', period_end_date),
     (u"budget-value", budget_value),
+    (u"budget-value-USD", budget_value_usd),
+    (u"budget-value-EUR", budget_value_eur),
     (u"budget-type", budget_type),
     u"iati-identifier",
     u"title",
@@ -974,6 +1063,8 @@ _budget_by_country_fields = (
     (u'budget-period-start-date', trans(period_start_date)),
     (u'budget-period-end-date', trans(period_end_date)),
     (u"budget-value", trans(budget_value)),
+    (u"budget-value-USD", trans(budget_value_usd)),
+    (u"budget-value-EUR", trans(budget_value_eur)),
     (u"budget-type", trans(budget_type)),
     u"iati-identifier",
     u"title",
@@ -995,6 +1086,8 @@ _budget_by_sector_fields = (
     (u'budget-period-start-date', trans(period_start_date)),
     (u'budget-period-end-date', trans(period_end_date)),
     (u"budget-value", trans(budget_value)),
+    (u"budget-value-USD", trans(budget_value_usd)),
+    (u"budget-value-EUR", trans(budget_value_eur)),
     (u"budget-type", trans(budget_type)),
     u"iati-identifier",
     u"title",
