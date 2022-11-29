@@ -1140,15 +1140,19 @@ class TestLocalsedOrganisationNames(AppTestCase):
 
     def test_transaction_reciever_org_name(self):
         self.assertEquals(self.act.transactions[0].provider_org.name_all_values,
-                          {"en": 'Norwegian Agency for Development Cooperation (NORAD)'}
+                          {"en": 'Norwegian Agency for Development Cooperation (NORAD)',
+                           "fr": 'Agence norvégienne de coopération au développement (NORAD)'}
         )
         self.assertEquals(self.act.transactions[0].receiver_org.name_all_values,
-                          {"en": 'Care Danmark'}
+                          {"en": 'Care Danmark',
+                           "fr": 'Soins Danemark'}
         )
         self.assertEquals(self.act.transactions[1].provider_org.name_all_values,
-                          {"en": 'ActionAid Bangladesh'}
+                          {"en": 'ActionAid Bangladesh',
+                           "es": 'Ayuda en Acción Bangladesh'}
         )
         self.assertEquals(self.act.transactions[1].receiver_org.name_all_values,
-                          {"en": 'SKS Foundation'}
+                          {"en": 'SKS Foundation',
+                           "fr": 'Fondation SKS'}
         )
 
