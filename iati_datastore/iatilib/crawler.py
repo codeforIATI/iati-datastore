@@ -224,7 +224,7 @@ def parse_resource(resource):
     return resource  # , new_identifiers
 
 
-def update_activities(dataset_name):
+def update_activities(dataset_name, ignore_hashes=False):
     '''
     Parses and stores the raw XML associated with a resource [see parse_resource()], or logs the invalid resource
     :param resource_url:
@@ -239,6 +239,9 @@ def update_activities(dataset_name):
 
     dataset = Dataset.query.get(dataset_name)
     resource = dataset.resources[0]
+
+    if ignore_hashes: db.session._update_all_unique = True
+
     try:
         db.session.query(Log).filter(sa.and_(
                 Log.logger.in_(
@@ -262,6 +265,7 @@ def update_activities(dataset_name):
         ))
         db.session.commit()
 
+    if ignore_hashes: db.session._update_all_unique = False
 
 def update_dataset(dataset_name, ignore_hashes):
     '''
@@ -307,7 +311,7 @@ def update_dataset(dataset_name, ignore_hashes):
 
     if resource.last_status_code == 200 and not resource.last_parsed:
         queue.enqueue(
-            update_activities, args=(dataset_name,),
+            update_activities, args=(dataset_name, ignore_hashes),
             result_ttl=0, job_timeout=100000)
 
 
