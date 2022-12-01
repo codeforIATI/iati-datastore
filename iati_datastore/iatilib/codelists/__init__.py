@@ -19,6 +19,7 @@ from unidecode import unidecode
 
 from .enum import DeclEnum
 
+enums_supported_languages = ('en', 'fr', 'es', 'pt')
 
 def iati_url(name):
     return {
@@ -71,18 +72,43 @@ def codelist_reader(itr):
     for line in itr:
         yield line[:2]
 
+def codelist_with_translations(name, major_version):
+    with codecs.open(os.path.join(data_dir, major_version, "%s.csv" % name)) as cl_file:
+        reader = codelist_reader(csv.reader(cl_file))
+        codes = {code: {'en': name} for code, name in reader}
+    for lang in enums_supported_languages:
+        if lang != 'en':
+        with codecs.open(os.path.join(data_dir, major_version, "/%s/%s.csv" % (lang, name))) as cl_file:
+            reader = codelist_reader(csv.reader(cl_file))
+            for code, name in reader:
+                codes[code][lang] = name
+    enums = {ident(data['en']): [code, data['en'], {d: data[d] for d in data if d != 'en'}] for code, data in reader}
+    return enums
+
+#by_major_version = {}
+#for major_version in ['1', '2']:
+#    by_major_version[major_version] = type('Codelists'+major_version, (object,), {})
+#    for name in urls[major_version].keys():
+#        try:
+#            with codecs.open(os.path.join(data_dir, major_version, "%s.csv" % name)) as cl_file:
+#                reader = codelist_reader(csv.reader(cl_file))
+#                enums = {ident(name): (code, name) for code, name in reader}
+#                codelist = type(name, (DeclEnum,), enums)
+#                setattr(by_major_version[major_version], name, codelist)
+#                if major_version == '1':
+#                    globals()[name] = codelist
+#        except IOError as exc:
+#            warnings.warn(str(exc))
 
 by_major_version = {}
 for major_version in ['1', '2']:
     by_major_version[major_version] = type('Codelists'+major_version, (object,), {})
     for name in urls[major_version].keys():
         try:
-            with codecs.open(os.path.join(data_dir, major_version, "%s.csv" % name)) as cl_file:
-                reader = codelist_reader(csv.reader(cl_file))
-                enums = {ident(name): (code, name) for code, name in reader}
-                codelist = type(name, (DeclEnum,), enums)
-                setattr(by_major_version[major_version], name, codelist)
-                if major_version == '1':
-                    globals()[name] = codelist
+            enums = codelist_with_translations(name, major_version)
+            codelist = type(name, (DeclEnum,), enums)
+            setattr(by_major_version[major_version], name, codelist)
+            if major_version == '1':
+                globals()[name] = codelist
         except IOError as exc:
             warnings.warn(str(exc))
