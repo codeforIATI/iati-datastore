@@ -37,7 +37,13 @@ def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw):
 
     key = (cls, hashfunc(*arg, **kw))
     if key in cache:
-        return cache[key]
+        if getattr(session, '_update_all_unique', False):
+            obj = cache[key]
+            for property in kw:
+                obj[property] = kw[property]
+            return obj
+        else:
+            return cache[key]
     else:
         with session.no_autoflush:
             q = session.query(cls)
