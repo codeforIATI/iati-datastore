@@ -101,3 +101,10 @@ for major_version in ['1', '2']:
                 globals()[name] = codelist
         except IOError as exc:
             warnings.warn(str(exc))
+
+
+def localised_description(item, locale):
+    if locale != "en" and locale in enums_supported_languages:
+        return u"%s" % item.translations[locale] if item and item.translations[locale] else u""
+    else:
+        return u"%s" % item.description if item and item.description else u""
