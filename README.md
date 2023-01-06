@@ -1,7 +1,7 @@
 IATI Datastore Classic
 ======================
 
-[![Build Status](https://img.shields.io/github/workflow/status/codeforIATI/iati-datastore/CI/main.svg)](https://github.com/codeforIATI/iati-datastore/actions?query=workflow%3ACI)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/codeforIATI/iati-datastore/ci.yml?branch=main)](https://github.com/codeforIATI/iati-datastore/actions/workflows/ci.yml?query=workflow%3ACI)
 [![Coverage Status](https://img.shields.io/coveralls/codeforIATI/iati-datastore.svg)](https://coveralls.io/r/codeforIATI/iati-datastore?branch=main)
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://github.com/codeforIATI/iati-datastore/blob/main/LICENSE.txt)
 
