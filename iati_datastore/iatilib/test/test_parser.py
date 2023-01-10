@@ -1099,7 +1099,7 @@ class TestParseCurrencyConversion(AppTestCase):
     def test_budget_conversion_eur(self):
         self.assertEquals(548485.69, self.act.budgets[0].value_eur) # 2011-08-01: GBP 480637
 
-class TestLocalsedOrganisationNames(AppTestCase):
+class TestLocalisedOrganisationNames(AppTestCase):
     def setUp(self):
         super().setUp()
         self.activities = list(parse.document_from_file(fixture_filename("localised-org-names.xml")))
@@ -1150,3 +1150,44 @@ class TestLocalsedOrganisationNames(AppTestCase):
                           {"en": 'SKS Foundation'}
         )
 
+class TestLocalisedOrganisationNamesActivityDefault(AppTestCase):
+    def setUp(self):
+        super().setUp()
+        self.activities = list(parse.document_from_file(fixture_filename("localised-org-names-default.xml")))
+        self.act = self.activities[0]
+
+    def test_reporting_org_name(self):
+        self.assertEquals(
+            self.act.reporting_org.name_all_values,
+            {'de': 'Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)',
+             'en': 'Federal Ministry for Economic Cooperation and Development (BMZ)'}
+        )
+
+    def test_participating_orgs(self):
+        self.assertEquals(
+            self.act.participating_orgs[0].organisation.name_all_values,
+            {"de": 'Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)',
+             "en": 'Federal Ministry for Economic Cooperation and Development (BMZ)'}
+        )
+        self.assertEquals(
+            self.act.participating_orgs[1].organisation.name_all_values,
+            {"de": 'KfW Bankengruppe (KfW)'}
+        )
+        self.assertEquals(
+            self.act.participating_orgs[2].organisation.name_all_values,
+            {"de": 'KfW Bankengruppe (KfW)'}
+        )
+
+    def test_transaction_reciever_org_name(self):
+        self.assertEquals(self.act.transactions[0].provider_org.name_all_values,
+                          {"de": 'Norwegische Agentur für Entwicklungszusammenarbeit (NORAD)'}
+        )
+        self.assertEquals(self.act.transactions[0].receiver_org.name_all_values,
+                          {"de": 'Pflege Dänemark'}
+        )
+        self.assertEquals(self.act.transactions[1].provider_org.name_all_values,
+                          {"de": 'ActionAid Bangladesch'}
+        )
+        self.assertEquals(self.act.transactions[1].receiver_org.name_all_values,
+                          {"de": 'SKS-Stiftung'}
+        )

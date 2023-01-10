@@ -1,0 +1,51 @@
+<iati-activities version="2.03">
+  <iati-activity default-currency="EUR" hierarchy="1" xml:lang="de">
+    <iati-identifier>DE-1-998966376</iati-identifier>
+    <reporting-org ref="DE-1" secondary-reporter="0" type="10">
+      <narrative>Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)</narrative>
+      <narrative xml:lang="en">Federal Ministry for Economic Cooperation and Development (BMZ)</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="pt">Esgotamento Sanitário Pernambuco</narrative>
+      <narrative>Abwasserentsorgung Pernambuco (Invest.)</narrative>
+    </title>
+    <participating-org ref="DE-1" role="1" type="10">
+      <narrative>Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)</narrative>
+      <narrative xml:lang="en">Federal Ministry for Economic Cooperation and Development (BMZ)</narrative>
+    </participating-org>
+    <participating-org ref="XM-DAC-5-2" role="2">
+      <narrative>KfW Bankengruppe (KfW)</narrative>
+    </participating-org>
+    <participating-org ref="XM-DAC-5-2" role="3">
+      <narrative>KfW Bankengruppe (KfW)</narrative>
+    </participating-org>
+    <transaction>
+      <transaction-type code="11"/>
+      <transaction-date iso-date="2015-09-08"/>
+      <value value-date="2015-09-08">1749796.82</value>
+      <description>
+        <narrative xml:lang="en">Aid from other bilateral donors</narrative>
+      </description>
+      <provider-org ref="NO-BRC-971277882" type="10">
+        <narrative>Norwegische Agentur für Entwicklungszusammenarbeit (NORAD)</narrative>
+      </provider-org>
+      <receiver-org ref="DK-CVR-12921047" receiver-activity-id="DK-CVR-12921047-2018-21LotCivSPA" type="22">
+        <narrative>Pflege Dänemark</narrative>
+      </receiver-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="11"/>
+      <transaction-date iso-date="2016-12-22"/>
+      <value value-date="2016-12-22">4555468.00</value>
+      <description>
+        <narrative xml:lang="en">Aid from other bilateral donors</narrative>
+      </description>
+      <provider-org ref="BD-NAB-0210" provider-activity-id="BD-NAB-0210-POWER" type="21">
+        <narrative>ActionAid Bangladesch</narrative>
+      </provider-org>
+      <receiver-org type="22">
+        <narrative>SKS-Stiftung</narrative>
+      </receiver-org>
+    </transaction>
+  </iati-activity>
+</iati-activities>
