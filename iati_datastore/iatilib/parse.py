@@ -103,26 +103,26 @@ def xpath_decimal(xpath, xml, resource=None, major_version='1'):
         return None
 
 
-def xvals_lang(xml, major_version):
+def xvals_lang(xml, major_version, default_lang="default"):
      ret = {}
      if major_version == '1':
          for ele in xml.xpath("."):
-             lang = xval(ele, "@xml:lang", "default")
+             lang = xval(ele, "@xml:lang", default_lang)
              value = xval(ele, "text()")
              ret[lang] = value
      else:
          for ele in xml.xpath("./narrative"):
-             lang = xval(ele, "@xml:lang", "default")
+             lang = xval(ele, "@xml:lang", default_lang)
              value = xval(ele, "text()")
              ret[lang] = value
      return ret
 
 
-def parse_org(xml, resource=no_resource, major_version='1'):
+def parse_org(xml, resource=no_resource, major_version='1', default_lang="default"):
     data = {
         "ref": xval(xml, "@ref", u""),
         "name": xval(xml, TEXT_ELEMENT[major_version], u""),
-        "name_all_values": xvals_lang(xml, TEXT_ELEMENT[major_version])
+        "name_all_values": xvals_lang(xml, TEXT_ELEMENT[major_version], default_lang=default_lang)
     }
     try:
         data['type'] = codelists.by_major_version[major_version].OrganisationType.from_string(xval(xml, "@type"))
@@ -131,7 +131,7 @@ def parse_org(xml, resource=no_resource, major_version='1'):
     return Organisation.as_unique(db.session, **data)
 
 
-def reporting_org(element, resource=no_resource, major_version='1'):
+def reporting_org(element, resource=no_resource, major_version='1', default_lang="default"):
     try:
         xml = element.xpath("./reporting-org")[0]
     except IndexError:
@@ -141,7 +141,7 @@ def reporting_org(element, resource=no_resource, major_version='1'):
     data = {
         "ref": xval(xml, "@ref"),
         "name": xval(xml, TEXT_ELEMENT[major_version], u""),
-        "name_all_values": xvals_lang(xml, TEXT_ELEMENT[major_version])
+        "name_all_values": xvals_lang(xml, TEXT_ELEMENT[major_version], default_lang=default_lang)
     }
     try:
         data.update({
@@ -160,7 +160,7 @@ def reporting_org(element, resource=no_resource, major_version='1'):
     return Organisation.as_unique(db.session, **data)
 
 
-def participating_orgs(xml, resource=None, major_version='1'):
+def participating_orgs(xml, resource=None, major_version='1', default_lang="default"):
     ret = []
     seen = set()
     for ele in xml.xpath("./participating-org"):
@@ -181,7 +181,7 @@ def participating_orgs(xml, resource=None, major_version='1'):
                     role = codelists.by_major_version['1'].OrganisationRole.from_string(value)
             else:
                 role = codelists.by_major_version[major_version].OrganisationRole.from_string(xval(ele, "@role").title())
-            organisation = parse_org(ele, major_version=major_version)
+            organisation = parse_org(ele, major_version=major_version, default_lang=default_lang)
             if not (role, organisation.ref) in seen:
                 seen.add((role, organisation.ref))
                 ret.append(Participation(role=role, organisation=organisation))
@@ -327,14 +327,14 @@ def description_all_values(xml, resource=None, major_version='1'):
     return ret
 
 
-def transactions(xml, resource=no_resource, major_version='1'):
+def transactions(xml, resource=no_resource, major_version='1', default_lang="default"):
     def from_cl(code, codelist):
         return codelist.from_string(code) if code is not None else None
 
     def from_org(path, ele, resource=None, major_version='1'):
         organisation = ele.xpath(path)
         if organisation:
-            return parse_org(organisation[0], major_version=major_version)
+            return parse_org(organisation[0], major_version=major_version, default_lang=default_lang)
         # return Organisation.as_unique(db.session, ref=org) if org else Nonejk
 
     def process(ele):
@@ -554,6 +554,8 @@ def activity(xml, resource=no_resource, major_version='1', version=None):
     Expects xml argument of type lxml.etree._Element
     """
 
+    default_lang = xval(xml, "@xml:lang", "default")
+
     if major_version == '2':
         start_planned = partial(xval_date, "./activity-date[@type='1']")
         start_actual = partial(xval_date, "./activity-date[@type='2']")
@@ -585,12 +587,12 @@ def activity(xml, resource=no_resource, major_version='1', version=None):
         "hierarchy": hierarchy,
         "last_updated_datetime": last_updated_datetime,
         "default_language": default_language,
-        "reporting_org": reporting_org,
+        "reporting_org": partial(reporting_org, default_lang=default_lang),
         "websites": websites,
-        "participating_orgs": participating_orgs,
+        "participating_orgs": partial(participating_orgs, default_lang=default_lang),
         "recipient_country_percentages": recipient_country_percentages,
         "recipient_region_percentages": recipient_region_percentages,
-        "transactions": transactions,
+        "transactions": partial(transactions, default_lang=default_lang),
         "start_planned": start_planned,
         "end_planned": end_planned,
         "start_actual": start_actual,
