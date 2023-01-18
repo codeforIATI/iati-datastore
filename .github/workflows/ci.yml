@@ -66,5 +66,9 @@ jobs:
             HostName ${{ secrets.SSH_HOSTNAME }}
             User ${{ secrets.SSH_USER }}
             IdentityFile ~/.ssh/id_rsa
+    - name: Set git deploy email
+      run: |
+        git config --global user.email "git-deploy@datastore.codeforiati.org"
+        git config --global user.name "Git Deploy User"
     - name: Deploy
       run: fab deploy -H datastore
