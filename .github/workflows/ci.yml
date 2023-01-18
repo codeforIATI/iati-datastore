@@ -74,3 +74,5 @@ jobs:
       run: fab deploy -H datastore
       env:
         EMAIL: git-deploy@datastore.codeforiati.org
+        GIT_AUTHOR_NAME: git-deploy@datastore.codeforiati.org
+        GIT_AUTHOR_EMAIL: Deploy
