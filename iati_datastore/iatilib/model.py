@@ -37,7 +37,13 @@ def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw):
 
     key = (cls, hashfunc(*arg, **kw))
     if key in cache:
-        return cache[key]
+        if getattr(session, '_update_all_unique', False):
+            obj = cache[key]
+            for name, value in kw.items():
+                setattr(obj, name, value)
+            return obj
+        else:
+            return cache[key]
     else:
         with session.no_autoflush:
             q = session.query(cls)
@@ -46,6 +52,9 @@ def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw):
             if not obj:
                 obj = constructor(*arg, **kw)
                 session.add(obj)
+            elif getattr(session, '_update_all_unique', False):
+                for name, value in kw.items():
+                    setattr(obj, name, value)
         cache[key] = obj
         return obj
 
@@ -195,6 +204,7 @@ class Organisation(db.Model, UniqueMixin):
     id = sa.Column(sa.Integer, primary_key=True, nullable=False)
     ref = sa.Column(sa.Unicode, nullable=False)
     name = sa.Column(sa.Unicode, default=u"", nullable=True)
+    name_all_values = sa.Column(JSONB, nullable=True)
     type = sa.Column(codelists.OrganisationType.db_type())
     __table_args__ = (sa.UniqueConstraint('ref', 'name', 'type'),)
 
