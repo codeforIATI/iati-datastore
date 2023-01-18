@@ -72,3 +72,5 @@ jobs:
         git config --global user.name "Git Deploy User"
     - name: Deploy
       run: fab deploy -H datastore
+      env:
+        EMAIL: git-deploy@datastore.codeforiati.org
