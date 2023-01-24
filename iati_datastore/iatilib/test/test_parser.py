@@ -1197,3 +1197,4 @@ class TestLocalisedOrganisationNamesActivityDefault(AppTestCase):
         self.assertEquals(self.act.transactions[1].receiver_org.name_all_values,
                           {"de": 'SKS-Stiftung'}
         )
+
