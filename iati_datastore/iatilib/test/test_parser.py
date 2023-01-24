@@ -1118,14 +1118,16 @@ class TestLocalisedOrganisationNames(AppTestCase):
         self.assertEquals(
             self.act.reporting_org.name_all_values,
             {'de': 'Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)',
-             'en': 'Federal Ministry for Economic Cooperation and Development (BMZ)'}
+             'en': 'Federal Ministry for Economic Cooperation and Development (BMZ)',
+             'fr': 'Ministère fédéral de la Coopération économique et du Développement (BMZ)'}
         )
 
     def test_participating_orgs(self):
         self.assertEquals(
             self.act.participating_orgs[0].organisation.name_all_values,
             {"de": 'Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)',
-             "en": 'Federal Ministry for Economic Cooperation and Development (BMZ)'}
+             "en": 'Federal Ministry for Economic Cooperation and Development (BMZ)',
+             "fr": 'Ministère fédéral de la Coopération économique et du Développement (BMZ)'}
         )
         self.assertEquals(
             self.act.participating_orgs[1].organisation.name_all_values,
@@ -1138,16 +1140,20 @@ class TestLocalisedOrganisationNames(AppTestCase):
 
     def test_transaction_reciever_org_name(self):
         self.assertEquals(self.act.transactions[0].provider_org.name_all_values,
-                          {"en": 'Norwegian Agency for Development Cooperation (NORAD)'}
+                          {"en": 'Norwegian Agency for Development Cooperation (NORAD)',
+                           "fr": 'Agence norvégienne de coopération au développement (NORAD)'}
         )
         self.assertEquals(self.act.transactions[0].receiver_org.name_all_values,
-                          {"en": 'Care Danmark'}
+                          {"en": 'Care Danmark',
+                           "fr": 'Soins Danemark'}
         )
         self.assertEquals(self.act.transactions[1].provider_org.name_all_values,
-                          {"en": 'ActionAid Bangladesh'}
+                          {"en": 'ActionAid Bangladesh',
+                           "es": 'Ayuda en Acción Bangladesh'}
         )
         self.assertEquals(self.act.transactions[1].receiver_org.name_all_values,
-                          {"en": 'SKS Foundation'}
+                          {"en": 'SKS Foundation',
+                           "fr": 'Fondation SKS'}
         )
 
 class TestLocalisedOrganisationNamesActivityDefault(AppTestCase):
@@ -1191,3 +1197,4 @@ class TestLocalisedOrganisationNamesActivityDefault(AppTestCase):
         self.assertEquals(self.act.transactions[1].receiver_org.name_all_values,
                           {"de": 'SKS-Stiftung'}
         )
+

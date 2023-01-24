@@ -141,6 +141,24 @@ provider_org = partial(transaction_org, 'provider_org')
 receiver_org = partial(transaction_org, 'receiver_org')
 
 
+def transaction_org_name(field, transaction):
+    org = getattr(transaction, field)
+    if org:
+        locale = request.args.get("locale", "en")
+        if org.name_all_values and locale in org.name_all_values:
+            return org.name_all_values[locale]
+        elif org.name_all_values and 'default' in org.name_all_values:
+            return org.name_all_values['default']
+        else:
+            return org.name
+    else:
+        return ""
+
+
+provider_org_name = partial(transaction_org_name, 'provider_org')
+receiver_org_name = partial(transaction_org_name, 'receiver_org')
+
+
 def title(activity):
     """Select most appropriate title for request locale"""
     locale = request.args.get("locale", "en")
@@ -234,7 +252,13 @@ def reporting_org_ref(activity):
 
 def reporting_org_name(activity):
     try:
-        return activity.reporting_org.name
+        locale = request.args.get("locale", "en")
+        if activity.reporting_org.name_all_values and locale in activity.reporting_org.name_all_values:
+            return activity.reporting_org.name_all_values[locale]
+        elif activity.reporting_org.name_all_values and 'default' in activity.reporting_org.name_all_values:
+            return activity.reporting_org.name_all_values['default']
+        else:
+            return activity.reporting_org.name
     except AttributeError:
         return ""
 
@@ -253,13 +277,29 @@ def reporting_org_type_code(activity):
         return ""
 
 
+def participating_org_localised_name(org):
+    try:
+        locale = request.args.get("locale", "en")
+        if org.name_all_values and locale in org.name_all_values:
+            return org.name_all_values[locale]
+        elif org.name_all_values and 'default' in org.name_all_values:
+            return org.name_all_values['default']
+        else:
+            return org.name
+    except AttributeError:
+        return ""
+
+
 def participating_org(attr, role, activity):
     activity_by_role = dict(
             [(a.role.value, a) for a in activity.participating_orgs])
 
     participant = activity_by_role.get(role.value, "")
     if participant:
-        return getattr(participant.organisation, attr)
+        if attr == "name":
+            return participating_org_localised_name(participant.organisation)
+        else:
+            return getattr(participant.organisation, attr)
     else:
         return ''
 
@@ -807,11 +847,11 @@ common_transaction_csv = (
     (u'transaction_ref', lambda t: t.ref),
     (u'transaction_value_currency', value_currency),
     (u'transaction_value_value-date', lambda t: t.value_date),
-    (u'transaction_provider-org', lambda t: t.provider_org_text),
+    (u'transaction_provider-org', provider_org_name),
     (u'transaction_provider-org_ref', provider_org),
     (u'transaction_provider-org_provider-activity-id',
      lambda t: t.provider_org_activity_id),
-    (u'transaction_receiver-org', lambda t: t.receiver_org_text),
+    (u'transaction_receiver-org', receiver_org_name),
     (u'transaction_receiver-org_ref', receiver_org),
     (u'transaction_receiver-org_receiver-activity-id',
      lambda t: t.receiver_org_activity_id),
@@ -830,7 +870,6 @@ common_transaction_csv = (
     (u"transaction_sector", sector),
     (u"transaction_sector-vocabulary", sector_vocabulary),
     (u"transaction_sector-vocabulary-code", sector_vocabulary_code),
-    # (u'reporting-org', lambda t: t.activity.reporting_org_ref),
 )
 
 _transaction_fields = (

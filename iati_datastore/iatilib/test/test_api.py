@@ -972,6 +972,7 @@ class TestActivityLocalesDescriptionTypes(ClientTestCase):
                 output[1][i]
         )
 
+
 class TestActivityCurrencyConversionOutput(ClientTestCase):
     """Test new functionality to output USD and EUR in activities"""
 
@@ -1097,3 +1098,86 @@ class TestBudgetCurrencyConversionOutput(ClientTestCase):
         self.assertEquals(u'3924408.74',  output[4][csv_headers.index('budget-value-EUR')]) # 2019-12-10: 3343511 GBP
         self.assertEquals(u'3999715.84',  output[5][csv_headers.index('budget-value-EUR')]) # 2020-12-10: 3587780 GBP
 
+class TestActivityLocalesOrganisationNames(ClientTestCase):
+    """Test new functionality to output locale appropriate organisation names"""
+
+    base_url = '/api/1/access/activity.csv'
+
+    def test_csv_activity_count(self):
+        load_fix("localised-org-names.xml")
+        resp = self.client.get(self.base_url)
+        self.assertEquals(2, resp.get_data(as_text=True).count("\n"))
+
+    def test_english_reporting_org(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('reporting-org')
+        self.assertEquals(
+                u'Federal Ministry for Economic Cooperation and Development (BMZ)',
+                output[1][i]
+        )
+
+    def test_french_reporting_org(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('reporting-org')
+        self.assertEquals(
+                u"Ministère fédéral de la Coopération économique et du Développement (BMZ)",
+                output[1][i]
+        )
+
+    def test_english_participating_org(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('participating-org (Funding)')
+        self.assertEquals(
+                u'Federal Ministry for Economic Cooperation and Development (BMZ)',
+                output[1][i]
+        )
+
+    def test_french_participating_org(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('participating-org (Funding)')
+        self.assertEquals(
+                u'Ministère fédéral de la Coopération économique et du Développement (BMZ)',
+                output[1][i]
+        )
+
+
+class TestTransactionLocalesOrganisationNames(ClientTestCase):
+    """Test new functionality to output locale appropriate organisation names"""
+
+    base_url = '/api/1/access/transaction.csv'
+
+    def test_provider_org_output(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('transaction_provider-org')
+        self.assertEquals(u'Norwegian Agency for Development Cooperation (NORAD)', output[1][i])
+
+    def test_provider_org_french_output(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('transaction_provider-org')
+        self.assertEquals(u'Agence norvégienne de coopération au développement (NORAD)', output[1][i])
+
+    def test_receiver_org_output(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('transaction_receiver-org')
+        self.assertEquals(u'SKS Foundation', output[2][i])
+
+    def test_receiver_org_french_output(self):
+        load_fix("localised-org-names.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('transaction_receiver-org')
+        self.assertEquals(u'Fondation SKS', output[2][i])

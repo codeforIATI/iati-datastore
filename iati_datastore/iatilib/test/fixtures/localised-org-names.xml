@@ -4,6 +4,7 @@
     <reporting-org ref="DE-1" secondary-reporter="0" type="10">
       <narrative xml:lang="de">Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)</narrative>
       <narrative xml:lang="en">Federal Ministry for Economic Cooperation and Development (BMZ)</narrative>
+      <narrative xml:lang="fr">Ministère fédéral de la Coopération économique et du Développement (BMZ)</narrative>
     </reporting-org>
     <title>
       <narrative xml:lang="pt">Esgotamento Sanitário Pernambuco</narrative>
@@ -12,6 +13,7 @@
     <participating-org ref="DE-1" role="1" type="10">
       <narrative xml:lang="de">Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)</narrative>
       <narrative xml:lang="en">Federal Ministry for Economic Cooperation and Development (BMZ)</narrative>
+      <narrative xml:lang="fr">Ministère fédéral de la Coopération économique et du Développement (BMZ)</narrative>
     </participating-org>
     <participating-org ref="XM-DAC-5-2" role="2">
       <narrative xml:lang="de">KfW Bankengruppe (KfW)</narrative>
@@ -28,9 +30,11 @@
       </description>
       <provider-org ref="NO-BRC-971277882" type="10">
         <narrative xml:lang="en">Norwegian Agency for Development Cooperation (NORAD)</narrative>
+        <narrative xml:lang="fr">Agence norvégienne de coopération au développement (NORAD)</narrative>
       </provider-org>
       <receiver-org ref="DK-CVR-12921047" receiver-activity-id="DK-CVR-12921047-2018-21LotCivSPA" type="22">
         <narrative xml:lang="en">Care Danmark</narrative>
+        <narrative xml:lang="fr">Soins Danemark</narrative>
       </receiver-org>
     </transaction>
     <transaction>
@@ -42,9 +46,11 @@
       </description>
       <provider-org ref="BD-NAB-0210" provider-activity-id="BD-NAB-0210-POWER" type="21">
         <narrative  xml:lang="en">ActionAid Bangladesh</narrative>
+        <narrative  xml:lang="es">Ayuda en Acción Bangladesh</narrative>
       </provider-org>
       <receiver-org type="22">
         <narrative xml:lang="en">SKS Foundation</narrative>
+        <narrative xml:lang="fr">Fondation SKS</narrative>
       </receiver-org>
     </transaction>
   </iati-activity>
