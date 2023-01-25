@@ -60,20 +60,3 @@ class TestRegionCodelist(TestCase):
             cl.by_major_version['2'].Region.eastern_africa_regional.translations['pt'],
             "África Oriental, regional"
             )
-
-#class TestVocabularyCodelist(TestCase):
-#    def test_vocabulary_codelist(self):
-#        self.assertEquals(
-#            cl.by_major_version['2'].Vocabulary.humanitarian_global_clusters_interagency_standing_committee.value,
-#            "10"
-#            )
-#        self.assertEquals(
-#            cl.by_major_version['2'].Vocabulary.humanitarian_global_clusters_interagency_standing_committee.description,
-#            "Humanitarian Global Clusters (Inter-Agency Standing Committee)"
-#            )
-#
-#    def test_vocabulary_codelist_es(self):
-#        self.assertEquals(
-#            cl.by_major_version['2'].Vocabulary.humanitarian_global_clusters_interagency_standing_committee.translations['es'],
-#            "Humanitarian Global Clusters (Inter-Agency Standing Committee)"
-#            )

@@ -1027,3 +1027,15 @@ class TestTotalReimbursement2(CSVTstMixin, TotalFieldMixin, AppTestCaseNoDb):
     cl = cl2
     transaction_type = cl2.TransactionType.reimbursement
     csv_field = "total-Reimbursement"
+
+
+#class TestCSVSerializer(CSVTstMixin, AppTestCaseNoDb):
+#    def test_reporting_org(self):
+#        with self.app.test_request_context('/?locale=es'):
+#            data = self.process([fac.ActivityFactory.build(
+#                reporting_org=fac.OrganisationFactory.build(
+#                    name="Test Organisation", name_all_values={'en': "Test Organisation", 'es': "Organización de prueba"}
+#                )
+#            )])
+#            self.assertField({"reporting-org": "Organización de prueba"}, data[0])
+

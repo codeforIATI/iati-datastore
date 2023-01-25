@@ -69,7 +69,6 @@ def sector(activity):
     locale = request.args.get("locale", "en")
     return u";".join(
         codelists.localised_description(sec.sector, locale)
-        #u"%s" % sec.sector.description if sec.sector and sec.sector.description else u""
         for sec in activity.sector_percentages)
 
 
@@ -237,7 +236,6 @@ def recipient_region(activity):
     locale = request.args.get("locale", "en")
     return u";".join(
         codelists.localised_description(rrp.region, locale)
-        #rrp.region.description if rrp.region and rrp.region.description else ""
         for rrp in activity.recipient_region_percentages)
 
 
@@ -851,12 +849,10 @@ common_transaction_csv = (
     (u'transaction_ref', lambda t: t.ref),
     (u'transaction_value_currency', value_currency),
     (u'transaction_value_value-date', lambda t: t.value_date),
-    #(u'transaction_provider-org', lambda t: t.provider_org_text),
     (u'transaction_provider-org', provider_org_name),
     (u'transaction_provider-org_ref', provider_org),
     (u'transaction_provider-org_provider-activity-id',
      lambda t: t.provider_org_activity_id),
-    #(u'transaction_receiver-org', lambda t: t.receiver_org_text),
     (u'transaction_receiver-org', receiver_org_name),
     (u'transaction_receiver-org_ref', receiver_org),
     (u'transaction_receiver-org_receiver-activity-id',
@@ -876,7 +872,6 @@ common_transaction_csv = (
     (u"transaction_sector", sector),
     (u"transaction_sector-vocabulary", sector_vocabulary),
     (u"transaction_sector-vocabulary-code", sector_vocabulary_code),
-    # (u'reporting-org', lambda t: t.activity.reporting_org_ref),
 )
 
 _transaction_fields = (
