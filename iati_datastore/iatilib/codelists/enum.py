@@ -7,11 +7,15 @@ from requests.structures import CaseInsensitiveDict
 class EnumSymbol(object):
     """Define a fixed symbol tied to a parent class."""
 
-    def __init__(self, cls_, name, value, description):
+    def __init__(self, cls_, name, value, description, translations=None):
         self.cls_ = cls_
         self.name = name
         self.value = value
         self.description = description
+        if translations:
+            self.translations = translations
+        else:
+            self.translations = {}
 
     def __hash__(self):
         return hash(self.value)

@@ -1,0 +1,19 @@
+<iati-activities version="2.03">
+  <iati-activity default-currency="EUR" hierarchy="1" xml:lang="de">
+    <iati-identifier>DE-1-198966376</iati-identifier>
+    <reporting-org ref="DE-1" secondary-reporter="0" type="10">
+      <narrative xml:lang="de">Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ)</narrative>
+      <narrative xml:lang="en">Federal Ministry for Economic Cooperation and Development (BMZ)</narrative>
+      <narrative xml:lang="fr">Ministère fédéral de la Coopération économique et du Développement (BMZ)</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="pt">Esgotamento Sanitário Pernambuco</narrative>
+      <narrative xml:lang="de">Abwasserentsorgung Pernambuco (Invest.)</narrative>
+    </title>
+    <sector code="43030">
+    </sector>
+    <sector code="43081">
+    </sector>
+    <recipient-region code="489" vocabulary="1" />
+  </iati-activity>
+</iati-activities>

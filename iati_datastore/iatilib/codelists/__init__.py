@@ -19,6 +19,7 @@ from unidecode import unidecode
 
 from .enum import DeclEnum
 
+enums_supported_languages = ('en', 'fr', 'es', 'pt')
 
 def iati_url(name):
     return {
@@ -71,18 +72,39 @@ def codelist_reader(itr):
     for line in itr:
         yield line[:2]
 
+def codelist_with_translations(clname, major_version):
+    with codecs.open(os.path.join(data_dir, major_version, "%s.csv" % clname)) as cl_file:
+        reader = codelist_reader(csv.reader(cl_file))
+        codes = {code: {'en': name} for code, name in reader}
+    for lang in enums_supported_languages:
+        if lang != 'en':
+            try:
+                with codecs.open(os.path.join(data_dir, major_version, "%s/%s.csv" % (lang, clname))) as cl_file:
+                    reader = codelist_reader(csv.reader(cl_file))
+                    for code, name in reader:
+                        codes[code][lang] = name
+            except IOError as exc:
+                warnings.warn(str(exc))
+    enums = {ident(codes[code]['en']): (code, codes[code]['en'], {lang: codes[code][lang] for lang in codes[code]}) for code in codes}
+    print(enums)
+    return enums
 
 by_major_version = {}
 for major_version in ['1', '2']:
     by_major_version[major_version] = type('Codelists'+major_version, (object,), {})
     for name in urls[major_version].keys():
         try:
-            with codecs.open(os.path.join(data_dir, major_version, "%s.csv" % name)) as cl_file:
-                reader = codelist_reader(csv.reader(cl_file))
-                enums = {ident(name): (code, name) for code, name in reader}
-                codelist = type(name, (DeclEnum,), enums)
-                setattr(by_major_version[major_version], name, codelist)
-                if major_version == '1':
-                    globals()[name] = codelist
+            enums = codelist_with_translations(name, major_version)
+            codelist = type(name, (DeclEnum,), enums)
+            setattr(by_major_version[major_version], name, codelist)
+            if major_version == '1':
+                globals()[name] = codelist
         except IOError as exc:
             warnings.warn(str(exc))
+
+
+def localised_description(item, locale):
+    if locale != "en" and locale in enums_supported_languages:
+        return u"%s" % item.translations[locale] if item and item.translations[locale] else u""
+    else:
+        return u"%s" % item.description if item and item.description else u""

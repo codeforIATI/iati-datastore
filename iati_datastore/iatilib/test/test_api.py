@@ -1181,3 +1181,100 @@ class TestTransactionLocalesOrganisationNames(ClientTestCase):
         csv_headers = output[0]
         i = csv_headers.index('transaction_receiver-org')
         self.assertEquals(u'Fondation SKS', output[2][i])
+
+
+class TestActivityLocalisedSectorDescription(ClientTestCase):
+    """Test new functionality to output locale appropriate sector descriptions"""
+
+    base_url = '/api/1/access/activity.csv'
+
+    def test_csv_activity_count(self):
+        load_fix("localised-sector-region.xml")
+        resp = self.client.get(self.base_url)
+        self.assertEquals(2, resp.get_data(as_text=True).count("\n"))
+
+    def test_english_sector(self):
+        load_fix("localised-sector-region.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('sector')
+        self.assertEquals(
+                u'Urban development and management;Multisector education/training',
+                output[1][i]
+        )
+
+    def test_french_sector(self):
+        load_fix("localised-sector-region.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('sector')
+        self.assertEquals(
+                u'Développement et gestion urbaine;Education et formation plurisectorielles',
+                output[1][i]
+        )
+
+    def test_spanish_sector(self):
+        load_fix("localised-sector-region.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=es').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('sector')
+        self.assertEquals(
+                u'Desarrollo y gestión urbanos;Educación o capacitación multisectorial',
+                output[1][i]
+        )
+
+    def test_portuguese_sector(self):
+        load_fix("localised-sector-region.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=pt').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('sector')
+        self.assertEquals(
+                u'Desenvolvimento e gestão urbanos;Educação/formação multissetoriais',
+                output[1][i]
+        )
+
+
+class TestActivityLocalisedRecipientRegion(ClientTestCase):
+    """Test new functionality to output locale appropriate recipient region"""
+
+    base_url = '/api/1/access/activity.csv'
+
+    def test_english_recipient_region(self):
+        load_fix("localised-sector-region.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url).get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('recipient-region')
+        self.assertEquals(
+                u'South America, regional',
+                output[1][i]
+        )
+
+    def test_french_recipient_region(self):
+        load_fix("localised-sector-region.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=fr').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('recipient-region')
+        self.assertEquals(
+                u'Amérique du Sud, régional',
+                output[1][i]
+        )
+
+    def test_spanish_recipient_region(self):
+        load_fix("localised-sector-region.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=es').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('recipient-region')
+        self.assertEquals(
+                u'América del Sur, regional',
+                output[1][i]
+        )
+
+    def test_portuguese_recipient_region(self):
+        load_fix("localised-sector-region.xml")
+        output = list(csv.reader(StringIO(self.client.get(self.base_url + '?locale=pt').get_data(as_text=True))))
+        csv_headers = output[0]
+        i = csv_headers.index('recipient-region')
+        self.assertEquals(
+                u'América do Sul, regional',
+                output[1][i]
+        )

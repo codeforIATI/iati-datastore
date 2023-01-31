@@ -66,8 +66,9 @@ def sector_percentage(activity):
 
 
 def sector(activity):
+    locale = request.args.get("locale", "en")
     return u";".join(
-        u"%s" % sec.sector.description if sec.sector and sec.sector.description else u""
+        codelists.localised_description(sec.sector, locale)
         for sec in activity.sector_percentages)
 
 
@@ -232,8 +233,9 @@ def recipient_region_code(activity):
 
 
 def recipient_region(activity):
+    locale = request.args.get("locale", "en")
     return u";".join(
-        rrp.region.description if rrp.region and rrp.region.description else ""
+        codelists.localised_description(rrp.region, locale)
         for rrp in activity.recipient_region_percentages)
 
 
