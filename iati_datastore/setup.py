@@ -4,7 +4,7 @@ requirements = """
 Flask==1.1.2
 Flask-SQLAlchemy==2.4.4
 iatikit==3.3.1
-lxml==4.6.2
+lxml==4.9.4
 python-dateutil==2.8.1
 six==1.15.0
 voluptuous>=0.12.0
