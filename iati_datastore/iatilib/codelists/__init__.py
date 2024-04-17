@@ -86,7 +86,6 @@ def codelist_with_translations(clname, major_version):
             except IOError as exc:
                 warnings.warn(str(exc))
     enums = {ident(codes[code]['en']): (code, codes[code]['en'], {lang: codes[code][lang] for lang in codes[code]}) for code in codes}
-    print(enums)
     return enums
 
 by_major_version = {}

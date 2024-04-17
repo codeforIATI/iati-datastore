@@ -461,8 +461,8 @@ class Log(db.Model):
     __tablename__ = 'log'
     id = sa.Column(sa.Integer, primary_key=True)
     dataset = sa.Column(sa.String)
-    resource = sa.Column(sa.String)
-    logger = sa.Column(sa.String)  # the name of the logger. (e.g. myapp.views)
+    resource = sa.Column(sa.String, index=True)
+    logger = sa.Column(sa.String, index=True)  # the name of the logger. (e.g. myapp.views)
     level = sa.Column(sa.String)  # info, debug, or error?
     trace = sa.Column(sa.String)  # the full traceback printout
     msg = sa.Column(sa.String)  # any custom log you may have included
