@@ -6,7 +6,7 @@ AFN,Afegâni,active
 ALK,Lek antigo,withdrawn
 ALL,Lek,active
 AMD,Dram arménio,active
-ANG,Florim das Antilhas Neerlandesas,withdrawn
+ANG,Florim das Antilhas Neerlandesas,active
 AOA,Kwanza,active
 AOK,Kwanza,withdrawn
 AON,Kwanza novo,withdrawn
@@ -88,7 +88,7 @@ ESA,Peseta espanhola,withdrawn
 ESB,"Conta ""A"" (conta em pesetas convertíveis)",withdrawn
 ESP,Peseta espanhola,withdrawn
 ETB,Birr etíope,active
-EUR,Euro,withdrawn
+EUR,Euro,active
 FIM,Marca,withdrawn
 FJD,Dólar fijiano,active
 FKP,Libra das Ilhas Falkland,active
@@ -116,7 +116,7 @@ HRD,Dinar croata,withdrawn
 HRK,Kuna croata,withdrawn
 HTG,Gourde,active
 HUF,Forint,active
-IDR,Rupia,withdrawn
+IDR,Rupia,active
 IEP,Libra irlandesa,withdrawn
 ILP,Libra,withdrawn
 ILR,Shekel antigo,withdrawn
@@ -170,7 +170,7 @@ MTP,Libra maltesa,withdrawn
 MUR,Rupia mauriciana,active
 MVQ,Rupia maldivense,withdrawn
 MVR,Rufiyaa,active
-MWK,Kwacha,withdrawn
+MWK,Kwacha,active
 MXN,Peso mexicano,active
 MXP,Peso mexicano,withdrawn
 MXV,Unidade de investimento mexicana (UDI),active
@@ -190,7 +190,7 @@ OMR,Rial omani,active
 PAB,Balboa,active
 PEH,Sol,withdrawn
 PEI,Inti,withdrawn
-PEN,Nuevo Sol,withdrawn
+PEN,Nuevo Sol,active
 PES,Sol,withdrawn
 PGK,Kina,active
 PHP,Peso filipino,active
@@ -203,7 +203,7 @@ QAR,Rial catariano,active
 RHD,Dólar rodesiano,withdrawn
 ROK,Leu A/52,withdrawn
 ROL,Leu antigo,withdrawn
-RON,Leu romeno novo,withdrawn
+RON,Leu romeno novo,active
 RSD,Dinar sérvio,active
 RUB,Rublo russo,active
 RUR,Rublo russo,withdrawn
@@ -212,7 +212,7 @@ SAR,Rial saudita,active
 SBD,Dólar salomonense,active
 SCR,Rupia seichelense,active
 SDD,Dinar sudanês,withdrawn
-SDG,Libra sudanesa,withdrawn
+SDG,Libra sudanesa,active
 SDP,Libra sudanesa,withdrawn
 SEK,Coroa sueca,active
 SGD,Dólar singapurense,active
@@ -220,7 +220,7 @@ SHP,Libra de Santa Helena,active
 SLE,,active
 SIT,Tolar,withdrawn
 SKK,Coroa eslovaca,withdrawn
-SLL,Leone,active
+SLL,Leone,withdrawn
 SOS,Xelim somali,active
 SRD,Dólar surinamense,active
 SRG,Florim surinamês,withdrawn
@@ -230,7 +230,7 @@ STN,Dobra,active
 SUR,Rublo,withdrawn
 SVC,Colón salvadorenho,active
 SYP,Libra síria,active
-SZL,Lilangeni,withdrawn
+SZL,Lilangeni,active
 THB,Baht,active
 TJR,Rublo tajique,withdrawn
 TJS,Somoni,active
@@ -240,7 +240,7 @@ TND,Dinar tunisino,active
 TOP,Pa'anga,active
 TPE,Escudo timorense,withdrawn
 TRL,Lira turca antiga,withdrawn
-TRY,Lira turca nova,withdrawn
+TRY,Lira turca nova,active
 TTD,Dólar de Trindade e Tobago,active
 TWD,Dólar taiwanês novo,active
 TZS,Xelim tanzaniano,active

@@ -6,7 +6,7 @@ AFN,active
 ALK,withdrawn
 ALL,active
 AMD,active
-ANG,withdrawn
+ANG,active
 AOA,active
 AOK,withdrawn
 AON,withdrawn
@@ -88,7 +88,7 @@ ESA,withdrawn
 ESB,withdrawn
 ESP,withdrawn
 ETB,active
-EUR,withdrawn
+EUR,active
 FIM,withdrawn
 FJD,active
 FKP,active
@@ -116,7 +116,7 @@ HRD,withdrawn
 HRK,withdrawn
 HTG,active
 HUF,active
-IDR,withdrawn
+IDR,active
 IEP,withdrawn
 ILP,withdrawn
 ILR,withdrawn
@@ -170,7 +170,7 @@ MTP,withdrawn
 MUR,active
 MVQ,withdrawn
 MVR,active
-MWK,withdrawn
+MWK,active
 MXN,active
 MXP,withdrawn
 MXV,active
@@ -190,7 +190,7 @@ OMR,active
 PAB,active
 PEH,withdrawn
 PEI,withdrawn
-PEN,withdrawn
+PEN,active
 PES,withdrawn
 PGK,active
 PHP,active
@@ -203,7 +203,7 @@ QAR,active
 RHD,withdrawn
 ROK,withdrawn
 ROL,withdrawn
-RON,withdrawn
+RON,active
 RSD,active
 RUB,active
 RUR,withdrawn
@@ -212,7 +212,7 @@ SAR,active
 SBD,active
 SCR,active
 SDD,withdrawn
-SDG,withdrawn
+SDG,active
 SDP,withdrawn
 SEK,active
 SGD,active
@@ -220,7 +220,7 @@ SHP,active
 SLE,active
 SIT,withdrawn
 SKK,withdrawn
-SLL,active
+SLL,withdrawn
 SOS,active
 SRD,active
 SRG,withdrawn
@@ -230,7 +230,7 @@ STN,active
 SUR,withdrawn
 SVC,active
 SYP,active
-SZL,withdrawn
+SZL,active
 THB,active
 TJR,withdrawn
 TJS,active
@@ -240,7 +240,7 @@ TND,active
 TOP,active
 TPE,withdrawn
 TRL,withdrawn
-TRY,withdrawn
+TRY,active
 TTD,active
 TWD,active
 TZS,active
