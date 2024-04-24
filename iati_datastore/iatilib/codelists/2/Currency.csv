@@ -6,7 +6,7 @@ AFN,Afghani,,active
 ALK,Old Lek,,withdrawn
 ALL,Lek,,active
 AMD,Armenian Dram,,active
-ANG,Netherlands Antillean Guilder,,withdrawn
+ANG,Netherlands Antillean Guilder,,active
 AOA,Kwanza,,active
 AOK,Kwanza,,withdrawn
 AON,New Kwanza,,withdrawn
@@ -88,7 +88,7 @@ ESA,Spanish Peseta,,withdrawn
 ESB,"""A"" Account (convertible Peseta Account)",,withdrawn
 ESP,Spanish Peseta,,withdrawn
 ETB,Ethiopian Birr,,active
-EUR,Euro,,withdrawn
+EUR,Euro,,active
 FIM,Markka,,withdrawn
 FJD,Fiji Dollar,,active
 FKP,Falkland Islands Pound,,active
@@ -116,7 +116,7 @@ HRD,Croatian Dinar,,withdrawn
 HRK,Kuna,,withdrawn
 HTG,Gourde,,active
 HUF,Forint,,active
-IDR,Rupiah,,withdrawn
+IDR,Rupiah,,active
 IEP,Irish Pound,,withdrawn
 ILP,Pound,,withdrawn
 ILR,Old Shekel,,withdrawn
@@ -170,7 +170,7 @@ MTP,Maltese Pound,,withdrawn
 MUR,Mauritius Rupee,,active
 MVQ,Maldive Rupee,,withdrawn
 MVR,Rufiyaa,,active
-MWK,Malawi Kwacha,,withdrawn
+MWK,Malawi Kwacha,,active
 MXN,Mexican Peso,,active
 MXP,Mexican Peso,,withdrawn
 MXV,Mexican Unidad de Inversion (UDI),,active
@@ -190,7 +190,7 @@ OMR,Rial Omani,,active
 PAB,Balboa,,active
 PEH,Sol,,withdrawn
 PEI,Inti,,withdrawn
-PEN,Sol,,withdrawn
+PEN,Sol,,active
 PES,Sol,,withdrawn
 PGK,Kina,,active
 PHP,Philippine Peso,,active
@@ -203,7 +203,7 @@ QAR,Qatari Rial,,active
 RHD,Rhodesian Dollar,,withdrawn
 ROK,Leu A/52,,withdrawn
 ROL,Old Leu,,withdrawn
-RON,Romanian Leu,,withdrawn
+RON,Romanian Leu,,active
 RSD,Serbian Dinar,,active
 RUB,Russian Ruble,,active
 RUR,Russian Ruble,,withdrawn
@@ -212,7 +212,7 @@ SAR,Saudi Riyal,,active
 SBD,Solomon Islands Dollar,,active
 SCR,Seychelles Rupee,,active
 SDD,Sudanese Dinar,,withdrawn
-SDG,Sudanese Pound,,withdrawn
+SDG,Sudanese Pound,,active
 SDP,Sudanese Pound,,withdrawn
 SEK,Swedish Krona,,active
 SGD,Singapore Dollar,,active
@@ -220,7 +220,7 @@ SHP,Saint Helena Pound,,active
 SLE,Leone,,active
 SIT,Tolar,,withdrawn
 SKK,Slovak Koruna,,withdrawn
-SLL,Leone,,active
+SLL,Leone,,withdrawn
 SOS,Somali Shilling,,active
 SRD,Surinam Dollar,,active
 SRG,Surinam Guilder,,withdrawn
@@ -230,7 +230,7 @@ STN,Dobra,,active
 SUR,Rouble,,withdrawn
 SVC,El Salvador Colon,,active
 SYP,Syrian Pound,,active
-SZL,Lilangeni,,withdrawn
+SZL,Lilangeni,,active
 THB,Baht,,active
 TJR,Tajik Ruble,,withdrawn
 TJS,Somoni,,active
@@ -240,7 +240,7 @@ TND,Tunisian Dinar,,active
 TOP,Pa’anga,,active
 TPE,Timor Escudo,,withdrawn
 TRL,Old Turkish Lira,,withdrawn
-TRY,Turkish Lira,,withdrawn
+TRY,Turkish Lira,,active
 TTD,Trinidad and Tobago Dollar,,active
 TWD,New Taiwan Dollar,,active
 TZS,Tanzanian Shilling,,active
