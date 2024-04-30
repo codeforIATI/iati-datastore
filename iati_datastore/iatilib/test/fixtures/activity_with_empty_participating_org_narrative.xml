@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iati-activities version="2.03">
+ <iati-activity default-currency="SEK" dstore:dataset="sida-200" dstore:index="3299" hierarchy="2" humanitarian="0" iati-activities:version="2.03" xml:lang="EN" xmlns:dstore="http://d-portal.org/xmlns/dstore" xmlns:iati-activities="http://d-portal.org/xmlns/iati-activities">
+  <iati-identifier>SE-0-SE-6-SE-0-SE-6-71001016-LAO-21020-1</iati-identifier>
+  <reporting-org ref="SE-0" secondary-reporter="0" type="10">
+   <narrative xml:lang="EN">Sweden</narrative>
+  </reporting-org>
+  <title>
+   <narrative xml:lang="EN">Rehabilitering road 8, Laos</narrative>
+   <narrative xml:lang="SV">Rehabilitering road 8, Laos</narrative>
+  </title>
+  <description type="1">
+   <narrative xml:lang="EN">Rehabilitering road 8, Laos</narrative>
+   <narrative xml:lang="SV">Rehabilitering road 8, Laos</narrative>
+  </description>
+  <participating-org ref="SE-0" role="1" type="10">
+   <narrative xml:lang="EN">Sweden</narrative>
+  </participating-org>
+  <participating-org ref="SE-6" role="3" type="10">
+   <narrative xml:lang="EN">Swedish International Development Cooperation Agency</narrative>
+  </participating-org>
+  <participating-org ref="XM-DAC-12000" role="4" type="10">
+   <narrative xml:lang="EN"></narrative>
+  </participating-org>
+  <activity-status code="4"></activity-status>
+  <activity-date iso-date="2001-01-01" type="1"></activity-date>
+  <activity-date iso-date="2001-01-01" type="2"></activity-date>
+  <activity-date iso-date="2020-12-31" type="3"></activity-date>
+  <activity-date iso-date="2020-12-31" type="4"></activity-date>
+  <collaboration-type code="1"></collaboration-type>
+  <default-finance-type code="421"></default-finance-type>
+  <default-aid-type code="C01" vocabulary="1"></default-aid-type>
+  <default-tied-status code="4"></default-tied-status>
+  <capital-spend percentage="0"></capital-spend>
+  <transaction>
+   <transaction-type code="2"></transaction-type>
+   <transaction-date iso-date="2001-01-01"></transaction-date>
+   <value currency="SEK" value-date="2001-01-01">-22496000</value>
+   <sector code="210" vocabulary="2"></sector>
+   <sector code="21020" vocabulary="1"></sector>
+   <recipient-country code="LA"></recipient-country>
+  </transaction>
+  <transaction>
+   <transaction-type code="3"></transaction-type>
+   <transaction-date iso-date="2016-01-28"></transaction-date>
+   <value currency="SEK" value-date="2016-01-28">-5000000</value>
+   <sector code="210" vocabulary="2"></sector>
+   <sector code="21020" vocabulary="1"></sector>
+   <recipient-country code="LA"></recipient-country>
+  </transaction>
+  <transaction>
+   <transaction-type code="3"></transaction-type>
+   <transaction-date iso-date="2017-01-28"></transaction-date>
+   <value currency="SEK" value-date="2017-01-28">-5000000</value>
+   <sector code="210" vocabulary="2"></sector>
+   <sector code="21020" vocabulary="1"></sector>
+   <recipient-country code="LA"></recipient-country>
+  </transaction>
+  <transaction>
+   <transaction-type code="3"></transaction-type>
+   <transaction-date iso-date="2018-01-28"></transaction-date>
+   <value currency="SEK" value-date="2018-01-28">-5000000</value>
+   <sector code="210" vocabulary="2"></sector>
+   <sector code="21020" vocabulary="1"></sector>
+   <recipient-country code="LA"></recipient-country>
+  </transaction>
+  <transaction>
+   <transaction-type code="3"></transaction-type>
+   <transaction-date iso-date="2019-01-28"></transaction-date>
+   <value currency="SEK" value-date="2019-01-28">-5000000</value>
+   <sector code="210" vocabulary="2"></sector>
+   <sector code="21020" vocabulary="1"></sector>
+   <recipient-country code="LA"></recipient-country>
+  </transaction>
+  <transaction>
+   <transaction-type code="3"></transaction-type>
+   <transaction-date iso-date="2020-01-28"></transaction-date>
+   <value currency="SEK" value-date="2020-01-28">-2496000</value>
+   <sector code="210" vocabulary="2"></sector>
+   <sector code="21020" vocabulary="1"></sector>
+   <recipient-country code="LA"></recipient-country>
+  </transaction>
+  <related-activity ref="SE-0-SE-6-SE-0-SE-6-71001016-LAO-21020" type="1"></related-activity>
+ </iati-activity>
+</iati-activities>
