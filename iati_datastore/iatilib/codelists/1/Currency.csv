@@ -297,10 +297,11 @@ ZAL,Financial Rand,,withdrawn
 ZAR,Rand,,active
 ZMK,Zambian Kwacha,Withdrawn from ISO Country codelist. Use code ZMW.,withdrawn
 ZMW,Zambian Kwacha,,active
+ZWG,Zimbabwe Gold,,active
 ZRN,New Zaire,,withdrawn
 ZRZ,Zaire,,withdrawn
 ZWC,Rhodesian Dollar,,withdrawn
 ZWD,Zimbabwe Dollar,,withdrawn
-ZWL,Zimbabwe Dollar,,active
+ZWL,Zimbabwe Dollar,,withdrawn
 ZWN,Zimbabwe Dollar (new),,withdrawn
 ZWR,Zimbabwe Dollar,,withdrawn
