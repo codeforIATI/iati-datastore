@@ -45,7 +45,9 @@ jobs:
   deploy:
     name: Deploy
     needs: test
-    if: github.ref == 'refs/heads/main'
+    # Continous Deployment has been stopped https://github.com/codeforIATI/iati-datastore/pull/407
+    if: false
+    #if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
