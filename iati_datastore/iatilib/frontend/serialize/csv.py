@@ -174,10 +174,14 @@ def description_most_general(all_values):
     """Select most general description type, lowest type code (as integer) wins"""
     out = None
     for desc_type in all_values:
-        if not out:
-            out = desc_type
-        elif int(desc_type) < int(out):
-            out = desc_type
+        try:
+            if not out:
+                out = desc_type
+            elif int(desc_type) < int(out):
+                out = desc_type
+        except ValueError:
+            # https://github.com/codeforIATI/iati-datastore/issues/409
+            pass
     return all_values[out]
 
 def select_description_type(all_values, desc_type_name):
