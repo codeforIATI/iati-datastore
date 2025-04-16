@@ -19,10 +19,10 @@ jobs:
           - 5432:5432/tcp
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
+    - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: "3.10"
     - uses: actions/cache@v2
       name: Cache dependencies
       with:
@@ -51,10 +51,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
+    - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: "3.10"
     - name: Install fabric
       run: pip install fabric==2.5.0
     - name: Install SSH key

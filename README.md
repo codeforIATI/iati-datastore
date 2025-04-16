@@ -334,7 +334,7 @@ Python Requirements
 
 To update requirements, use pip-compile.
 
-Make sure you are in a Python 3.8 virtual environment, and run:
+Make sure you are in a Python 3.10 virtual environment, and run:
 
     pip install pip-tools
     pip-compile requirements.in
